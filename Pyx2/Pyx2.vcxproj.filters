@@ -16,24 +16,42 @@
     <Filter Include="Headers\Utility">
       <UniqueIdentifier>{5895b490-cc93-4a5f-94ce-a5c8a6bec301}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\FileSystem">
+      <UniqueIdentifier>{42d71cdf-b5f4-4e14-af04-35fa155ff86c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\FileSystem">
+      <UniqueIdentifier>{6534101d-28c8-42df-b382-73cd6f36ad39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Pyx\Context.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Pyx\Utility\String.h">
       <Filter>Headers\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Pyx\Utility\XorString.h">
       <Filter>Headers\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Pyx\Settings.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\FileSystem\FileSystemContext.h">
+      <Filter>Headers\FileSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\PyxContext.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Pyx\Context.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Pyx\EntryPoint.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Settings.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\PyxContext.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\FileSystem\FileSystemContext.cpp">
+      <Filter>Sources\FileSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

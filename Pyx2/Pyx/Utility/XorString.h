@@ -57,22 +57,24 @@ template <> struct ConstructIndexList<0> {
 
 
 ////////////////////////////////////////////////////////////////////
-const char XORKEY = static_cast<char>(RandomNumber(0, 0xFF));
-constexpr char EncryptCharacter(const char Character, int Index) {
-    return Character ^ (XORKEY + Index);
+const char XORKEY_A = static_cast<char>(0x13);
+const wchar_t XORKEY_W = static_cast<wchar_t>(0x133);
+
+constexpr char EncryptCharacterA(const char Character, int Index) {
+    return Character ^ (XORKEY_A + Index);
 }
 
-template <typename IndexList> class CXorString;
-template <int... Index> class CXorString<IndexList<Index...> > {
+template <typename IndexList> class CXorStringA;
+template <int... Index> class CXorStringA<IndexList<Index...> > {
 private:
     char Value[sizeof...(Index)+1];
 public:
-    constexpr CXorString(const char* const String)
-        : Value{ EncryptCharacter(String[Index], Index)... } {}
+    constexpr CXorStringA(const char* const String)
+        : Value{ EncryptCharacterA(String[Index], Index)... } {}
 
     char* decrypt() {
         for (int t = 0; t < sizeof...(Index); t++) {
-            Value[t] = Value[t] ^ (XORKEY + t);
+            Value[t] = Value[t] ^ (XORKEY_A + t);
         }
         Value[sizeof...(Index)] = '\0';
         return Value;
@@ -82,6 +84,32 @@ public:
         return Value;
     }
 };
-#define XorS(X, String) CXorString<ConstructIndexList<sizeof(String)-1>::Result> X(String)
-#define XorString( String ) ( CXorString<ConstructIndexList<sizeof( String ) - 1>::Result>( String ).decrypt() )
+
+constexpr wchar_t EncryptCharacterW(const wchar_t Character, int Index) {
+    return Character ^ (XORKEY_W + Index);
+}
+
+template <typename IndexList> class CXorStringW;
+template <int... Index> class CXorStringW<IndexList<Index...> > {
+private:
+    wchar_t Value[sizeof...(Index)+1];
+public:
+    constexpr CXorStringW(const wchar_t* const String)
+        : Value{ EncryptCharacterW(String[Index], Index)... } {}
+
+    wchar_t* decrypt() {
+        for (int t = 0; t < sizeof...(Index); t++) {
+            Value[t] = Value[t] ^ (XORKEY_W + t);
+        }
+        Value[sizeof...(Index)] = '\0\0';
+        return Value;
+    }
+
+    wchar_t* get() {
+        return Value;
+    }
+};
+
+#define XorStringA( String ) ( CXorStringA<ConstructIndexList<sizeof( String ) - 1>::Result>( String ).decrypt() )  
+#define XorStringW( String ) ( CXorStringW<ConstructIndexList<sizeof( String ) - 1>::Result>( String ).decrypt() )  
 ////////////////////////////////////////////////////////////////////
