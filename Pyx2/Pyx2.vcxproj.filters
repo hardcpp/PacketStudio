@@ -13,10 +13,19 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Headers\Utility">
+      <UniqueIdentifier>{5895b490-cc93-4a5f-94ce-a5c8a6bec301}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pyx\Context.h">
       <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Utility\String.h">
+      <Filter>Headers\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Utility\XorString.h">
+      <Filter>Headers\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

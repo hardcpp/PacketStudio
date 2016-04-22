@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pyx\Context.h" />
+    <ClInclude Include="Pyx\Utility\String.h" />
+    <ClInclude Include="Pyx\Utility\XorString.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pyx\Context.cpp" />

@@ -2,8 +2,10 @@
 #include <Windows.h>
 #include <cassert>
 #include <mutex>
+#include <sstream>
+#include "Utility/String.h"
 
-#define PYX_ASSERT(...) assert(__VA_ARGS__)
+#define PYX_ASSERT_A(cond) if (!(cond)) { std::stringstream ss; ss << XorString("Assertion : ") << XorString(#cond) << "\r\nFile : " << XorString(__FILE__) << XorString("\r\nLine : ") << __LINE__; MessageBoxA(nullptr, ss.str().c_str(), XorString("Assertion failure"), MB_ICONERROR); TerminateProcess(GetCurrentProcess(), -1); }
 
 namespace Pyx
 {
