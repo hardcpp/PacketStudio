@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headers\Pyx">
+      <UniqueIdentifier>{15358306-772e-494a-934f-9985b8d6707d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Utility">
+      <UniqueIdentifier>{6c7566bf-6455-4fa0-bfa1-e3256ee135af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx">
+      <UniqueIdentifier>{8a191925-6f27-4cc3-bcec-93529a952876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\MinHook">
+      <UniqueIdentifier>{a9f2ce56-0312-4af1-accf-c9b87ffe7e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Patch">
+      <UniqueIdentifier>{1cefdf59-b5dd-44ab-a902-0f5d97c66aed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Patch">
+      <UniqueIdentifier>{b688d921-865c-405f-9775-2dbcf440e26a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Utility">
+      <UniqueIdentifier>{97e7294a-3e05-43b3-97a9-225a0aef4ebc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Pyx\Utility\String.h">
+      <Filter>Headers\Pyx\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Utility\XorString.h">
+      <Filter>Headers\Pyx\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\PyxContext.h">
+      <Filter>Headers\Pyx</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Pyx.h">
+      <Filter>Headers\Pyx</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Utility\Callbacks.h">
+      <Filter>Headers\Pyx\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\PyxInitSettings.h">
+      <Filter>Headers\Pyx</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Patch\IPatch.h">
+      <Filter>Headers\Pyx\Patch</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Patch\IHook.h">
+      <Filter>Headers\Pyx\Patch</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Patch\Detour.h">
+      <Filter>Headers\Pyx\Patch</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Patch\PatchContext.h">
+      <Filter>Headers\Pyx\Patch</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Pyx\PyxContext.cpp">
+      <Filter>Sources\Pyx</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\buffer.c">
+      <Filter>Sources\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\hook.c">
+      <Filter>Sources\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\trampoline.c">
+      <Filter>Sources\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\HDE\hde32.c">
+      <Filter>Sources\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\HDE\hde64.c">
+      <Filter>Sources\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Patch\PatchContext.cpp">
+      <Filter>Sources\Pyx\Patch</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
