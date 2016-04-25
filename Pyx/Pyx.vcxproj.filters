@@ -30,6 +30,18 @@
     <Filter Include="Sources\Pyx\Utility">
       <UniqueIdentifier>{97e7294a-3e05-43b3-97a9-225a0aef4ebc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Pyx\Graphics">
+      <UniqueIdentifier>{41fb9c7a-e1cf-45d0-919b-264f9a2da0d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Graphics">
+      <UniqueIdentifier>{be09512b-c5a5-4239-85a6-00e00c8769cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Graphics\Renderer">
+      <UniqueIdentifier>{f707b0a2-f0fb-4be6-88a2-733922653be1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Graphics\Renderer">
+      <UniqueIdentifier>{73dca4b6-3472-48b5-ace3-b2377a082e0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pyx\Utility\String.h">
@@ -62,6 +74,15 @@
     <ClInclude Include="Pyx\Patch\PatchContext.h">
       <Filter>Headers\Pyx\Patch</Filter>
     </ClInclude>
+    <ClInclude Include="Pyx\Graphics\GraphicsContext.h">
+      <Filter>Headers\Pyx\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Renderer\IRenderer.h">
+      <Filter>Headers\Pyx\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D9Renderer.h">
+      <Filter>Headers\Pyx\Graphics\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pyx\PyxContext.cpp">
@@ -84,6 +105,12 @@
     </ClCompile>
     <ClCompile Include="Pyx\Patch\PatchContext.cpp">
       <Filter>Sources\Pyx\Patch</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\GraphicsContext.cpp">
+      <Filter>Sources\Pyx\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\Renderer\D3D9Renderer.cpp">
+      <Filter>Sources\Pyx\Graphics\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

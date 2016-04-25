@@ -9,6 +9,10 @@ namespace Pyx
     {
         class PatchContext;
     }
+    namespace Graphics
+    {
+        class GraphicsContext;
+    }
     class PyxContext
     {
 
@@ -27,6 +31,7 @@ namespace Pyx
     private:
         PyxInitSettings m_settings;
         Patch::PatchContext* m_pPatchContext;
+        Graphics::GraphicsContext* m_pGraphicsContext;
         bool m_unloadRequested;
         HANDLE m_unloadCompletedMutex;
         Utility::Callbacks<tOnPyxUnloadStartingCallback> m_OnPyxUnloadStartingCallbacks;
@@ -40,6 +45,7 @@ namespace Pyx
         bool IsUnloadedRequested() const { return m_unloadRequested; }
         const PyxInitSettings& GetSettings() const { return m_settings; }
         Patch::PatchContext* GetPatchContext() const { return m_pPatchContext; }
+        Graphics::GraphicsContext* GetGraphicsContext() const { return m_pGraphicsContext; }
         void RequestUnload();
         void Unload();
         Utility::Callbacks<tOnPyxUnloadStartingCallback>& GetOnPyxUnloadStartingCallbacks() { return m_OnPyxUnloadStartingCallbacks; }

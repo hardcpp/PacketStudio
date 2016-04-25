@@ -1,6 +1,7 @@
 #include "PyxContext.h"
 #include "Pyx.h"
 #include "Patch/PatchContext.h"
+#include "Graphics/GraphicsContext.h"
 
 Pyx::PyxContext* s_pPyxContext = nullptr;
 
@@ -46,11 +47,18 @@ Pyx::PyxContext::PyxContext(const PyxInitSettings& settings)
 {
 
     m_pPatchContext = new Patch::PatchContext(this);
+    m_pGraphicsContext = new Graphics::GraphicsContext(this);
 
 }
 
 Pyx::PyxContext::~PyxContext()
 {
+
+    if (m_pGraphicsContext)
+    {
+        delete m_pGraphicsContext;
+        m_pGraphicsContext = nullptr;
+    }
 
     if (m_pPatchContext)
     {

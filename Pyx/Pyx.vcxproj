@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Pyx\Graphics\GraphicsContext.h" />
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D9Renderer.h" />
+    <ClInclude Include="Pyx\Graphics\Renderer\IRenderer.h" />
     <ClInclude Include="Pyx\Patch\Detour.h" />
     <ClInclude Include="Pyx\Patch\IHook.h" />
     <ClInclude Include="Pyx\Patch\IPatch.h" />
@@ -36,6 +39,8 @@
     <ClCompile Include="MinHook\src\HDE\hde64.c" />
     <ClCompile Include="MinHook\src\hook.c" />
     <ClCompile Include="MinHook\src\trampoline.c" />
+    <ClCompile Include="Pyx\Graphics\GraphicsContext.cpp" />
+    <ClCompile Include="Pyx\Graphics\Renderer\D3D9Renderer.cpp" />
     <ClCompile Include="Pyx\Patch\PatchContext.cpp" />
     <ClCompile Include="Pyx\PyxContext.cpp" />
   </ItemGroup>

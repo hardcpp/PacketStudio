@@ -4,15 +4,13 @@
 #include <Pyx/PyxContext.h>
 #include <Pyx/Patch/PatchContext.h>
 #include <Pyx/Patch/Detour.h>
-
+#include <Pyx/Graphics/GraphicsContext.h>
+#include <Pyx/Graphics/Renderer/D3D9Renderer.h>
 #pragma comment(lib,"Shlwapi.lib")
 
-typedef int (WINAPI *tMessageBoxW)(HWND, LPCWSTR, LPCWSTR, UINT);
-Pyx::Patch::Detour<tMessageBoxW>* g_pMessageBoxWDetour = nullptr;
-
-int WINAPI DetourMessageBoxW(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT uType)
+void OnIDirect3DDevice9Changed(Pyx::Graphics::Renderer::D3D9Renderer* pRenderer, IDirect3DDevice9* pDevice)
 {
-    return g_pMessageBoxWDetour->GetTrampoline()(hWnd, L"Hooked!", lpCaption, uType);
+    // It work :p
 }
 
 DWORD WINAPI EntryPoint(LPVOID lpParam)
@@ -30,7 +28,7 @@ DWORD WINAPI EntryPoint(LPVOID lpParam)
         return -1;
 
     auto* pPyxContext = Pyx::PyxContext::GetContext();
-    pPyxContext->GetPatchContext()->CreateAndApplyDetour<tMessageBoxW>(&MessageBoxW, DetourMessageBoxW, &g_pMessageBoxWDetour);
+    pPyxContext->GetGraphicsContext()->GetD3D9Renderer()->GetOnIDirect3DDevice9ChangedCallbacks().Register(OnIDirect3DDevice9Changed);
 
     return 0;
 }
