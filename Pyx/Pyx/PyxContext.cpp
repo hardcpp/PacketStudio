@@ -2,6 +2,7 @@
 #include "Pyx.h"
 #include "Patch/PatchContext.h"
 #include "Graphics/GraphicsContext.h"
+#include "Graphics/GuiContext.h"
 
 Pyx::PyxContext* s_pPyxContext = nullptr;
 
@@ -46,8 +47,12 @@ Pyx::PyxContext::PyxContext(const PyxInitSettings& settings)
     m_unloadCompletedMutex(nullptr)
 {
 
+    // TODO : Suspend threads
+
     m_pPatchContext = new Patch::PatchContext(this);
     m_pGraphicsContext = new Graphics::GraphicsContext(this);
+
+    // TODO : Resume threads
 
 }
 

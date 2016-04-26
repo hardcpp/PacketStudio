@@ -20,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pyx\Graphics\GraphicsContext.h" />
+    <ClInclude Include="Pyx\Graphics\GuiContext.h" />
+    <ClInclude Include="Pyx\Graphics\Gui\IGui.h" />
+    <ClInclude Include="Pyx\Graphics\Gui\ImGuiImpl.h" />
     <ClInclude Include="Pyx\Graphics\Renderer\D3D9Renderer.h" />
     <ClInclude Include="Pyx\Graphics\Renderer\IRenderer.h" />
     <ClInclude Include="Pyx\Patch\Detour.h" />
@@ -34,12 +37,19 @@
     <ClInclude Include="Pyx\Utility\XorString.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ImGui\imgui.cpp" />
+    <ClCompile Include="ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_dx10.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_dx9.cpp" />
     <ClCompile Include="MinHook\src\buffer.c" />
     <ClCompile Include="MinHook\src\HDE\hde32.c" />
     <ClCompile Include="MinHook\src\HDE\hde64.c" />
     <ClCompile Include="MinHook\src\hook.c" />
     <ClCompile Include="MinHook\src\trampoline.c" />
     <ClCompile Include="Pyx\Graphics\GraphicsContext.cpp" />
+    <ClCompile Include="Pyx\Graphics\GuiContext.cpp" />
+    <ClCompile Include="Pyx\Graphics\Gui\ImGuiImpl.cpp" />
     <ClCompile Include="Pyx\Graphics\Renderer\D3D9Renderer.cpp" />
     <ClCompile Include="Pyx\Patch\PatchContext.cpp" />
     <ClCompile Include="Pyx\PyxContext.cpp" />
@@ -95,7 +105,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>

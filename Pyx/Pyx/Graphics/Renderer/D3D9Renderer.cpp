@@ -66,6 +66,17 @@ void Pyx::Graphics::Renderer::D3D9Renderer::Release()
 
 }
 
+HWND Pyx::Graphics::Renderer::D3D9Renderer::GetAttachedWindow()
+{
+    if (m_pDevice)
+    {
+        D3DDEVICE_CREATION_PARAMETERS parameters;
+        if (SUCCEEDED(m_pDevice->GetCreationParameters(&parameters)))
+            return parameters.hFocusWindow;
+    }
+    return nullptr;
+}
+
 void Pyx::Graphics::Renderer::D3D9Renderer::SetDevice(IDirect3DDevice9* pDevice)
 {
     if (pDevice != m_pDevice)

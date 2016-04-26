@@ -42,6 +42,15 @@
     <Filter Include="Sources\Pyx\Graphics\Renderer">
       <UniqueIdentifier>{73dca4b6-3472-48b5-ace3-b2377a082e0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\ImGui">
+      <UniqueIdentifier>{ebf378a5-843c-4fe8-afca-86690b1b70b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Graphics\Gui">
+      <UniqueIdentifier>{c83a4b41-c28c-4319-b469-d71478efa75e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Graphics\Gui">
+      <UniqueIdentifier>{cc35daae-3d5e-4bf4-bd43-57809babeb62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pyx\Utility\String.h">
@@ -83,6 +92,15 @@
     <ClInclude Include="Pyx\Graphics\Renderer\D3D9Renderer.h">
       <Filter>Headers\Pyx\Graphics\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Pyx\Graphics\GuiContext.h">
+      <Filter>Headers\Pyx\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Gui\IGui.h">
+      <Filter>Headers\Pyx\Graphics\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Gui\ImGuiImpl.h">
+      <Filter>Headers\Pyx\Graphics\Gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pyx\PyxContext.cpp">
@@ -111,6 +129,27 @@
     </ClCompile>
     <ClCompile Include="Pyx\Graphics\Renderer\D3D9Renderer.cpp">
       <Filter>Sources\Pyx\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx9.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx10.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\GuiContext.cpp">
+      <Filter>Sources\Pyx\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\Gui\ImGuiImpl.cpp">
+      <Filter>Sources\Pyx\Graphics\Gui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
