@@ -2,6 +2,8 @@
 #include "../../Pyx.h"
 #include "../GraphicsContext.h"
 #include "IGui.h"
+#include <mutex>
+#include <vector>
 
 namespace Pyx
 {
@@ -13,14 +15,21 @@ namespace Pyx
             class ImGuiImpl : public IGui
             {
 
+            public:
+                static ImGuiImpl& GetInstance();
+
             private:
                 bool m_isResourcesCreated;
                 bool m_isInitialized;
+                bool m_showDebugWindow;
+                std::vector<std::string> m_logsItems;
+                bool m_logScrollToEnd = false;
+                POINT m_lastValidMousePosition;
 
             public:
-                explicit ImGuiImpl(GuiContext* pGuiContext);
-
-                ~ImGuiImpl() override { }
+                explicit ImGuiImpl();
+                ~ImGuiImpl() override;
+                GuiType GetGuiType() const override { return GuiType::ImGui; }
                 bool IsResourcesCreated() const override { return m_isResourcesCreated; };
                 bool IsInitialized() const override { return m_isInitialized; };
                 void Initialize() override;
@@ -28,6 +37,13 @@ namespace Pyx
                 void ReleaseResources() override;
                 void CreateResources() override;
                 void OnFrame() override;
+                bool OnWindowMessage(const MSG* lpMsg) override;
+                void Logger_OnWriteLine(const std::wstring& line) override;
+                bool OnGetCursorPos(LPPOINT lpPoint) override;
+                void SetupStyle(bool bDarkStyle) const;
+                void BuildMainMenuBar();
+                void BuildDebugWindow();
+                void BuildLogsWindow();
 
             };
         }

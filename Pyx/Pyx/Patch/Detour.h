@@ -16,6 +16,7 @@ namespace Pyx
             T m_target;
             T m_detour;
             bool m_isEnabled = false;
+            char m_hookBuffer[20];
 
         public:
             explicit Detour<T>(PatchContext* pPatchContext, T target, T detour)
@@ -31,11 +32,27 @@ namespace Pyx
             bool IsApplied() const override { return m_isEnabled; }
             void Apply() override
             {
-                m_isEnabled = !m_isEnabled && MH_EnableHook(m_target) == MH_OK;
+                if (!m_isEnabled)
+                {
+                    m_isEnabled = MH_EnableHook(m_target) == MH_OK;
+                    if (m_isEnabled)
+                        memcpy(m_hookBuffer, m_target, sizeof(m_hookBuffer));
+                }
             }
+            
             void Remove() override
             {
                 m_isEnabled = !(m_isEnabled && MH_DisableHook(m_target) == MH_OK);
+            }
+            void EnsureApply()
+            {
+                if (memcmp(m_hookBuffer, m_target, sizeof(m_hookBuffer)) != 0)
+                {
+                    DWORD oldProtect;
+                    VirtualProtect(m_target, sizeof(m_hookBuffer), PAGE_READWRITE, &oldProtect);
+                    memcpy(m_target, m_hookBuffer, sizeof(m_hookBuffer));
+                    VirtualProtect(m_target, sizeof(T), oldProtect, &oldProtect);
+                }
             }
         };
     }

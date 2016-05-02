@@ -1,11 +1,16 @@
 #pragma once
 #include <string>
+#include "Pyx.h"
 
 namespace Pyx
 {
     struct PyxInitSettings
     {
-        std::wstring RootDirectory;
-        bool OverlayBlockInput;
+        Pyx::GuiType GuiType = Pyx::GuiType::ImGui;
+        std::wstring RootDirectory = L"";
+        bool GuiBlockInput = false;
+        bool LogToFile = true;
+        std::wstring LogDirectory = L"\\Logs";
+        std::wstring ScriptsDirectory = L"\\Scripts";
     };
 }

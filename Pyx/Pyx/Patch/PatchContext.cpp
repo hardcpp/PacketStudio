@@ -1,13 +1,27 @@
 #include "PatchContext.h"
 #include "../../MinHook/include/MinHook.h"
 
-Pyx::Patch::PatchContext::PatchContext(PyxContext* pPyxContext)
-    : m_pPyxContext(pPyxContext)
+Pyx::Patch::PatchContext& Pyx::Patch::PatchContext::GetInstance()
+{
+    static PatchContext ctx;
+    return ctx;
+}
+
+Pyx::Patch::PatchContext::PatchContext()
+{
+}
+
+Pyx::Patch::PatchContext::~PatchContext()
+{
+
+}
+
+void Pyx::Patch::PatchContext::Initialize()
 {
     PYX_ASSERT_A(MH_Initialize() == MH_OK);
 }
 
-Pyx::Patch::PatchContext::~PatchContext()
+void Pyx::Patch::PatchContext::Shutdown()
 {
 
     for (auto* pPatch : m_patches)

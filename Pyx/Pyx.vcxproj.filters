@@ -51,6 +51,33 @@
     <Filter Include="Sources\Pyx\Graphics\Gui">
       <UniqueIdentifier>{cc35daae-3d5e-4bf4-bd43-57809babeb62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Pyx\Threading">
+      <UniqueIdentifier>{9a3bfb40-9f19-4167-971b-c0daa3310f29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Threading">
+      <UniqueIdentifier>{829072df-f757-4c70-b8e7-9ce33b98416c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\FontAwesome">
+      <UniqueIdentifier>{ab0d6137-07f6-4f88-9744-51a7f6f499cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Input">
+      <UniqueIdentifier>{829acfae-e482-499d-9c0b-6a9102995ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Input">
+      <UniqueIdentifier>{d4024314-f9e8-4769-8de7-b4eb8448ca98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Lua">
+      <UniqueIdentifier>{43ac89cc-9e1d-42aa-a522-4049bff0ba7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Scripting">
+      <UniqueIdentifier>{6c99f7c6-dd30-43cf-b953-96245bc1ee52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Scripting">
+      <UniqueIdentifier>{e76bbd16-ceae-439e-ad3b-35f33a2f2ffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Scripting\LuaModules">
+      <UniqueIdentifier>{98134fb3-dc91-4ead-9a36-42c4e3c8edb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pyx\Utility\String.h">
@@ -101,6 +128,60 @@
     <ClInclude Include="Pyx\Graphics\Gui\ImGuiImpl.h">
       <Filter>Headers\Pyx\Graphics\Gui</Filter>
     </ClInclude>
+    <ClInclude Include="Pyx\Threading\ThreadContext.h">
+      <Filter>Headers\Pyx\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Threading\Thread.h">
+      <Filter>Headers\Pyx\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="FontAwesome\FontAwesome.h">
+      <Filter>Headers\FontAwesome</Filter>
+    </ClInclude>
+    <ClInclude Include="FontAwesome\IconsFontAwesome.h">
+      <Filter>Headers\FontAwesome</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Input\InputContext.h">
+      <Filter>Headers\Pyx\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Patch\VmtHook.h">
+      <Filter>Headers\Pyx\Patch</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Renderer\DXGI.h">
+      <Filter>Headers\Pyx\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D11Renderer.h">
+      <Filter>Headers\Pyx\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D11StateBlock.h">
+      <Filter>Headers\Pyx\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\ScriptingContext.h">
+      <Filter>Headers\Pyx\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Utility\IniFile.h">
+      <Filter>Headers\Pyx\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\ScriptDef.h">
+      <Filter>Headers\Pyx\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\Script.h">
+      <Filter>Headers\Pyx\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Override.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Mapping_WString.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Scripting.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_FileSystem.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Win32.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pyx\PyxContext.cpp">
@@ -150,6 +231,132 @@
     </ClCompile>
     <ClCompile Include="Pyx\Graphics\Gui\ImGuiImpl.cpp">
       <Filter>Sources\Pyx\Graphics\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Threading\ThreadContext.cpp">
+      <Filter>Sources\Pyx\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Input\InputContext.cpp">
+      <Filter>Sources\Pyx\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\Renderer\DXGI.cpp">
+      <Filter>Sources\Pyx\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\Renderer\D3D11Renderer.cpp">
+      <Filter>Sources\Pyx\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Scripting\ScriptingContext.cpp">
+      <Filter>Sources\Pyx\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Scripting\ScriptDef.cpp">
+      <Filter>Sources\Pyx\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Scripting\Script.cpp">
+      <Filter>Sources\Pyx\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lapi.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lauxlib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lbaselib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lbitlib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lcode.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lcorolib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lctype.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ldblib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ldebug.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ldo.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ldump.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lfunc.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lgc.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\linit.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\liolib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\llex.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lmathlib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lmem.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\loadlib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lobject.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lopcodes.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\loslib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lparser.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lstate.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lstring.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lstrlib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ltable.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ltablib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ltm.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lua.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\luac.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lundump.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lutf8lib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lvm.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lzio.c">
+      <Filter>Sources\Lua</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #pragma once
 #include <set>
 #include "Detour.h"
+#include "VmtHook.h"
 
 namespace Pyx
 {
@@ -10,19 +11,28 @@ namespace Pyx
         class PatchContext
         {
 
+        public:
+            static PatchContext& GetInstance();
+
         private:
-            PyxContext* m_pPyxContext;
             std::set<IPatch*> m_patches;
 
         public:
-            explicit PatchContext(PyxContext* pPyxContext);
+            explicit PatchContext();
             ~PatchContext();
-            PyxContext* GetPyxContext() const { return m_pPyxContext; }
+            void Initialize();
+            void Shutdown();
             template<typename T> Detour<T>* CreateDetour(T target, T detour)
             {
                 auto pDetour = new Detour<T>(this, target, detour);
                 m_patches.insert(pDetour);
                 return pDetour;
+            }
+            template<typename T> VmtHook<T>* CreateVmtHook(void** ppVtable, size_t index, T detour)
+            {
+                auto pVmtHook = new VmtHook<T>(this, ppVtable, index, detour);
+                m_patches.insert(pVmtHook);
+                return pVmtHook;
             }
             template<typename T> bool CreateAndApplyDetour(T target, T detour, Detour<T>** ppDetour)
             {
@@ -35,13 +45,13 @@ namespace Pyx
                 }
                 return false;
             }
-            template<typename T> bool RemoveDetour(Detour<T>* pDetour)
+            template<typename T> bool CreateAndApplyVmtHook(void** ppVtable, size_t index, T detour, VmtHook<T>** ppVmtHook)
             {
-                if (pDetour)
+                auto pVmtHook = CreateVmtHook(ppVtable, index, detour);
+                if (pVmtHook)
                 {
-                    pDetour->Remove();
-                    m_patches.erase(pDetour);
-                    delete pDetour;
+                    *ppVmtHook = pVmtHook;
+                    pVmtHook->Apply();
                     return true;
                 }
                 return false;

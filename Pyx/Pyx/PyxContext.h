@@ -2,54 +2,65 @@
 #include "Pyx.h"
 #include "PyxInitSettings.h"
 #include "Utility/Callbacks.h"
+#include <memory>
+#include <iostream>
+#include <fstream>
 
 namespace Pyx
 {
-    namespace Patch
-    {
-        class PatchContext;
-    }
-    namespace Graphics
-    {
-        class GraphicsContext;
-    }
     class PyxContext
     {
 
     public:
-        typedef void tOnPyxUnloadCompletedCallback(PyxContext* pPyxContext);
-        typedef void tOnPyxUnloadStartingCallback(PyxContext* pPyxContext);
+        typedef void tOnPyxShutdownCompletedCallback();
+        typedef void tOnPyxShutdownStartingCallback();
 
     private:
-        static DWORD WINAPI WaitUnloadingThread(LPVOID pData);
+        static DWORD WINAPI WaitShutdowningThread(LPVOID pData);
 
     public:
-        static bool CreateContext(const PyxInitSettings& settings);
-        static void DestroyContext();
-        static PyxContext* GetContext();
+        static PyxContext& GetInstance();
 
     private:
         PyxInitSettings m_settings;
-        Patch::PatchContext* m_pPatchContext;
-        Graphics::GraphicsContext* m_pGraphicsContext;
-        bool m_unloadRequested;
-        HANDLE m_unloadCompletedMutex;
-        Utility::Callbacks<tOnPyxUnloadStartingCallback> m_OnPyxUnloadStartingCallbacks;
-        Utility::Callbacks<tOnPyxUnloadCompletedCallback> m_OnPyxUnloadCompletedCallbacks;
+        bool m_ShutdownRequested;
+        HANDLE m_hShutdownCompletedEvent;
+        std::wofstream m_logFileStream;
+        Utility::Callbacks<tOnPyxShutdownStartingCallback> m_OnPyxShutdownStartingCallbacks;
+        Utility::Callbacks<tOnPyxShutdownCompletedCallback> m_OnPyxShutdownCompletedCallbacks;
 
     private:
-        explicit PyxContext(const PyxInitSettings& settings);
+        explicit PyxContext();
         ~PyxContext();
 
     public:
-        bool IsUnloadedRequested() const { return m_unloadRequested; }
+        void Initialize(const PyxInitSettings& settings);
+        void RequestShutdown();
+        void Shutdown();
+        bool IsShutdownedRequested() const { return m_ShutdownRequested; }
         const PyxInitSettings& GetSettings() const { return m_settings; }
-        Patch::PatchContext* GetPatchContext() const { return m_pPatchContext; }
-        Graphics::GraphicsContext* GetGraphicsContext() const { return m_pGraphicsContext; }
-        void RequestUnload();
-        void Unload();
-        Utility::Callbacks<tOnPyxUnloadStartingCallback>& GetOnPyxUnloadStartingCallbacks() { return m_OnPyxUnloadStartingCallbacks; }
-        Utility::Callbacks<tOnPyxUnloadCompletedCallback>& GetOnPyxUnloadCompletedCallbacks() { return m_OnPyxUnloadCompletedCallbacks; }
+        void Log(const std::wstring& line);
+        void Log(const std::string& line);
+        template<typename ... Args>
+        void Log(const std::string& format, Args ... args)
+        {
+            size_t size = snprintf(nullptr, 0, format.c_str(), args ...) + 1; // Extra space for '\0'
+            std::unique_ptr<char[]> buf(new char[size]);
+            snprintf(buf.get(), size, format.c_str(), args ...);
+            auto str = std::string(buf.get(), buf.get() + size - 1); // We don't want the '\0' inside
+            Log(str);
+        }
+        template<typename ... Args>
+        void Log(const std::wstring& format, Args ... args)
+        {
+            size_t size = _snwprintf(nullptr, 0, format.c_str(), args ...) + 2;
+            std::unique_ptr<wchar_t[]> buf(new wchar_t[size]);
+            _snwprintf(buf.get(), size, format.c_str(), args ...);
+            auto str = std::wstring(buf.get(), buf.get() + size - 2); // We don't want the '\0' inside
+            Log(str);
+        }
+        Utility::Callbacks<tOnPyxShutdownStartingCallback>& GetOnPyxShutdownStartingCallbacks() { return m_OnPyxShutdownStartingCallbacks; }
+        Utility::Callbacks<tOnPyxShutdownCompletedCallback>& GetOnPyxShutdownCompletedCallbacks() { return m_OnPyxShutdownCompletedCallbacks; }
 
     };
 }

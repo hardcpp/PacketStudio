@@ -11,16 +11,30 @@ namespace Pyx
             class IRenderer
             {
 
-            private:
-                GraphicsContext* m_pGraphicsContext;
-
             public:
-                explicit IRenderer(GraphicsContext* pGraphicsContext) : m_pGraphicsContext(pGraphicsContext) { }
+                explicit IRenderer() { }
+                const char* GetRendererTypeString() const
+                {
+                    switch (GetRendererType())
+                    {
+                    case RendererType::D3D9:
+                        return "Direct3D9";
+                    case RendererType::D3D10:
+                        return "Direct3D10";
+                    case RendererType::D3D11:
+                        return "Direct3D11";
+                    case RendererType::OpenGL:
+                        return "OpenGL";
+                    default:
+                        return "Unknown";
+                    }
+                }
                 virtual ~IRenderer() { }
-                GraphicsContext* GetGraphicsContext() const { return m_pGraphicsContext; }
                 virtual RendererType GetRendererType() const = 0;
-                virtual bool IsReleased() const = 0;
-                virtual void Release() = 0;
+                virtual bool IsActive() const = 0;
+                virtual bool IsResourcesCreated() const = 0;
+                virtual void CreateResources() = 0;
+                virtual void ReleaseResources() = 0;
                 virtual HWND GetAttachedWindow() = 0;
                 virtual bool GetResolution(int& x, int& y)
                 {

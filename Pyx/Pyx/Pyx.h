@@ -18,4 +18,9 @@ namespace Pyx
         D3D12
     };
 
+    enum class GuiType : byte
+    {
+        ImGui
+    };
+
 }

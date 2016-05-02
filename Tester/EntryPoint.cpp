@@ -5,30 +5,41 @@
 #include <Pyx/Patch/PatchContext.h>
 #include <Pyx/Patch/Detour.h>
 #include <Pyx/Graphics/GraphicsContext.h>
+#include <Pyx/Graphics/GuiContext.h>
+#include <Pyx/Graphics/Gui/IGui.h>
 #include <Pyx/Graphics/Renderer/D3D9Renderer.h>
 #pragma comment(lib,"Shlwapi.lib")
 
-void OnIDirect3DDevice9Changed(Pyx::Graphics::Renderer::D3D9Renderer* pRenderer, IDirect3DDevice9* pDevice)
+HMODULE g_hModule = nullptr;
+
+void OnShutdownStarting()
 {
-    // It work :p
+    
+}
+
+void OnShutdownCompleted()
+{
+    
+    Sleep(1000);
+    FreeLibraryAndExitThread(g_hModule, 0);
 }
 
 DWORD WINAPI EntryPoint(LPVOID lpParam)
 {
 
+    g_hModule = static_cast<HMODULE>(lpParam);
+
     wchar_t moduleFileName[MAX_PATH];
-    PYX_ASSERT_A(SUCCEEDED(GetModuleFileNameW(static_cast<HMODULE>(lpParam), moduleFileName, MAX_PATH)))
-    PYX_ASSERT_A(PathRemoveFileSpecW(moduleFileName) == TRUE)
+    GetModuleFileNameW(g_hModule, moduleFileName, MAX_PATH);
+    PathRemoveFileSpecW(moduleFileName);
 
     Pyx::PyxInitSettings settings;
-    settings.OverlayBlockInput = false;
+    settings.GuiBlockInput = false;
     settings.RootDirectory = moduleFileName;
+    Pyx::PyxContext::GetInstance().Initialize(settings);
 
-    if (!Pyx::PyxContext::CreateContext(settings))
-        return -1;
-
-    auto* pPyxContext = Pyx::PyxContext::GetContext();
-    pPyxContext->GetGraphicsContext()->GetD3D9Renderer()->GetOnIDirect3DDevice9ChangedCallbacks().Register(OnIDirect3DDevice9Changed);
+    Pyx::PyxContext::GetInstance().GetOnPyxShutdownStartingCallbacks().Register(OnShutdownStarting);
+    Pyx::PyxContext::GetInstance().GetOnPyxShutdownCompletedCallbacks().Register(OnShutdownCompleted);
 
     return 0;
 }

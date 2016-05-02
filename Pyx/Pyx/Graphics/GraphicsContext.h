@@ -13,19 +13,17 @@ namespace Pyx
         class GuiContext;
         class GraphicsContext
         {
-        private:
-            PyxContext* m_pPyxContext;
-            GuiContext* m_pGuiContext;
-            Renderer::IRenderer* m_pMainRenderer;
-            Renderer::D3D9Renderer* m_pD3D9Renderer;
 
         public:
-            explicit GraphicsContext(PyxContext* pPyxContext);
+            static GraphicsContext& GetInstance();
+
+        private:
+            Renderer::IRenderer* m_pMainRenderer;
+
+        public:
+            explicit GraphicsContext();
             ~GraphicsContext();
-            PyxContext* GetPyxContext() const { return m_pPyxContext; }
-            GuiContext* GetGuiContext() const { return m_pGuiContext; }
             Renderer::IRenderer* GetMainRenderer() const { return m_pMainRenderer; }
-            Renderer::D3D9Renderer* GetD3D9Renderer() const { return m_pD3D9Renderer; }
             void SetMainRenderer(Renderer::IRenderer* pRenderer);
         };
     }

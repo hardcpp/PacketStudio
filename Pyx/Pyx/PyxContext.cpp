@@ -2,102 +2,130 @@
 #include "Pyx.h"
 #include "Patch/PatchContext.h"
 #include "Graphics/GraphicsContext.h"
+#include "Graphics/Renderer/D3D9Renderer.h"
+#include "Graphics/Renderer/DXGI.h"
 #include "Graphics/GuiContext.h"
+#include "Graphics/Gui/IGui.h"
+#include "Threading/ThreadContext.h"
+#include "Threading/Thread.h"
+#include "Input/InputContext.h"
+#include "Graphics/Renderer/D3D11Renderer.h"
+#include <iomanip>
+#include <ctime>
+#include "Scripting/ScriptingContext.h"
 
 Pyx::PyxContext* s_pPyxContext = nullptr;
 
-DWORD Pyx::PyxContext::WaitUnloadingThread(LPVOID pData)
+DWORD Pyx::PyxContext::WaitShutdowningThread(LPVOID pData)
 {
-    PyxContext* pPyxContext = static_cast<PyxContext*>(pData);
-    PYX_ASSERT_A(pPyxContext->m_unloadCompletedMutex);
-    DWORD result = WaitForSingleObject(pPyxContext->m_unloadCompletedMutex, INFINITE);
-    PYX_ASSERT_A(result == WAIT_OBJECT_0);
-    CloseHandle(pPyxContext->m_unloadCompletedMutex);
-    pPyxContext->GetOnPyxUnloadCompletedCallbacks().Run(pPyxContext);
+    auto& pyxContext = GetInstance();
+    auto result = WaitForSingleObject(pyxContext.m_hShutdownCompletedEvent, INFINITE);
+    CloseHandle(pyxContext.m_hShutdownCompletedEvent);
+    pyxContext.GetOnPyxShutdownCompletedCallbacks().Run();
     return 0;
 }
 
-bool Pyx::PyxContext::CreateContext(const PyxInitSettings& settings)
+Pyx::PyxContext& Pyx::PyxContext::GetInstance()
 {
-    if (s_pPyxContext == nullptr)
-    {
-        s_pPyxContext = new PyxContext(settings);
-        return true;
-    }
-    return false;
+    static PyxContext ctx;
+    return ctx;
 }
 
-void Pyx::PyxContext::DestroyContext()
+Pyx::PyxContext::PyxContext()
+    : m_ShutdownRequested(false), 
+    m_hShutdownCompletedEvent(nullptr)
 {
-    if (s_pPyxContext != nullptr)
-    {
-        delete s_pPyxContext;
-        s_pPyxContext = nullptr;
-    }
-}
-
-Pyx::PyxContext* Pyx::PyxContext::GetContext()
-{
-    return s_pPyxContext;
-}
-
-Pyx::PyxContext::PyxContext(const PyxInitSettings& settings)
-    : m_settings(settings), 
-    m_unloadRequested(false), 
-    m_unloadCompletedMutex(nullptr)
-{
-
-    // TODO : Suspend threads
-
-    m_pPatchContext = new Patch::PatchContext(this);
-    m_pGraphicsContext = new Graphics::GraphicsContext(this);
-
-    // TODO : Resume threads
-
+    
 }
 
 Pyx::PyxContext::~PyxContext()
 {
 
-    if (m_pGraphicsContext)
+}
+
+void Pyx::PyxContext::Initialize(const PyxInitSettings& settings)
+{
+
+    m_settings = settings;
+
+    if (m_settings.LogToFile)
     {
-        delete m_pGraphicsContext;
-        m_pGraphicsContext = nullptr;
+        std::wstring logsDirectory = m_settings.RootDirectory + m_settings.LogDirectory;
+        std::wstring logFileName = logsDirectory + L"\\logs_" + std::to_wstring(GetCurrentProcessId()) + L".log";
+        CreateDirectoryW(logsDirectory.c_str(), nullptr);
+        m_logFileStream.open(logFileName.c_str(), std::ofstream::out);
     }
 
-    if (m_pPatchContext)
-    {
-        delete m_pPatchContext;
-        m_pPatchContext = nullptr;
-    }
+    Patch::PatchContext::GetInstance().Initialize();
+
+    auto suspendedThreads = Threading::ThreadContext::GetInstance().SuspendAllThreads();
+
+    Graphics::Renderer::D3D9Renderer::GetInstance().Initialize();
+    Graphics::Renderer::DXGI::GetInstance().Initialize();
+    Input::InputContext::GetInstance().Initialize();
+    Scripting::ScriptingContext::GetInstance().Initialize();
+
+    for (auto thread : suspendedThreads)
+        thread->ResumeThread();
 
 }
 
-void Pyx::PyxContext::RequestUnload()
+void Pyx::PyxContext::RequestShutdown()
 {
-    if (!m_unloadCompletedMutex)
+    if (!m_hShutdownCompletedEvent)
     {
-        m_unloadCompletedMutex = CreateMutex(nullptr, true, nullptr);
-        PYX_ASSERT_A(m_unloadCompletedMutex != nullptr);
-        HANDLE hThread = CreateThread(nullptr, 0, WaitUnloadingThread, this, NULL, nullptr);
-        PYX_ASSERT_A(hThread != nullptr);
+        m_hShutdownCompletedEvent = CreateEvent(nullptr, TRUE, FALSE, nullptr);
+        HANDLE hThread = CreateThread(nullptr, 0, WaitShutdowningThread, nullptr, NULL, nullptr);
         CloseHandle(hThread);
+        m_ShutdownRequested = true;
     }
 }
 
-void Pyx::PyxContext::Unload()
+void Pyx::PyxContext::Shutdown()
 {
 
-    if (!IsUnloadedRequested())
-    {
-        RequestUnload();
-    }
+    if (!IsShutdownedRequested())
+        RequestShutdown();
 
-    PYX_ASSERT_A(m_unloadCompletedMutex != nullptr);
+    auto suspendedThreads = Threading::ThreadContext::GetInstance().SuspendAllThreads();
 
-    // Actually unload from a safe place
-    GetOnPyxUnloadStartingCallbacks().Run(this);
+    GetOnPyxShutdownStartingCallbacks().Run();
+    Scripting::ScriptingContext::GetInstance().Shutdown();
+    Graphics::GuiContext::GetInstance().Shutdown();
+    Graphics::Renderer::D3D9Renderer::GetInstance().Shutdown();
+    Graphics::Renderer::D3D11Renderer::GetInstance().Shutdown();
+    Graphics::Renderer::DXGI::GetInstance().Shutdown();
+    Input::InputContext::GetInstance().Shutdown();
+    Patch::PatchContext::GetInstance().Shutdown();
 
-    ReleaseMutex(m_unloadCompletedMutex);
+    for (auto thread : suspendedThreads)
+        thread->ResumeThread();
 
+    if (m_logFileStream.is_open())
+        m_logFileStream.close();
+
+    SetEvent(m_hShutdownCompletedEvent);
+
+}
+
+void Pyx::PyxContext::Log(const std::wstring& line)
+{
+
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    wchar_t buffer[256];
+    wcsftime(buffer, sizeof(buffer), L"[%H:%M:%S] ", &tm);
+    std::wstring timedLine = std::wstring(buffer) + line;
+
+    if (GetSettings().LogToFile && m_logFileStream.is_open())
+        m_logFileStream << timedLine.c_str() << std::endl;
+
+    auto* pGui = Graphics::GuiContext::GetInstance().GetGui();
+    if (pGui) pGui->Logger_OnWriteLine(timedLine);
+
+}
+
+void Pyx::PyxContext::Log(const std::string& line)
+{
+    Log(std::wstring(line.begin(), line.end()));
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <d3d9.h>
 
 namespace Pyx
 {
@@ -11,14 +12,17 @@ namespace Pyx
         class GraphicsContext;
         class GuiContext
         {
+        public:
+            static GuiContext& GetInstance();
+
         private:
-            GraphicsContext* m_pGraphicsContext;
             Gui::IGui* m_pGui;
 
         public:
-            explicit GuiContext(GraphicsContext* pGraphicsContext);
+            explicit GuiContext();
             ~GuiContext();
-            GraphicsContext* GetGraphicsContext() const { return m_pGraphicsContext; }
+            void Shutdown();
+            Gui::IGui* GetGui();
         };
     }
 }

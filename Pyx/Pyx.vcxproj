@@ -19,20 +19,38 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FontAwesome\FontAwesome.h" />
+    <ClInclude Include="FontAwesome\IconsFontAwesome.h" />
     <ClInclude Include="Pyx\Graphics\GraphicsContext.h" />
     <ClInclude Include="Pyx\Graphics\GuiContext.h" />
     <ClInclude Include="Pyx\Graphics\Gui\IGui.h" />
     <ClInclude Include="Pyx\Graphics\Gui\ImGuiImpl.h" />
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D11Renderer.h" />
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D11StateBlock.h" />
+    <ClInclude Include="Pyx\Graphics\Renderer\DXGI.h" />
     <ClInclude Include="Pyx\Graphics\Renderer\D3D9Renderer.h" />
     <ClInclude Include="Pyx\Graphics\Renderer\IRenderer.h" />
+    <ClInclude Include="Pyx\Input\InputContext.h" />
     <ClInclude Include="Pyx\Patch\Detour.h" />
     <ClInclude Include="Pyx\Patch\IHook.h" />
     <ClInclude Include="Pyx\Patch\IPatch.h" />
     <ClInclude Include="Pyx\Patch\PatchContext.h" />
+    <ClInclude Include="Pyx\Patch\VmtHook.h" />
     <ClInclude Include="Pyx\Pyx.h" />
     <ClInclude Include="Pyx\PyxContext.h" />
     <ClInclude Include="Pyx\PyxInitSettings.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Mapping_WString.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Override.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_FileSystem.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Scripting.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Win32.h" />
+    <ClInclude Include="Pyx\Scripting\Script.h" />
+    <ClInclude Include="Pyx\Scripting\ScriptDef.h" />
+    <ClInclude Include="Pyx\Scripting\ScriptingContext.h" />
+    <ClInclude Include="Pyx\Threading\Thread.h" />
+    <ClInclude Include="Pyx\Threading\ThreadContext.h" />
     <ClInclude Include="Pyx\Utility\Callbacks.h" />
+    <ClInclude Include="Pyx\Utility\IniFile.h" />
     <ClInclude Include="Pyx\Utility\String.h" />
     <ClInclude Include="Pyx\Utility\XorString.h" />
   </ItemGroup>
@@ -42,6 +60,41 @@
     <ClCompile Include="ImGui\imgui_impl_dx10.cpp" />
     <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
     <ClCompile Include="ImGui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="Lua\lapi.c" />
+    <ClCompile Include="Lua\lauxlib.c" />
+    <ClCompile Include="Lua\lbaselib.c" />
+    <ClCompile Include="Lua\lbitlib.c" />
+    <ClCompile Include="Lua\lcode.c" />
+    <ClCompile Include="Lua\lcorolib.c" />
+    <ClCompile Include="Lua\lctype.c" />
+    <ClCompile Include="Lua\ldblib.c" />
+    <ClCompile Include="Lua\ldebug.c" />
+    <ClCompile Include="Lua\ldo.c" />
+    <ClCompile Include="Lua\ldump.c" />
+    <ClCompile Include="Lua\lfunc.c" />
+    <ClCompile Include="Lua\lgc.c" />
+    <ClCompile Include="Lua\linit.c" />
+    <ClCompile Include="Lua\liolib.c" />
+    <ClCompile Include="Lua\llex.c" />
+    <ClCompile Include="Lua\lmathlib.c" />
+    <ClCompile Include="Lua\lmem.c" />
+    <ClCompile Include="Lua\loadlib.c" />
+    <ClCompile Include="Lua\lobject.c" />
+    <ClCompile Include="Lua\lopcodes.c" />
+    <ClCompile Include="Lua\loslib.c" />
+    <ClCompile Include="Lua\lparser.c" />
+    <ClCompile Include="Lua\lstate.c" />
+    <ClCompile Include="Lua\lstring.c" />
+    <ClCompile Include="Lua\lstrlib.c" />
+    <ClCompile Include="Lua\ltable.c" />
+    <ClCompile Include="Lua\ltablib.c" />
+    <ClCompile Include="Lua\ltm.c" />
+    <ClCompile Include="Lua\lua.c" />
+    <ClCompile Include="Lua\luac.c" />
+    <ClCompile Include="Lua\lundump.c" />
+    <ClCompile Include="Lua\lutf8lib.c" />
+    <ClCompile Include="Lua\lvm.c" />
+    <ClCompile Include="Lua\lzio.c" />
     <ClCompile Include="MinHook\src\buffer.c" />
     <ClCompile Include="MinHook\src\HDE\hde32.c" />
     <ClCompile Include="MinHook\src\HDE\hde64.c" />
@@ -50,9 +103,16 @@
     <ClCompile Include="Pyx\Graphics\GraphicsContext.cpp" />
     <ClCompile Include="Pyx\Graphics\GuiContext.cpp" />
     <ClCompile Include="Pyx\Graphics\Gui\ImGuiImpl.cpp" />
+    <ClCompile Include="Pyx\Graphics\Renderer\D3D11Renderer.cpp" />
     <ClCompile Include="Pyx\Graphics\Renderer\D3D9Renderer.cpp" />
+    <ClCompile Include="Pyx\Graphics\Renderer\DXGI.cpp" />
+    <ClCompile Include="Pyx\Input\InputContext.cpp" />
     <ClCompile Include="Pyx\Patch\PatchContext.cpp" />
     <ClCompile Include="Pyx\PyxContext.cpp" />
+    <ClCompile Include="Pyx\Scripting\Script.cpp" />
+    <ClCompile Include="Pyx\Scripting\ScriptDef.cpp" />
+    <ClCompile Include="Pyx\Scripting\ScriptingContext.cpp" />
+    <ClCompile Include="Pyx\Threading\ThreadContext.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{16D45E86-A32A-4D6A-9622-843A94E0D64B}</ProjectGuid>
@@ -106,16 +166,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath);$(ProjectDir);$(ProjectDir)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath);$(ProjectDir);$(ProjectDir)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath);$(ProjectDir);$(ProjectDir)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath);$(ProjectDir);$(ProjectDir)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -166,6 +230,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

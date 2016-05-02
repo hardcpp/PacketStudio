@@ -14,6 +14,7 @@
 #include <d3dcompiler.h>
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
+#pragma comment(lib, "D3dcompiler.lib")
 
 // Data
 static INT64                    g_Time = 0;
@@ -549,7 +550,7 @@ void ImGui_ImplDX11_NewFrame()
     // io.MouseWheel : filled by WM_MOUSEWHEEL events
 
     // Hide OS mouse cursor if ImGui is drawing it
-    SetCursor(io.MouseDrawCursor ? NULL : LoadCursor(NULL, IDC_ARROW));
+    //SetCursor(io.MouseDrawCursor ? NULL : LoadCursor(NULL, IDC_ARROW));
 
     // Start the frame
     ImGui::NewFrame();
