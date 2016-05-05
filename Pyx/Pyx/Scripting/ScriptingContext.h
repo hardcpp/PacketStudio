@@ -1,6 +1,6 @@
 #pragma once
 #include <set>
-#include "Script.h"
+#include <Pyx/Scripting/Script.h>
 
 namespace Pyx
 {

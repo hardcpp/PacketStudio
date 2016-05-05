@@ -1,7 +1,7 @@
 #pragma once
-#include "Pyx.h"
-#include "PyxInitSettings.h"
-#include "Utility/Callbacks.h"
+#include <Pyx/Pyx.h>
+#include <Pyx/PyxInitSettings.h>
+#include <Pyx/Utility/Callbacks.h>
 #include <memory>
 #include <iostream>
 #include <fstream>

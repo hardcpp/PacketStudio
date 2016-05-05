@@ -1,14 +1,12 @@
-#include "DXGI.h"
+
 #include <dxgi.h>
-#include "../../PyxContext.h"
-#include "../../Patch/Detour.h"
-#include "../GraphicsContext.h"
-#include "../GuiContext.h"
-#include "../../Patch/PatchContext.h"
-#include "../../Utility/String.h"
 #include <d3d11.h>
 #include <d3d10.h>
-#include "D3D11Renderer.h"
+#include <Pyx/Graphics/Renderer/D3D11Renderer.h>
+#include <Pyx/Patch/Detour.h>
+#include <Pyx/Graphics/Renderer/DXGI.h>
+#include <Pyx/Utility/String.h>
+#include <Pyx/Patch/PatchContext.h>
 #pragma comment(lib, "d3d10.lib")
 #pragma comment(lib, "d3d11.lib")
 

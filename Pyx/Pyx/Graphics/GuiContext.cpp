@@ -1,6 +1,5 @@
-#include "GuiContext.h"
-#include "../Pyx.h"
-#include "../PyxContext.h"
+#include <Pyx/Graphics/GuiContext.h>
+#include <Pyx/PyxContext.h>
 #include "Gui/ImGuiImpl.h"
 
 Pyx::Graphics::GuiContext& Pyx::Graphics::GuiContext::GetInstance()

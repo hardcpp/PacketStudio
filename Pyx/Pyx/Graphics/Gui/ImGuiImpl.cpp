@@ -1,20 +1,15 @@
-#include "ImGuiImpl.h"
-#include "../../PyxContext.h"
-#include "../GuiContext.h"
-#include "../GraphicsContext.h"
-#include "../Renderer/IRenderer.h"
-#include "../Renderer/D3D9Renderer.h"
-#include "../../../ImGui/imgui.h"
-#include "../../../ImGui/imgui_impl_dx9.h"
-#include "../../../ImGui/imgui_impl_dx11.h"
-#include "../../../Roboto/Font.h"
-#include "../../../MaterialDesign/Font.h"
-#include "../../../MaterialDesign/IconsMaterialDesign.h"
-#include "../Renderer/D3D11Renderer.h"
-#include "../../Input/InputContext.h"
-#include "../../../utf8/utf8.h"
-#include "../../../ImGui/imgui_internal.h"
 #include <Pyx/Scripting/ScriptingContext.h>
+#include <Pyx/Graphics/Gui/ImGuiImpl.h>
+#include <Pyx/Graphics/Renderer/D3D9Renderer.h>
+#include <Pyx/Graphics/Renderer/D3D11Renderer.h>
+#include <ImGui/imgui.h>
+#include <ImGui/imgui_impl_dx9.h>
+#include <ImGui/imgui_impl_dx11.h>
+#include <Roboto/Font.h>
+#include <MaterialDesign/Font.h>
+#include <MaterialDesign/IconsMaterialDesign.h>
+#include <Pyx/Input/InputContext.h>
+#include <ImGui/imgui_internal.h>
 
 Pyx::Graphics::Gui::ImGuiImpl& Pyx::Graphics::Gui::ImGuiImpl::GetInstance()
 {
@@ -279,9 +274,7 @@ void Pyx::Graphics::Gui::ImGuiImpl::Logger_OnWriteLine(const std::wstring& line)
     if (m_logsItems.size() > 100)
         m_logsItems.erase(m_logsItems.begin());
 
-    std::string utf8Line;
-    utf8::utf16to8(line.begin(), line.end(), std::back_inserter(utf8Line));
-    m_logsItems.push_back(utf8Line);
+    m_logsItems.push_back(Utility::String::utf8_encode(line));
     m_logScrollToEnd = true;
 }
 
@@ -389,9 +382,7 @@ void Pyx::Graphics::Gui::ImGuiImpl::BuildMainMenuBar()
                 if (pScript->IsRunning())
                 {
                     auto& name = pScript->GetName();
-                    std::string scriptName;
-                    utf8::utf16to8(name.begin(), name.end(), back_inserter(scriptName));
-                    if (ImGui::MenuItem((std::string(ICON_MD_CLEAR) + " " + scriptName).c_str(), XorStringA("(running)")))
+                    if (ImGui::MenuItem((std::string(ICON_MD_CLEAR) + " " + Utility::String::utf8_encode(name)).c_str(), XorStringA("(running)")))
                     {
                         pScript->Stop();
                     }
@@ -401,9 +392,7 @@ void Pyx::Graphics::Gui::ImGuiImpl::BuildMainMenuBar()
                     if (!pScript->IsRunning())
                     {
                         auto& name = pScript->GetName();
-                        std::string scriptName;
-                        utf8::utf16to8(name.begin(), name.end(), back_inserter(scriptName));
-                        if (ImGui::MenuItem((std::string(ICON_MD_PLAY_CIRCLE_OUTLINE) + " " + scriptName).c_str(), "(stopped)"))
+                        if (ImGui::MenuItem((std::string(ICON_MD_PLAY_CIRCLE_OUTLINE) + " " + Utility::String::utf8_encode(name)).c_str(), "(stopped)"))
                         {
                             pScript->Start();
                         }

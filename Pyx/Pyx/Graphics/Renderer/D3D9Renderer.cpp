@@ -1,10 +1,9 @@
-#include "D3D9Renderer.h"
-#include "../GraphicsContext.h"
-#include "../GuiContext.h"
-#include "../Gui/IGui.h"
-#include "../../Patch/PatchContext.h"
-#include "../../Patch/Detour.h"
-#include "../../Utility/String.h"
+#include <Pyx/Graphics/Renderer/D3D9Renderer.h>
+#include <Pyx/Patch/Detour.h>
+#include <Pyx/Graphics/GuiContext.h>
+#include <Pyx/Graphics/Gui/IGui.h>
+#include <Pyx/Utility/String.h>
+#include <Pyx/Patch/PatchContext.h>
 
 typedef HRESULT(WINAPI *tIDirect3DDevice9__Present)(IDirect3DDevice9*, const RECT*, const RECT*, HWND, const RGNDATA*);
 typedef HRESULT(WINAPI *tIDirect3DDevice9__Reset)(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);

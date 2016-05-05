@@ -182,6 +182,12 @@
     <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Win32.h">
       <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
     </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Memory.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\ImGui.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pyx\PyxContext.cpp">

@@ -1,7 +1,7 @@
 #pragma once
 #include <set>
-#include "Detour.h"
-#include "VmtHook.h"
+#include <Pyx/Patch/Detour.h>
+#include <Pyx/Patch/VmtHook.h>
 
 namespace Pyx
 {

@@ -1,8 +1,6 @@
-#include "GraphicsContext.h"
-#include "GuiContext.h"
-#include "../Pyx.h"
-#include "../PyxContext.h"
-#include "Renderer/D3D9Renderer.h"
+#include <Pyx/Graphics/GraphicsContext.h>
+#include <Pyx/Graphics/Renderer/IRenderer.h>
+#include <Pyx/PyxContext.h>
 
 Pyx::Graphics::GraphicsContext& Pyx::Graphics::GraphicsContext::GetInstance()
 {

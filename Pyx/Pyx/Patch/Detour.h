@@ -1,6 +1,6 @@
 #pragma once
-#include "IHook.h"
-#include "../../MinHook/include/MinHook.h"
+#include <Pyx/Patch/IHook.h>
+#include <MinHook/include/MinHook.h>
 
 namespace Pyx
 {

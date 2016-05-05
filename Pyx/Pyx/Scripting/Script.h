@@ -1,15 +1,12 @@
 #pragma once
-#include <string>
-#include <fstream>
-#include <functional>
 #include <map>
 #include <vector>
 #include <mutex>
-#include "../../Lua/lua.hpp"
-#include "../../Lua/LuaIntf.h"
-#include "../../Lua/LuaRef.h"
-#include "LuaModules/Mapping_WString.h"
-#include "../PyxContext.h"
+#include <Pyx/Scripting/LuaModules/Mapping_WString.h>
+
+#define LUAINTF_ADD_ENUM_VALUE(state, constant) \
+    state.push((int)constant); \
+    state.setGlobal(#constant);
 
 using namespace LuaIntf;
 

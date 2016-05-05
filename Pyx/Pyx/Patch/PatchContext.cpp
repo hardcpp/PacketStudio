@@ -1,5 +1,4 @@
-#include "PatchContext.h"
-#include "../../MinHook/include/MinHook.h"
+#include <Pyx/Patch/PatchContext.h>
 
 Pyx::Patch::PatchContext& Pyx::Patch::PatchContext::GetInstance()
 {

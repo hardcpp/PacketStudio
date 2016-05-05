@@ -1,11 +1,13 @@
-#include "Script.h"
-#include <Pyx/PyxContext.h>
-#include "ScriptDef.h"
-#include "ScriptingContext.h"
-#include "LuaModules/Override.h"
-#include <Shlwapi.h>
-#include "LuaModules/Pyx_Scripting.h"
-#include "LuaModules/Pyx_FileSystem.h"
+#include <Pyx/Scripting/Script.h>
+#include <Pyx/Scripting/ScriptDef.h>
+#include <Pyx/Scripting/ScriptingContext.h>
+#include <Pyx/Scripting/LuaModules/Mapping_WString.h>
+#include <Pyx/Scripting/LuaModules/Override.h>
+#include <Pyx/Scripting/LuaModules/Pyx_FileSystem.h>
+#include <Pyx/Scripting/LuaModules/Pyx_Scripting.h>
+#include <Pyx/Scripting/LuaModules/Pyx_Win32.h>
+#include <Pyx/Scripting/LuaModules/Pyx_Memory.h>
+#include "LuaModules/ImGui.h"
 
 
 Pyx::Scripting::Script::Script(const std::wstring& name, const std::wstring& defFileName)
@@ -52,8 +54,11 @@ void Pyx::Scripting::Script::Start()
                 m_luaState.openLibs();
 
                 LuaModules::Override::BindToScript(this);
+                LuaModules::ImGuiLua::BindToScript(this);
                 LuaModules::Pyx_Scripting::BindToScript(this);
                 LuaModules::Pyx_FileSystem::BindToScript(this);
+                LuaModules::Pyx_Win32::BindToScript(this);
+                LuaModules::Pyx_Memory::BindToScript(this);
 
                 ScriptingContext::GetInstance().GetOnStartScriptCallbacks().Run(*this);
                 m_isRunning = true;

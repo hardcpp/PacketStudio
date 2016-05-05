@@ -1,5 +1,5 @@
 #pragma once
-#include "../PyxContext.h"
+#include <Pyx/PyxContext.h>
 
 namespace Pyx
 {

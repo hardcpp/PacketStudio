@@ -1,6 +1,5 @@
-#include "ScriptingContext.h"
-#include "Script.h"
-#include "ScriptDef.h"
+#include <Pyx/Scripting/ScriptDef.h>
+#include <Pyx/Scripting/ScriptingContext.h>
 
 Pyx::Scripting::ScriptingContext& Pyx::Scripting::ScriptingContext::GetInstance()
 {

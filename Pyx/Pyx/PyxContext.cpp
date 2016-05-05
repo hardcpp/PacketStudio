@@ -1,18 +1,16 @@
-#include "PyxContext.h"
-#include "Pyx.h"
-#include "Patch/PatchContext.h"
-#include "Graphics/GraphicsContext.h"
-#include "Graphics/Renderer/D3D9Renderer.h"
-#include "Graphics/Renderer/DXGI.h"
-#include "Graphics/GuiContext.h"
-#include "Graphics/Gui/IGui.h"
-#include "Threading/ThreadContext.h"
-#include "Threading/Thread.h"
-#include "Input/InputContext.h"
-#include "Graphics/Renderer/D3D11Renderer.h"
+#include <Pyx/PyxContext.h>
+#include <Pyx/Patch/PatchContext.h>
+#include <Pyx/Graphics/Renderer/D3D9Renderer.h>
+#include <Pyx/Graphics/Renderer/DXGI.h>
+#include <Pyx/Graphics/GuiContext.h>
+#include <Pyx/Graphics/Gui/IGui.h>
+#include <Pyx/Threading/ThreadContext.h>
+#include <Pyx/Threading/Thread.h>
+#include <Pyx/Input/InputContext.h>
+#include <Pyx/Graphics/Renderer/D3D11Renderer.h>
+#include <Pyx/Scripting/ScriptingContext.h>
 #include <iomanip>
 #include <ctime>
-#include "Scripting/ScriptingContext.h"
 
 Pyx::PyxContext* s_pPyxContext = nullptr;
 

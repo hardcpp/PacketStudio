@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Pyx.h"
+#include <Pyx/Pyx.h>
 
 namespace Pyx
 {

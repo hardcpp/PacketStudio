@@ -1,9 +1,9 @@
-
+#pragma once
 #include <locale>
 #include <codecvt>
-#include "../../Lua/lua.hpp"
-#include "../../Lua/LuaIntf.h"
-#include "../PyxContext.h"
+#include <Pyx/PyxContext.h>
+#include <Lua/lua.hpp>
+#include <Lua/LuaIntf.h>
 #include <Pyx/Utility/String.h>
 
 namespace LuaIntf
@@ -15,7 +15,7 @@ namespace LuaIntf
         static void push(lua_State* L, const std::wstring& str)
         {
             if (str.empty()) 
-            {
+{
                 lua_pushliteral(L, "");
             }
             else 

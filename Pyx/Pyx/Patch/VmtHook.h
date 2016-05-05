@@ -1,5 +1,5 @@
 #pragma once
-#include "IHook.h"
+#include <Pyx/Patch/IHook.h>
 
 namespace Pyx
 {

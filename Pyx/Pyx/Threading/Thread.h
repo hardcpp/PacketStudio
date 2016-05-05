@@ -1,6 +1,5 @@
 #pragma once
 #include <Windows.h>
-#include "../PyxContext.h"
 
 namespace Pyx
 {

@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Script.h"
-#include "../Utility/IniFile.h"
+#include <Pyx/Scripting/Script.h>
+#include <Pyx/Utility/IniFile.h>
 
 namespace Pyx
 {

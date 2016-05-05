@@ -1,5 +1,5 @@
 #pragma once
-#include "IPatch.h"
+#include <Pyx/Patch/IPatch.h>
 
 namespace Pyx
 {

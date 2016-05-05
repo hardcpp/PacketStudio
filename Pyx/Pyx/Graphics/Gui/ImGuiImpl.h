@@ -1,6 +1,6 @@
 #pragma once
-#include "../../Pyx.h"
-#include "../GraphicsContext.h"
+#include <Pyx/Graphics/GraphicsContext.h>
+#include <Pyx/Pyx.h>
 #include "IGui.h"
 #include <mutex>
 #include <vector>

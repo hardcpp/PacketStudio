@@ -1,9 +1,9 @@
-#include "InputContext.h"
+#include <Pyx/Input/InputContext.h>
 #include <Windows.h>
-#include "../Patch/PatchContext.h"
-#include "../Patch/Detour.h"
-#include "../Graphics/GuiContext.h"
-#include "../Graphics/Gui/IGui.h"
+#include <Pyx/Patch/Detour.h>
+#include <Pyx/Patch/PatchContext.h>
+#include <Pyx/Graphics/GuiContext.h>
+#include <Pyx/Graphics/Gui/IGui.h>
 
 typedef BOOL(WINAPI *tGetMessageA)(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT  wMsgFilterMax);
 typedef BOOL(WINAPI *tGetMessageW)(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT  wMsgFilterMax);

@@ -1,10 +1,20 @@
-#include "D3D11Renderer.h"
-#include "../GraphicsContext.h"
-#include "../GuiContext.h"
-#include "../Gui/IGui.h"
-#include "../../Patch/PatchContext.h"
-#include "../../Patch/Detour.h"
-#include "../../Utility/String.h"
+#include <Pyx/Graphics/Renderer/D3D11Renderer.h>
+#include <Pyx/Graphics/GuiContext.h>
+#include <Pyx/PyxContext.h>
+#include <Pyx/Graphics/GraphicsContext.h>
+#include <Pyx/Graphics/Gui/IGui.h>
+#include <Pyx/Patch/Detour.h>
+
+typedef void(WINAPI *tID3D11DeviceContext__OMSetRenderTargets)(ID3D11DeviceContext* pContext, unsigned int numViews, ID3D11RenderTargetView** ppRenderTargetViews, ID3D11DepthStencilView* pDepthStencilView);
+
+Pyx::Patch::Detour<tID3D11DeviceContext__OMSetRenderTargets>* g_pID3D11DeviceContext__OMSetRenderTargets;
+
+void WINAPI ID3D11DeviceContext__OMSetRenderTargetsDetour(ID3D11DeviceContext* pContext, unsigned int numViews, ID3D11RenderTargetView** ppRenderTargetViews, ID3D11DepthStencilView* pDepthStencilView)
+{
+    Pyx::Graphics::Renderer::D3D11Renderer::GetInstance().OnOMSetRenderTargets(pContext, numViews, ppRenderTargetViews, pDepthStencilView);
+    g_pID3D11DeviceContext__OMSetRenderTargets->GetTrampoline()(pContext, numViews, ppRenderTargetViews, pDepthStencilView);
+    g_pID3D11DeviceContext__OMSetRenderTargets->EnsureApply();
+}
 
 void Pyx::Graphics::Renderer::D3D11Renderer::ApplyDevicesHook()
 {
@@ -138,6 +148,11 @@ void Pyx::Graphics::Renderer::D3D11Renderer::OnResizeTarget(ID3D11Device* pDevic
     ReleaseResources();
     SetDevice(pDevice, pSwapChain);
     GetOnResizeTargetCallbacks().Run(this, pSwapChain, pDevice, pNewTargetParameters);
+}
+
+void Pyx::Graphics::Renderer::D3D11Renderer::OnOMSetRenderTargets(ID3D11DeviceContext* pContext, unsigned numViews, ID3D11RenderTargetView** ppRenderTargetViews, ID3D11DepthStencilView* pDepthStencilView)
+{
+    GetOnOMSetRenderTargetsCallbacks().Run(this, pContext, numViews, ppRenderTargetViews, pDepthStencilView);
 }
 
 void Pyx::Graphics::Renderer::D3D11Renderer::OnPresent(ID3D11Device* pDevice, IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)

@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "Pyx.h"
+#include <Pyx/Pyx.h>
 
 namespace Pyx
 {

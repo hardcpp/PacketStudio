@@ -1,6 +1,6 @@
 #pragma once
-#include "../../Pyx.h"
-#include "../GraphicsContext.h"
+#include <Pyx/Pyx.h>
+#include <Pyx/Graphics/GraphicsContext.h>
 
 namespace Pyx
 {

@@ -2,7 +2,7 @@
 #include <d3d9.h>
 #pragma comment(lib, "d3d9.lib")
 #include "IRenderer.h"
-#include "../../Utility/Callbacks.h"
+#include <Pyx/Utility/Callbacks.h>
 
 namespace Pyx
 {

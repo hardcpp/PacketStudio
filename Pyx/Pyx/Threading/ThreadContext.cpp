@@ -1,5 +1,5 @@
-#include "ThreadContext.h"
-#include "Thread.h"
+#include <Pyx/Threading/ThreadContext.h>
+#include <Pyx/Threading/Thread.h>
 #include <tlhelp32.h>
 
 Pyx::Threading::ThreadContext& Pyx::Threading::ThreadContext::GetInstance()
