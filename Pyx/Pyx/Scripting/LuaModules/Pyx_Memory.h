@@ -4,6 +4,7 @@
 
 namespace LuaModules
 {
+    // Using Read/WriteProcessMemory here because I don't want script to crash the game :p
     namespace Pyx_Memory
     {
 

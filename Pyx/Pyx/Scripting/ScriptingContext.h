@@ -12,7 +12,7 @@ namespace Pyx
         {
 
         public:
-            typedef void OnStartScriptCallback(Script& script);
+            typedef void OnStartScriptCallback(Script* script);
 
         public:
             static ScriptingContext& GetInstance();

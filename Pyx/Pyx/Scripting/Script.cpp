@@ -7,7 +7,8 @@
 #include <Pyx/Scripting/LuaModules/Pyx_Scripting.h>
 #include <Pyx/Scripting/LuaModules/Pyx_Win32.h>
 #include <Pyx/Scripting/LuaModules/Pyx_Memory.h>
-#include "LuaModules/ImGui.h"
+#include <Pyx/Scripting/LuaModules/Pyx_Input.h>
+#include <Pyx/Scripting/LuaModules/ImGui.h>
 
 
 Pyx::Scripting::Script::Script(const std::wstring& name, const std::wstring& defFileName)
@@ -28,7 +29,7 @@ void Pyx::Scripting::Script::Stop(bool fireEvent)
 {
     if (IsRunning())
     {
-        PyxContext::GetInstance().Log(L"Stopping script \"%s\" ...", m_name);
+        PyxContext::GetInstance().Log(L"Stopping script \"%s\" ...", m_name.c_str());
         if (fireEvent) FireCallback(L"Pyx.OnScriptStop");
         m_isRunning = false;
         m_callbacks.clear();
@@ -49,7 +50,7 @@ void Pyx::Scripting::Script::Start()
             if (scriptDef.Validate(errorMessage))
             {
 
-                PyxContext::GetInstance().Log(L"Starting script \"%s\" ...", m_name);
+                PyxContext::GetInstance().Log(L"Starting script \"%s\" ...", m_name.c_str());
                 m_luaState = LuaState(luaL_newstate());
                 m_luaState.openLibs();
 
@@ -59,19 +60,22 @@ void Pyx::Scripting::Script::Start()
                 LuaModules::Pyx_FileSystem::BindToScript(this);
                 LuaModules::Pyx_Win32::BindToScript(this);
                 LuaModules::Pyx_Memory::BindToScript(this);
+                LuaModules::Pyx_Input::BindToScript(this);
 
-                ScriptingContext::GetInstance().GetOnStartScriptCallbacks().Run(*this);
+                ScriptingContext::GetInstance().GetOnStartScriptCallbacks().Run(this);
                 m_isRunning = true;
 
                 if (scriptDef.Run(m_luaState))
+                {
                     FireCallback(L"Pyx.OnScriptStart");
+                }
                 else
                     m_isRunning = false;
 
             }
             else
             {
-                PyxContext::GetInstance().Log(L"Error starting script \"%s\"", m_name);
+                PyxContext::GetInstance().Log(L"Error starting script \"%s\"", m_name.c_str());
                 PyxContext::GetInstance().Log(errorMessage);
             }
 

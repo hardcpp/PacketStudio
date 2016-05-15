@@ -1,7 +1,6 @@
 #include "ScriptDef.h"
 #include <Shlwapi.h>
 #include "../PyxContext.h"
-#include "../../utf8/utf8.h"
 
 Pyx::Scripting::ScriptDef::ScriptDef(std::wstring fileName)
 {
@@ -67,7 +66,7 @@ bool Pyx::Scripting::ScriptDef::Validate(std::wstring& error)
     {
 
         DWORD dwAttrib = GetFileAttributesW(dep.c_str());
-        if (dwAttrib == INVALID_FILE_ATTRIBUTES || (dwAttrib & FILE_ATTRIBUTE_DIRECTORY))
+        if (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY))
         {
             ScriptDef def{ dep };
             if (!def.Validate(error))
@@ -116,9 +115,7 @@ bool Pyx::Scripting::ScriptDef::Run(LuaIntf::LuaState& luaState)
             {
                 PyxContext::GetInstance().Log(L"Error fin file : \"" + file + L"\" :");
                 std::string error = luaState.getString(-1);
-                std::wstring utf16Error;
-                utf8::utf8to16(error.begin(), error.end(), utf16Error.begin());
-                PyxContext::GetInstance().Log(utf16Error);
+                PyxContext::GetInstance().Log(error);
                 return false;
             }
         }

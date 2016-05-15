@@ -19,8 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FontAwesome\FontAwesome.h" />
-    <ClInclude Include="FontAwesome\IconsFontAwesome.h" />
     <ClInclude Include="Pyx\Graphics\GraphicsContext.h" />
     <ClInclude Include="Pyx\Graphics\GuiContext.h" />
     <ClInclude Include="Pyx\Graphics\Gui\IGui.h" />
@@ -43,6 +41,7 @@
     <ClInclude Include="Pyx\Scripting\LuaModules\Mapping_WString.h" />
     <ClInclude Include="Pyx\Scripting\LuaModules\Override.h" />
     <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_FileSystem.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Input.h" />
     <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Memory.h" />
     <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Scripting.h" />
     <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Win32.h" />

@@ -204,15 +204,43 @@ void Pyx::Graphics::Gui::ImGuiImpl::OnFrame()
                     return;
                 }
 
-                BuildMainMenuBar();
-                BuildLogsWindow();
-                BuildDebugWindow();
+				if (m_isVisible)
+				{
 
-                Scripting::ScriptingContext::GetInstance().FireCallbacks(L"ImGui.OnRender");
+					BuildMainMenuBar();
+					BuildLogsWindow();
+					BuildDebugWindow();
 
-                ImGui::Render();
+					GetOnRenderCallbacks().Run(this);
+					Scripting::ScriptingContext::GetInstance().FireCallbacks(L"ImGui.OnRender");
+
+					ImGui::Render();
+
+				}
 
             }
+
+			static int lastToggleVisibilityTick = 0;
+			if (GetTickCount() - lastToggleVisibilityTick > 250)
+			{
+
+				bool shouldToggle = true;
+				for (auto vKey : PyxContext::GetInstance().GetSettings().GuiToggleVisibilityHotkeys)
+				{
+					if (GetAsyncKeyState(vKey) == NULL)
+					{
+						shouldToggle = false;
+						break;
+					}
+				}
+
+				if (shouldToggle)
+				{
+					ToggleVisibility(!IsVisible());
+					lastToggleVisibilityTick = GetTickCount();
+				}
+
+			}
 
         }
 
@@ -251,6 +279,7 @@ bool Pyx::Graphics::Gui::ImGuiImpl::OnWindowMessage(const MSG* lpMsg)
             case WM_MOUSEMOVE:
                 return io.WantCaptureMouse;
             case WM_KEYDOWN:
+				PyxContext::GetInstance().Log("Get WM_KEYDOWN !");
                 if (lpMsg->wParam < 256)
                     io.KeysDown[lpMsg->wParam] = 1;
                 return io.WantCaptureKeyboard || io.WantTextInput;
@@ -259,6 +288,7 @@ bool Pyx::Graphics::Gui::ImGuiImpl::OnWindowMessage(const MSG* lpMsg)
                     io.KeysDown[lpMsg->wParam] = 0;
                 return io.WantCaptureKeyboard || io.WantTextInput;
             case WM_CHAR:
+				PyxContext::GetInstance().Log("Get WM_CHAR !");
                 if (lpMsg->wParam > 0 && lpMsg->wParam < 0x10000)
                     io.AddInputCharacter((unsigned short)lpMsg->wParam);
                 return io.WantCaptureKeyboard || io.WantTextInput;
@@ -364,6 +394,11 @@ void Pyx::Graphics::Gui::ImGuiImpl::SetupStyle(bool bDarkStyle) const
 
 }
 
+void Pyx::Graphics::Gui::ImGuiImpl::ToggleVisibility(bool bVisible)
+{
+	m_isVisible = bVisible;
+}
+
 void Pyx::Graphics::Gui::ImGuiImpl::BuildMainMenuBar()
 {
     if (ImGui::BeginMainMenuBar())
@@ -402,9 +437,8 @@ void Pyx::Graphics::Gui::ImGuiImpl::BuildMainMenuBar()
             if (ImGui::MenuItem((std::string(ICON_MD_REPLAY) + XorStringA(" Reload scripts")).c_str())) { Scripting::ScriptingContext::GetInstance().ReloadScripts(); }
             ImGui::EndMenu();
         }
-
-
-
+        
+        GetOnDrawMainMenuBarCallbacks().Run(this);
         Scripting::ScriptingContext::GetInstance().FireCallbacks(L"ImGui.OnRenderMainMenuBar");
 
         ImGui::EndMainMenuBar();

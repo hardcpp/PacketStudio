@@ -1,6 +1,5 @@
 #pragma once
 #include <Pyx/Scripting/Script.h>
-#include <Shlwapi.h>
 
 namespace LuaModules
 {

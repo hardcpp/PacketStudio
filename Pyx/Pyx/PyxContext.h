@@ -53,10 +53,10 @@ namespace Pyx
         template<typename ... Args>
         void Log(const std::wstring& format, Args ... args)
         {
-            size_t size = _snwprintf(nullptr, 0, format.c_str(), args ...) + 2;
+            size_t size = _snwprintf(nullptr, 0, format.c_str(), args ...) + 2; // Extra space for '\0\0'
             std::unique_ptr<wchar_t[]> buf(new wchar_t[size]);
             _snwprintf(buf.get(), size, format.c_str(), args ...);
-            auto str = std::wstring(buf.get(), buf.get() + size - 2); // We don't want the '\0' inside
+            auto str = std::wstring(buf.get(), buf.get() + size - 2); // We don't want the '\0\0' inside
             Log(str);
         }
         Utility::Callbacks<tOnPyxShutdownStartingCallback>& GetOnPyxShutdownStartingCallbacks() { return m_OnPyxShutdownStartingCallbacks; }

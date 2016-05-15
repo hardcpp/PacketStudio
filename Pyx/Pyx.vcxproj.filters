@@ -57,9 +57,6 @@
     <Filter Include="Sources\Pyx\Threading">
       <UniqueIdentifier>{829072df-f757-4c70-b8e7-9ce33b98416c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers\FontAwesome">
-      <UniqueIdentifier>{ab0d6137-07f6-4f88-9744-51a7f6f499cb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Headers\Pyx\Input">
       <UniqueIdentifier>{829acfae-e482-499d-9c0b-6a9102995ed3}</UniqueIdentifier>
     </Filter>
@@ -134,12 +131,6 @@
     <ClInclude Include="Pyx\Threading\Thread.h">
       <Filter>Headers\Pyx\Threading</Filter>
     </ClInclude>
-    <ClInclude Include="FontAwesome\FontAwesome.h">
-      <Filter>Headers\FontAwesome</Filter>
-    </ClInclude>
-    <ClInclude Include="FontAwesome\IconsFontAwesome.h">
-      <Filter>Headers\FontAwesome</Filter>
-    </ClInclude>
     <ClInclude Include="Pyx\Input\InputContext.h">
       <Filter>Headers\Pyx\Input</Filter>
     </ClInclude>
@@ -186,6 +177,9 @@
       <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
     </ClInclude>
     <ClInclude Include="Pyx\Scripting\LuaModules\ImGui.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Input.h">
       <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
     </ClInclude>
   </ItemGroup>

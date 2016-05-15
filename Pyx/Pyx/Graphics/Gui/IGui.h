@@ -37,6 +37,8 @@ namespace Pyx
                 virtual void Initialize() = 0;
                 virtual void Shutdown() = 0;
                 virtual void OnFrame() = 0;
+				virtual bool IsVisible() const = 0;
+				virtual void ToggleVisibility(bool bVisible) = 0;
                 virtual bool OnWindowMessage(const MSG* lpMsg) { return false; }
                 virtual void Logger_OnWriteLine(const std::wstring& line) { }
                 virtual bool OnGetCursorPos(LPPOINT lpPoint) { return false; }

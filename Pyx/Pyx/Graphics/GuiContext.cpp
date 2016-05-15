@@ -24,7 +24,6 @@ void Pyx::Graphics::GuiContext::Shutdown()
     if (m_pGui)
     {
         m_pGui->Shutdown();
-        delete m_pGui;
         m_pGui = nullptr;
     }
 
@@ -37,7 +36,7 @@ Pyx::Graphics::Gui::IGui* Pyx::Graphics::GuiContext::GetGui()
         switch (PyxContext::GetInstance().GetSettings().GuiType)
         {
         case GuiType::ImGui:
-            m_pGui = new Gui::ImGuiImpl();
+            m_pGui = &Gui::ImGuiImpl::GetInstance();
             PyxContext::GetInstance().Log("[Gui] Using gui : %s", m_pGui->GetGuiTypeString());
             break;
         default:

@@ -82,8 +82,8 @@ namespace LuaModules
             LuaBinding(pScript->GetLuaState()).beginModule("Pyx")
                 .beginModule("FileSystem")
                 .addFunction("WriteFile", [pScript](const std::wstring file, const std::wstring content) { lua_WriteFile(pScript, file, content); })
-                .addFunction("ReadFile", [pScript](const std::wstring file) { lua_ReadFile(pScript, file); })
-                .addFunction("GetFiles", [pScript](const std::wstring directory) { lua_GetFiles(pScript, directory); });
+                .addFunction("ReadFile", [pScript](const std::wstring file) { return lua_ReadFile(pScript, file); })
+                .addFunction("GetFiles", [pScript](const std::wstring directory) { return lua_GetFiles(pScript, directory); });
 
         }
 
