@@ -1,6 +1,7 @@
 #include <Pyx/Graphics/Renderer/D3D11Renderer.h>
 #include <Pyx/Graphics/GuiContext.h>
 #include <Pyx/PyxContext.h>
+#include <Pyx/Patch/PatchContext.h>
 #include <Pyx/Graphics/GraphicsContext.h>
 #include <Pyx/Graphics/Gui/IGui.h>
 #include <Pyx/Patch/Detour.h>
@@ -132,7 +133,28 @@ void Pyx::Graphics::Renderer::D3D11Renderer::SetDevice(ID3D11Device* pDevice, ID
         auto* pGui = GuiContext::GetInstance().GetGui();
         if (pGui) pGui->Initialize();
 
-        GetOnDeviceChangedCallbacks().Run(this, pSwapChain, pDevice);
+		ID3D11DeviceContext* pDeviceContext;
+		pDevice->GetImmediateContext(&pDeviceContext);
+
+		if (pDeviceContext)
+		{
+
+			GetOnDeviceChangedCallbacks().Run(this, pSwapChain, pDevice);
+
+			void** ppDeviceContextVtable = *reinterpret_cast<void***>(pDeviceContext);
+
+			if (!g_pID3D11DeviceContext__OMSetRenderTargets)
+			{
+				auto& patchContext = Pyx::Patch::PatchContext::GetInstance();
+				patchContext.CreateAndApplyDetour<tID3D11DeviceContext__OMSetRenderTargets>(
+					static_cast<tID3D11DeviceContext__OMSetRenderTargets>(ppDeviceContextVtable[33]),
+					reinterpret_cast<tID3D11DeviceContext__OMSetRenderTargets>(ID3D11DeviceContext__OMSetRenderTargetsDetour),
+					&g_pID3D11DeviceContext__OMSetRenderTargets);
+			}
+		
+			pDeviceContext->Release();
+		}
+
     }
 }
 
@@ -162,8 +184,7 @@ void Pyx::Graphics::Renderer::D3D11Renderer::OnPresent(ID3D11Device* pDevice, ID
     if (!m_isResourceCreated)
         CreateResources();
     
-    if (m_pStateBlock)
-        m_pStateBlock->Capture();
+    m_pStateBlock->Capture();
 
     m_pDeviceContext->CSSetShader(nullptr, nullptr, 0);
     m_pDeviceContext->DSSetShader(nullptr, nullptr, 0);
@@ -195,12 +216,13 @@ void Pyx::Graphics::Renderer::D3D11Renderer::OnPresent(ID3D11Device* pDevice, ID
     
     GetOnPresentCallbacks().Run(this, pSwapChain, pDevice);
 
+	m_pStateBlock->Apply();
+
     auto* pGui = GuiContext::GetInstance().GetGui();
 
     if (pGui && pGui->IsInitialized())
         pGui->OnFrame();
     
-    if (m_pStateBlock)
-        m_pStateBlock->Apply();
+    m_pStateBlock->Apply();
 
 }

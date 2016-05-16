@@ -120,6 +120,7 @@ void Pyx::Graphics::Renderer::D3D9Renderer::SetDevice(IDirect3DDevice9* pDevice)
         if (pGui) pGui->Initialize();
 
         GetOnIDirect3DDevice9ChangedCallbacks().Run(this, pDevice);
+
     }
 }
 
@@ -186,7 +187,8 @@ void Pyx::Graphics::Renderer::D3D9Renderer::OnPresent(IDirect3DDevice9* pDevice,
 
         GetOnIDirect3DDevice9__PresentCallbacks().Run(this, pDevice, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion);
 
-
+		m_pStateBlock->Apply();
+		
         auto* pGui = GuiContext::GetInstance().GetGui();
 
         if (pGui && pGui->IsInitialized())
