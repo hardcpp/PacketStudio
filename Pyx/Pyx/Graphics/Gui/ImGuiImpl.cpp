@@ -279,7 +279,6 @@ bool Pyx::Graphics::Gui::ImGuiImpl::OnWindowMessage(const MSG* lpMsg)
             case WM_MOUSEMOVE:
                 return io.WantCaptureMouse;
             case WM_KEYDOWN:
-				PyxContext::GetInstance().Log("Get WM_KEYDOWN !");
                 if (lpMsg->wParam < 256)
                     io.KeysDown[lpMsg->wParam] = 1;
                 return io.WantCaptureKeyboard || io.WantTextInput;
@@ -288,7 +287,6 @@ bool Pyx::Graphics::Gui::ImGuiImpl::OnWindowMessage(const MSG* lpMsg)
                     io.KeysDown[lpMsg->wParam] = 0;
                 return io.WantCaptureKeyboard || io.WantTextInput;
             case WM_CHAR:
-				PyxContext::GetInstance().Log("Get WM_CHAR !");
                 if (lpMsg->wParam > 0 && lpMsg->wParam < 0x10000)
                     io.AddInputCharacter((unsigned short)lpMsg->wParam);
                 return io.WantCaptureKeyboard || io.WantTextInput;
