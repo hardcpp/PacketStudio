@@ -36,10 +36,9 @@ BOOL WINAPI TranslateMessageDetour(const MSG *lpMsg)
 BOOL WINAPI GetMessageADetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT  wMsgFilterMax)
 {
 	auto result = g_pGetMessageADetour->GetTrampoline()(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
-	MSG msg = *lpMsg;
-	if (TranslateMessage(&msg))
+	if (TranslateMessage(lpMsg))
 		g_translateMessageIgnoreCounter++;
-	if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(&msg))
+	if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(lpMsg))
 		RtlZeroMemory(lpMsg, sizeof(MSG));
 	return result;
 }
@@ -47,10 +46,9 @@ BOOL WINAPI GetMessageADetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT
 BOOL WINAPI GetMessageWDetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT  wMsgFilterMax)
 {
     auto result = g_pGetMessageWDetour->GetTrampoline()(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
-	MSG msg = *lpMsg;
-	if (TranslateMessage(&msg))
+	if (TranslateMessage(lpMsg))
 		g_translateMessageIgnoreCounter++;
-    if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(&msg))
+    if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(lpMsg))
         RtlZeroMemory(lpMsg, sizeof(MSG));
     return result;
 }
@@ -58,10 +56,9 @@ BOOL WINAPI GetMessageWDetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT
 BOOL WINAPI PeekMessageADetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT  wMsgFilterMax, UINT  wRemoveMsg)
 {
     auto result = g_pPeekMessageADetour->GetTrampoline()(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
-	MSG msg = *lpMsg;
-	if (TranslateMessage(&msg))
+	if (TranslateMessage(lpMsg))
 		g_translateMessageIgnoreCounter++;
-    if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(&msg))
+    if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(lpMsg))
         RtlZeroMemory(lpMsg, sizeof(MSG));
     return result;
 }
@@ -69,10 +66,9 @@ BOOL WINAPI PeekMessageADetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UIN
 BOOL WINAPI PeekMessageWDetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT  wMsgFilterMax, UINT  wRemoveMsg)
 {
     auto result = g_pPeekMessageWDetour->GetTrampoline()(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
-	MSG msg = *lpMsg;
-	if (TranslateMessage(&msg))
+	if (TranslateMessage(lpMsg))
 		g_translateMessageIgnoreCounter++;
-    if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(&msg))
+    if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(lpMsg))
         RtlZeroMemory(lpMsg, sizeof(MSG));
     return result;
 }
