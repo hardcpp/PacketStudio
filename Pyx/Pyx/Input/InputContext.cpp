@@ -11,6 +11,7 @@ typedef BOOL(WINAPI *tPeekMessageA)(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin
 typedef BOOL(WINAPI *tPeekMessageW)(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT  wMsgFilterMax, UINT  wRemoveMsg);
 typedef BOOL(WINAPI *tGetCursorPos)(LPPOINT lpPoint);
 typedef int(WINAPI *tShowCursor)(BOOL bShow);
+typedef BOOL(WINAPI *tTranslateMessage)(const MSG *lpMsg);
 
 Pyx::Patch::Detour<tGetMessageA>* g_pGetMessageADetour;
 Pyx::Patch::Detour<tGetMessageW>* g_pGetMessageWDetour;
@@ -18,22 +19,37 @@ Pyx::Patch::Detour<tPeekMessageA>* g_pPeekMessageADetour;
 Pyx::Patch::Detour<tPeekMessageW>* g_pPeekMessageWDetour;
 Pyx::Patch::Detour<tShowCursor>* g_pShowCursorDetour;
 Pyx::Patch::Detour<tGetCursorPos>* g_pGetCursorPosDetour;
+Pyx::Patch::Detour<tTranslateMessage>* g_pTranslateMessageDetour;
+thread_local int g_translateMessageIgnoreCounter = 0;
+
+BOOL WINAPI TranslateMessageDetour(const MSG *lpMsg)
+{
+	if (g_translateMessageIgnoreCounter > 0 )
+	{
+		g_translateMessageIgnoreCounter--;
+		return FALSE;
+	}
+	auto result = g_pTranslateMessageDetour->GetTrampoline()(lpMsg);
+	return result;
+}
 
 BOOL WINAPI GetMessageADetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT  wMsgFilterMax)
 {
-    auto result = g_pGetMessageADetour->GetTrampoline()(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
+	auto result = g_pGetMessageADetour->GetTrampoline()(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
 	MSG msg = *lpMsg;
-	TranslateMessage(&msg);
-    if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(&msg))
-        RtlZeroMemory(lpMsg, sizeof(MSG));
-    return result;
+	if (TranslateMessage(&msg))
+		g_translateMessageIgnoreCounter++;
+	if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(&msg))
+		RtlZeroMemory(lpMsg, sizeof(MSG));
+	return result;
 }
 
 BOOL WINAPI GetMessageWDetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UINT  wMsgFilterMax)
 {
     auto result = g_pGetMessageWDetour->GetTrampoline()(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax);
 	MSG msg = *lpMsg;
-	TranslateMessage(&msg);
+	if (TranslateMessage(&msg))
+		g_translateMessageIgnoreCounter++;
     if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(&msg))
         RtlZeroMemory(lpMsg, sizeof(MSG));
     return result;
@@ -43,7 +59,8 @@ BOOL WINAPI PeekMessageADetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UIN
 {
     auto result = g_pPeekMessageADetour->GetTrampoline()(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
 	MSG msg = *lpMsg;
-	TranslateMessage(&msg);
+	if (TranslateMessage(&msg))
+		g_translateMessageIgnoreCounter++;
     if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(&msg))
         RtlZeroMemory(lpMsg, sizeof(MSG));
     return result;
@@ -53,7 +70,8 @@ BOOL WINAPI PeekMessageWDetour(LPMSG lpMsg, HWND  hWnd, UINT  wMsgFilterMin, UIN
 {
     auto result = g_pPeekMessageWDetour->GetTrampoline()(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
 	MSG msg = *lpMsg;
-	TranslateMessage(&msg);
+	if (TranslateMessage(&msg))
+		g_translateMessageIgnoreCounter++;
     if (result == TRUE && Pyx::Input::InputContext::GetInstance().OnWindowMessage(&msg))
         RtlZeroMemory(lpMsg, sizeof(MSG));
     return result;
@@ -78,10 +96,15 @@ void Pyx::Input::InputContext::Initialize()
 
     auto& patchContext = Pyx::Patch::PatchContext::GetInstance();
 
-    patchContext.CreateAndApplyDetour<tGetMessageA>(
-        static_cast<tGetMessageA>(&GetMessageA),
-        reinterpret_cast<tGetMessageA>(GetMessageADetour),
-        &g_pGetMessageADetour);
+	patchContext.CreateAndApplyDetour<tGetMessageA>(
+		static_cast<tGetMessageA>(&GetMessageA),
+		reinterpret_cast<tGetMessageA>(GetMessageADetour),
+		&g_pGetMessageADetour);
+
+	patchContext.CreateAndApplyDetour<tTranslateMessage>(
+		static_cast<tTranslateMessage>(&TranslateMessage),
+		reinterpret_cast<tTranslateMessage>(TranslateMessageDetour),
+		&g_pTranslateMessageDetour);
 
     patchContext.CreateAndApplyDetour<tGetMessageW>(
         static_cast<tGetMessageW>(&GetMessageW),
@@ -118,6 +141,7 @@ void Pyx::Input::InputContext::Shutdown()
     if (g_pPeekMessageWDetour) g_pPeekMessageWDetour->Remove();
     if (g_pShowCursorDetour) g_pShowCursorDetour->Remove();
     if (g_pGetCursorPosDetour) g_pGetCursorPosDetour->Remove();
+    if (g_pTranslateMessageDetour) g_pTranslateMessageDetour->Remove();
 }
 
 bool Pyx::Input::InputContext::OnWindowMessage(LPMSG lpMsg)
