@@ -29,7 +29,8 @@ namespace Pyx
             private:
                 bool m_isResourceCreated;
                 IDirect3DDevice9* m_pDevice; 
-                IDirect3DStateBlock9* m_pStateBlock;
+                IDirect3DStateBlock9* m_pStateBlockOriginal;
+                IDirect3DStateBlock9* m_pStateBlockCustom;
                 Utility::Callbacks<tOnIDirect3DDevice9__PresentCallback> m_OnIDirect3DDevice9__PresentCallbacks;
                 Utility::Callbacks<tOnIDirect3DDevice9__ResetCallback> m_OnIDirect3DDevice9__ResetCallbacks;
                 Utility::Callbacks<tOnIDirect3DDevice9Changed> m_OnIDirect3DDevice9ChangedCallbacks;

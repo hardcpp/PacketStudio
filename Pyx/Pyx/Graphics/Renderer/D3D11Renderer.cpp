@@ -32,7 +32,8 @@ Pyx::Graphics::Renderer::D3D11Renderer::D3D11Renderer()
     m_pSwapChain(nullptr), 
     m_pDevice(nullptr), 
     m_pDeviceContext(nullptr), 
-    m_pStateBlock(nullptr), 
+    m_pStateBlockOriginal(nullptr), 
+    m_pStateBlockCustom(nullptr), 
     m_pDefaultBlendState(nullptr)
 {
 }
@@ -56,10 +57,11 @@ void Pyx::Graphics::Renderer::D3D11Renderer::CreateResources()
     if (m_pDevice)
         m_pDevice->GetImmediateContext(&m_pDeviceContext);
 
-    if (m_pDeviceContext)
-    {
-        m_pStateBlock = new D3D11StateBlock(m_pDeviceContext);
-    }
+	if (m_pDevice == nullptr || m_pDeviceContext == nullptr)
+		return;
+
+    m_pStateBlockOriginal = new D3D11StateBlock(m_pDeviceContext);
+    m_pStateBlockCustom = new D3D11StateBlock(m_pDeviceContext);
 
     D3D11_BLEND_DESC blend = {};
     blend.RenderTarget[0].BlendEnable = TRUE;
@@ -90,11 +92,17 @@ void Pyx::Graphics::Renderer::D3D11Renderer::ReleaseResources()
         m_pDefaultBlendState = nullptr;
     }
 
-    if (m_pStateBlock)
-    {
-        delete m_pStateBlock;
-        m_pStateBlock = nullptr;
-    }
+	if (m_pStateBlockOriginal)
+	{
+		delete m_pStateBlockOriginal;
+		m_pStateBlockOriginal = nullptr;
+	}
+
+	if (m_pStateBlockCustom)
+	{
+		delete m_pStateBlockCustom;
+		m_pStateBlockCustom = nullptr;
+	}
 
     auto* pGui = GuiContext::GetInstance().GetGui();
     if (pGui && pGui->IsInitialized())
@@ -184,7 +192,7 @@ void Pyx::Graphics::Renderer::D3D11Renderer::OnPresent(ID3D11Device* pDevice, ID
     if (!m_isResourceCreated)
         CreateResources();
     
-    m_pStateBlock->Capture();
+    m_pStateBlockOriginal->Capture();
 
     m_pDeviceContext->CSSetShader(nullptr, nullptr, 0);
     m_pDeviceContext->DSSetShader(nullptr, nullptr, 0);
@@ -213,16 +221,18 @@ void Pyx::Graphics::Renderer::D3D11Renderer::OnPresent(ID3D11Device* pDevice, ID
 
         pBackBuffer->Release();
     }
+
+	m_pStateBlockCustom->Capture();
     
     GetOnPresentCallbacks().Run(this, pSwapChain, pDevice);
 
-	m_pStateBlock->Apply();
+	m_pStateBlockCustom->Apply();
 
     auto* pGui = GuiContext::GetInstance().GetGui();
 
     if (pGui && pGui->IsInitialized())
         pGui->OnFrame();
     
-    m_pStateBlock->Apply();
+    m_pStateBlockOriginal->Apply();
 
 }

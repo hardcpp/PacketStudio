@@ -33,7 +33,8 @@ namespace Pyx
                 IDXGISwapChain* m_pSwapChain;
                 ID3D11Device* m_pDevice;
                 ID3D11DeviceContext* m_pDeviceContext;
-                D3D11StateBlock* m_pStateBlock;
+                D3D11StateBlock* m_pStateBlockOriginal;
+                D3D11StateBlock* m_pStateBlockCustom;
                 ID3D11BlendState* m_pDefaultBlendState;
                 Utility::Callbacks<tOnDeviceChanged> m_OnDeviceChangedCallbacks;
                 Utility::Callbacks<tOnPresent> m_OnPresentCallbacks;

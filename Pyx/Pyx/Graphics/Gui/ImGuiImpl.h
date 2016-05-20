@@ -26,6 +26,7 @@ namespace Pyx
                 bool m_isResourcesCreated;
                 bool m_isInitialized;
                 bool m_showDebugWindow;
+				bool m_showConsole = true;
                 std::vector<std::string> m_logsItems;
                 bool m_logScrollToEnd = false;
 				bool m_isVisible = false;

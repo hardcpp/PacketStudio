@@ -35,7 +35,7 @@ HRESULT WINAPI IDirect3DDevice9__PresentDetour(IDirect3DDevice9* pDevice,
 }
 
 Pyx::Graphics::Renderer::D3D9Renderer::D3D9Renderer()
-    : m_isResourceCreated(false), m_pDevice(nullptr), m_pStateBlock(nullptr)
+    : m_isResourceCreated(false), m_pDevice(nullptr), m_pStateBlockOriginal(nullptr), m_pStateBlockCustom(nullptr)
 {
 
 }
@@ -64,9 +64,12 @@ void Pyx::Graphics::Renderer::D3D9Renderer::CreateResources()
 {
     if (m_pDevice)
     {
-     
-        if (m_pDevice->CreateStateBlock(D3DSBT_ALL, &m_pStateBlock) != D3D_OK)
-            return;
+
+		if (m_pDevice->CreateStateBlock(D3DSBT_ALL, &m_pStateBlockOriginal) != D3D_OK)
+			return;
+
+		if (m_pDevice->CreateStateBlock(D3DSBT_ALL, &m_pStateBlockCustom) != D3D_OK)
+			return;
 
         m_isResourceCreated = true;
     }
@@ -75,11 +78,17 @@ void Pyx::Graphics::Renderer::D3D9Renderer::CreateResources()
 void Pyx::Graphics::Renderer::D3D9Renderer::ReleaseResources()
 {
 
-    if (m_pStateBlock)
-    {
-        m_pStateBlock->Release();
-        m_pStateBlock = nullptr;
-    }
+	if (m_pStateBlockOriginal)
+	{
+		m_pStateBlockOriginal->Release();
+		m_pStateBlockOriginal = nullptr;
+	}
+
+	if (m_pStateBlockCustom)
+	{
+		m_pStateBlockCustom->Release();
+		m_pStateBlockCustom = nullptr;
+	}
 
     auto* pGui = GuiContext::GetInstance().GetGui();
     if (pGui && pGui->IsInitialized())
@@ -143,7 +152,7 @@ void Pyx::Graphics::Renderer::D3D9Renderer::OnPresent(IDirect3DDevice9* pDevice,
     if (m_isResourceCreated)
     {
 
-        m_pStateBlock->Capture();
+        m_pStateBlockOriginal->Capture();
 
         pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
         pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -185,16 +194,18 @@ void Pyx::Graphics::Renderer::D3D9Renderer::OnPresent(IDirect3DDevice9* pDevice,
         pDevice->SetSamplerState(0, D3DSAMP_ELEMENTINDEX, 0);
         pDevice->SetSamplerState(0, D3DSAMP_DMAPOFFSET, 0);
 
+		m_pStateBlockCustom->Capture();
+
         GetOnIDirect3DDevice9__PresentCallbacks().Run(this, pDevice, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion);
 
-		m_pStateBlock->Apply();
+		m_pStateBlockCustom->Apply();
 		
         auto* pGui = GuiContext::GetInstance().GetGui();
 
         if (pGui && pGui->IsInitialized())
             pGui->OnFrame();
 
-        m_pStateBlock->Apply();
+        m_pStateBlockOriginal->Apply();
 
     }
 

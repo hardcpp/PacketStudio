@@ -208,8 +208,12 @@ void Pyx::Graphics::Gui::ImGuiImpl::OnFrame()
 				{
 
 					BuildMainMenuBar();
-					BuildLogsWindow();
-					BuildDebugWindow();
+
+					if (m_showConsole)
+						BuildLogsWindow();
+
+					if (m_showDebugWindow)
+						BuildDebugWindow();
 
 					GetOnRenderCallbacks().Run(this);
 					Scripting::ScriptingContext::GetInstance().FireCallbacks(L"ImGui.OnRender");
@@ -250,7 +254,7 @@ void Pyx::Graphics::Gui::ImGuiImpl::OnFrame()
 
 bool Pyx::Graphics::Gui::ImGuiImpl::OnWindowMessage(const MSG* lpMsg)
 {
-    if (!Input::InputContext::GetInstance().CursorIsVisible())
+    if (!Input::InputContext::GetInstance().CursorIsVisible() || !IsVisible())
         return false;
 
     if (m_isInitialized && lpMsg)
@@ -404,6 +408,9 @@ void Pyx::Graphics::Gui::ImGuiImpl::BuildMainMenuBar()
 
         if (ImGui::BeginMenu((std::string(ICON_MD_HOME) + XorStringA(" Pyx")).c_str()))
         {
+			ImGui::MenuItem((std::string(ICON_MD_FORMAT_LIST_BULLETED) + XorStringA(" Show console")).c_str(), nullptr, &m_showConsole);
+			ImGui::MenuItem((std::string(ICON_MD_BUILD) + XorStringA(" Show debug window")).c_str(), nullptr, &m_showDebugWindow);
+			ImGui::Separator();
             if (ImGui::MenuItem((std::string(ICON_MD_EXIT_TO_APP) + XorStringA(" Unload")).c_str())) { PyxContext::GetInstance().RequestShutdown(); }
             ImGui::EndMenu();
         }
