@@ -498,7 +498,7 @@ void Pyx::Graphics::Gui::ImGuiImpl::BuildLogsWindow()
 
 
         }
-        ImGui::PopStyleVar(3);
         ImGui::End();
+		ImGui::PopStyleVar(3);
     }
 }
