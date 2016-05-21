@@ -85,7 +85,7 @@
  * Set LUAINTF_STD_WIDE_STRING to 1 if you want to include support for std wide string conversion.
  */
 #ifndef LUAINTF_STD_WIDE_STRING
-    #define LUAINTF_STD_WIDE_STRING 0
+    #define LUAINTF_STD_WIDE_STRING 1
 #endif
 
 /**
@@ -104,7 +104,7 @@
  * This will allow Lua object to access the correct class even the C++ function returns the base class.
  */
 #ifndef LUAINTF_AUTO_DOWNCAST
-    #define LUAINTF_AUTO_DOWNCAST 1
+    #define LUAINTF_AUTO_DOWNCAST 0
 #endif
 
 //---------------------------------------------------------------------------

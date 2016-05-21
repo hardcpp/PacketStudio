@@ -2,7 +2,10 @@
 #include <map>
 #include <vector>
 #include <mutex>
-#include <Pyx/Scripting/LuaModules/Mapping_WString.h>
+#include <Pyx/PyxContext.h>
+#include <Lua/lua.hpp>
+#include <Lua/LuaIntf.h>
+#include <Pyx/Utility/String.h>
 
 #define LUAINTF_ADD_ENUM_VALUE(state, constant) \
     state.push((int)constant); \
