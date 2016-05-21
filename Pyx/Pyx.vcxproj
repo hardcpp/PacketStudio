@@ -109,7 +109,7 @@
     <ClCompile Include="Pyx\Graphics\Renderer\D3D9Renderer.cpp" />
     <ClCompile Include="Pyx\Graphics\Renderer\DXGI.cpp" />
     <ClCompile Include="Pyx\Input\InputContext.cpp" />
-    <ClCompile Include="Pyx\Math\Math.cpp" />
+    <ClCompile Include="Pyx\Math\Vector3.cpp" />
     <ClCompile Include="Pyx\Patch\PatchContext.cpp" />
     <ClCompile Include="Pyx\PyxContext.cpp" />
     <ClCompile Include="Pyx\Scripting\Script.cpp" />

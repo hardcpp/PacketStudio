@@ -367,7 +367,7 @@
     <ClCompile Include="Lua\lzio.c">
       <Filter>Sources\Lua</Filter>
     </ClCompile>
-    <ClCompile Include="Pyx\Math\Math.cpp">
+    <ClCompile Include="Pyx\Math\Vector3.cpp">
       <Filter>Sources\Pyx\Math</Filter>
     </ClCompile>
   </ItemGroup>
