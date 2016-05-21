@@ -9,6 +9,7 @@
 #include <Pyx/Scripting/LuaModules/Pyx_Memory.h>
 #include <Pyx/Scripting/LuaModules/Pyx_Input.h>
 #include <Pyx/Scripting/LuaModules/ImGui.h>
+#include <Pyx/Math/Vector3.h>
 
 
 Pyx::Scripting::Script::Script(const std::wstring& name, const std::wstring& defFileName)
@@ -61,6 +62,7 @@ void Pyx::Scripting::Script::Start()
                 LuaModules::Pyx_Win32::BindToScript(this);
                 LuaModules::Pyx_Memory::BindToScript(this);
                 LuaModules::Pyx_Input::BindToScript(this);
+				Pyx::Math::Vector3::BindWithScript(this);
 
                 ScriptingContext::GetInstance().GetOnStartScriptCallbacks().Run(this);
                 m_isRunning = true;

@@ -75,6 +75,12 @@
     <Filter Include="Headers\Pyx\Scripting\LuaModules">
       <UniqueIdentifier>{98134fb3-dc91-4ead-9a36-42c4e3c8edb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Pyx\Math">
+      <UniqueIdentifier>{e6b7c751-985a-4277-a7e0-579f8873d709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Math">
+      <UniqueIdentifier>{ac572d29-f70f-45e2-918e-4cab9cebc363}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pyx\Utility\String.h">
@@ -181,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Input.h">
       <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Math\Vector3.h">
+      <Filter>Headers\Pyx\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -357,6 +366,9 @@
     </ClCompile>
     <ClCompile Include="Lua\lzio.c">
       <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Math\Math.cpp">
+      <Filter>Sources\Pyx\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

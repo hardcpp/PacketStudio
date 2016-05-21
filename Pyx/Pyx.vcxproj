@@ -29,6 +29,7 @@
     <ClInclude Include="Pyx\Graphics\Renderer\D3D9Renderer.h" />
     <ClInclude Include="Pyx\Graphics\Renderer\IRenderer.h" />
     <ClInclude Include="Pyx\Input\InputContext.h" />
+    <ClInclude Include="Pyx\Math\Vector3.h" />
     <ClInclude Include="Pyx\Patch\Detour.h" />
     <ClInclude Include="Pyx\Patch\IHook.h" />
     <ClInclude Include="Pyx\Patch\IPatch.h" />
@@ -108,6 +109,7 @@
     <ClCompile Include="Pyx\Graphics\Renderer\D3D9Renderer.cpp" />
     <ClCompile Include="Pyx\Graphics\Renderer\DXGI.cpp" />
     <ClCompile Include="Pyx\Input\InputContext.cpp" />
+    <ClCompile Include="Pyx\Math\Math.cpp" />
     <ClCompile Include="Pyx\Patch\PatchContext.cpp" />
     <ClCompile Include="Pyx\PyxContext.cpp" />
     <ClCompile Include="Pyx\Scripting\Script.cpp" />
