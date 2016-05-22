@@ -116,7 +116,10 @@ void Pyx::PyxContext::Log(const std::wstring& line)
     std::wstring timedLine = std::wstring(buffer) + line;
 
     if (GetSettings().LogToFile && m_logFileStream.is_open())
-        m_logFileStream << timedLine.c_str() << std::endl;
+    {
+		m_logFileStream << timedLine.c_str() << std::endl;
+		m_logFileStream.flush();
+    }
 
     auto* pGui = Graphics::GuiContext::GetInstance().GetGui();
     if (pGui) pGui->Logger_OnWriteLine(timedLine);

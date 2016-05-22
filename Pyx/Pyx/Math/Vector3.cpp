@@ -4,6 +4,8 @@ void Pyx::Math::Vector3::BindWithScript(Pyx::Scripting::Script* script)
 {
 	using namespace LuaIntf;
 	LuaBinding(script->GetLuaState())
+		.beginModule("Pyx")
+		.beginModule("Math")
 		.beginClass<Vector3>("Vector3")
 		.addStaticFunction("Lerp", &Vector3::Lerp)
 		.addConstructor(LUA_ARGS(_opt<float>, _opt<float>, _opt<float>))

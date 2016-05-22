@@ -20,7 +20,8 @@ namespace LuaModules
         {
             auto* buffer = new char[length];
             ReadProcessMemory(GetCurrentProcess(), (LPCVOID)ptr, (LPVOID)buffer, length, nullptr);
-            auto result = std::string(buffer, strlen(buffer));
+			auto strLength = strlen(buffer);
+            auto result = std::string(buffer, strLength < length ? strLength : length);
             delete[] buffer;
             return result;
         }
@@ -29,7 +30,8 @@ namespace LuaModules
         {
             auto* buffer = new wchar_t[length];
             ReadProcessMemory(GetCurrentProcess(), (LPCVOID)ptr, (LPVOID)buffer, length * sizeof(wchar_t), nullptr);
-            auto result = std::wstring(buffer, wcslen(buffer));
+			auto strLength = wcslen(buffer);
+            auto result = std::wstring(buffer, strLength < length ? strLength : length);
             delete[] buffer;
             return result;
         }
