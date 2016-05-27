@@ -20,7 +20,7 @@ Pyx::Graphics::Gui::ImGuiImpl& Pyx::Graphics::Gui::ImGuiImpl::GetInstance()
 Pyx::Graphics::Gui::ImGuiImpl::ImGuiImpl()
     : IGui(), m_isResourcesCreated(false), m_isInitialized(false), m_showDebugWindow(false)
 {
-    m_showDebugWindow = true;
+
 }
 
 Pyx::Graphics::Gui::ImGuiImpl::~ImGuiImpl()

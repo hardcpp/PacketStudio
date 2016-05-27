@@ -20,7 +20,6 @@ namespace Pyx
         public:
             explicit PatchContext();
             ~PatchContext();
-            void Initialize();
             void Shutdown();
             template<typename T> Detour<T>* CreateDetour(T target, T detour)
             {

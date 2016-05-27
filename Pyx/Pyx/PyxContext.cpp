@@ -54,8 +54,6 @@ void Pyx::PyxContext::Initialize(const PyxInitSettings& settings)
         m_logFileStream.open(logFileName.c_str(), std::ofstream::out);
     }
 
-    Patch::PatchContext::GetInstance().Initialize();
-
     auto suspendedThreads = Threading::ThreadContext::GetInstance().SuspendAllThreads();
 
     Graphics::Renderer::D3D9Renderer::GetInstance().Initialize();
