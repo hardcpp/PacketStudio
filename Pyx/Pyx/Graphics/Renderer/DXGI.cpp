@@ -31,8 +31,7 @@ HRESULT WINAPI IDXGISwapChain__PresentDetour(struct IDXGISwapChain* pSwapChain, 
     ID3D11Device* pD3D11Device = nullptr;
 
     if (pSwapChain->GetDevice(__uuidof(ID3D11Device), reinterpret_cast<void**>(&pD3D11Device)) == S_OK
-        && pD3D11Device
-        && pD3D11Device->GetFeatureLevel() >= D3D_FEATURE_LEVEL_11_0)
+        && pD3D11Device)
     {
         Pyx::Graphics::Renderer::D3D11Renderer::GetInstance().OnPresent(pD3D11Device, pSwapChain, SyncInterval, Flags);
     }

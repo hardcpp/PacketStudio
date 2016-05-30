@@ -22,6 +22,9 @@ namespace Pyx
             public:
                 static ImGuiImpl& GetInstance();
 
+			private:
+				static void SetupStyle();
+
             private:
                 bool m_isResourcesCreated;
                 bool m_isInitialized;
@@ -48,7 +51,6 @@ namespace Pyx
                 bool OnWindowMessage(const MSG* lpMsg) override;
                 void Logger_OnWriteLine(const std::wstring& line) override;
                 bool OnGetCursorPos(LPPOINT lpPoint) override;
-                void SetupStyle(bool bDarkStyle) const;
 				bool IsVisible() const override { return m_isVisible; }
 				void ToggleVisibility(bool bVisible) override;
                 void BuildMainMenuBar();

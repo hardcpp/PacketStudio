@@ -371,4 +371,18 @@
       <Filter>Sources\Pyx\Math</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="ImGui\d3d11_ps.hlsl">
+      <Filter>Sources\ImGui</Filter>
+    </FxCompile>
+    <FxCompile Include="ImGui\d3d11_vs.hlsl">
+      <Filter>Sources\ImGui</Filter>
+    </FxCompile>
+    <FxCompile Include="ImGui\d3d10_vs.hlsl">
+      <Filter>Sources\ImGui</Filter>
+    </FxCompile>
+    <FxCompile Include="ImGui\d3d10_ps.hlsl">
+      <Filter>Sources\ImGui</Filter>
+    </FxCompile>
+  </ItemGroup>
 </Project>
