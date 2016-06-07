@@ -7,11 +7,11 @@ namespace LuaModules
     namespace Pyx_FileSystem
     {
 
-        inline void lua_WriteFile(Pyx::Scripting::Script* script, const std::wstring file, const std::wstring content)
+        inline void lua_WriteFile(Pyx::Scripting::Script* script, const std::string file, const std::string content)
         {
 
             std::wstringstream ssFile;
-            ssFile << script->GetScriptDirectory() << L"\\" << file;
+            ssFile << script->GetScriptDirectory() << L"\\" << Pyx::Utility::String::utf8_decode(file);
 
             wchar_t fileDirectory[MAX_PATH];
             ssFile.str().copy(fileDirectory, MAX_PATH);
@@ -19,7 +19,7 @@ namespace LuaModules
 
             CreateDirectoryW(fileDirectory, nullptr);
 
-            std::wofstream myfile(ssFile.str(), std::ios::out);
+            std::ofstream myfile(ssFile.str(), std::ios::out);
 
             if (myfile &&
                 myfile.is_open())
@@ -30,21 +30,21 @@ namespace LuaModules
 
         }
 
-        inline std::wstring lua_ReadFile(Pyx::Scripting::Script* script, const std::wstring file)
+        inline std::string lua_ReadFile(Pyx::Scripting::Script* script, const std::string file)
         {
 
-            std::wstring content;
+            std::string content;
             std::wstringstream ssFile;
-            ssFile << script->GetScriptDirectory() << L"\\" << file;
-            std::wifstream  myfile(ssFile.str(), std::ios::in);
+            ssFile << script->GetScriptDirectory() << L"\\" << Pyx::Utility::String::utf8_decode(file);
+            std::ifstream  myfile(ssFile.str(), std::ios::in);
             myfile.imbue(std::locale(std::locale::empty(), new std::codecvt_utf8<wchar_t>));
 
             if (myfile &&
                 myfile.is_open())
             {
-                std::wstringstream wss;
-                wss << myfile.rdbuf();
-                content = wss.str();
+                std::stringstream ss;
+                ss << myfile.rdbuf();
+                content = ss.str();
                 myfile.close();
             }
 
@@ -52,24 +52,24 @@ namespace LuaModules
 
         }
 
-        inline std::vector<std::wstring> lua_GetFiles(Pyx::Scripting::Script* script, const std::wstring directory)
+        inline std::vector<std::string> lua_GetFiles(Pyx::Scripting::Script* script, const std::string directory)
         {
-            std::vector<std::wstring> result;
+            std::vector<std::string> result;
 
             WIN32_FIND_DATA ffd;
             HANDLE hFind = INVALID_HANDLE_VALUE;
             DWORD dwError = 0;
 
-            hFind = FindFirstFileW(std::wstring(script->GetScriptDirectory() + L"\\" + directory).c_str(), &ffd);
+            hFind = FindFirstFileW(std::wstring(script->GetScriptDirectory() + L"\\" + Pyx::Utility::String::utf8_decode(directory)).c_str(), &ffd);
 
             if (INVALID_HANDLE_VALUE == hFind)
                 return result;
 
             do
             {
-                if (!(ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+                if (!(ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) && ffd.cFileName)
                 {
-                    result.push_back(ffd.cFileName);
+                    result.push_back(Pyx::Utility::String::utf8_encode(ffd.cFileName));
                 }
             } while (FindNextFileW(hFind, &ffd) != 0);
 
@@ -81,9 +81,9 @@ namespace LuaModules
 
             LuaBinding(pScript->GetLuaState()).beginModule("Pyx")
                 .beginModule("FileSystem")
-                .addFunction("WriteFile", [pScript](const std::wstring file, const std::wstring content) { lua_WriteFile(pScript, file, content); })
-                .addFunction("ReadFile", [pScript](const std::wstring file) { return lua_ReadFile(pScript, file); })
-                .addFunction("GetFiles", [pScript](const std::wstring directory) { return lua_GetFiles(pScript, directory); });
+                .addFunction("WriteFile", [pScript](const std::string file, const std::string content) { lua_WriteFile(pScript, file, content); })
+                .addFunction("ReadFile", [pScript](const std::string file) { return lua_ReadFile(pScript, file); })
+                .addFunction("GetFiles", [pScript](const std::string directory) { return lua_GetFiles(pScript, directory); });
 
         }
 

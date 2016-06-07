@@ -18,7 +18,7 @@ namespace Pyx
             static ScriptingContext& GetInstance();
 
         private:
-            std::set<Script*> m_scripts;
+            std::vector<Script*> m_scripts;
             Utility::Callbacks<OnStartScriptCallback> m_OnStartScriptCallbacks;
 
         public:
@@ -27,7 +27,7 @@ namespace Pyx
             void Initialize();
             void Shutdown();
             void ReloadScripts();
-            std::set<Script*> GetScripts() const { return m_scripts; }
+            std::vector<Script*> GetScripts() const { return m_scripts; }
             Utility::Callbacks<OnStartScriptCallback>& GetOnStartScriptCallbacks() { return m_OnStartScriptCallbacks; };
             template<typename... Args>
             void FireCallbacks(const std::wstring& name, Args&&... args)

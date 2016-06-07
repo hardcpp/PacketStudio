@@ -1,5 +1,6 @@
 #include <Pyx/Scripting/ScriptDef.h>
 #include <Pyx/Scripting/ScriptingContext.h>
+#include <algorithm>
 
 Pyx::Scripting::ScriptingContext& Pyx::Scripting::ScriptingContext::GetInstance()
 {
@@ -28,6 +29,10 @@ void Pyx::Scripting::ScriptingContext::Shutdown()
         delete pScript;
     }
     m_scripts.clear();
+}
+
+bool compareStudents(Pyx::Scripting::Script* a, Pyx::Scripting::Script* b) {
+    return a->GetName().compare(b->GetName()) < 0;
 }
 
 void Pyx::Scripting::ScriptingContext::ReloadScripts()
@@ -67,9 +72,14 @@ void Pyx::Scripting::ScriptingContext::ReloadScripts()
                 if (scriptDef.IsScript())
                 {
                     PyxContext::GetInstance().Log(XorStringW(L"[Scripting] Found script \"%s\""), scriptDef.GetName().c_str());
-                    m_scripts.insert(new Script(scriptDef.GetName(), fileName));
+                    m_scripts.push_back(new Script(scriptDef.GetName(), fileName));
                 }
             }
         }
     } while (FindNextFileW(hFind, &ffd) != 0);
+
+    sort(m_scripts.begin(), m_scripts.end(), [](Script* a, Script* b) {
+        return a->GetName().compare(b->GetName()) < 0;
+    });
+    
 }

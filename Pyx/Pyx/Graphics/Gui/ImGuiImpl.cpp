@@ -18,7 +18,7 @@ Pyx::Graphics::Gui::ImGuiImpl& Pyx::Graphics::Gui::ImGuiImpl::GetInstance()
 }
 
 Pyx::Graphics::Gui::ImGuiImpl::ImGuiImpl()
-    : IGui(), m_isResourcesCreated(false), m_isInitialized(false), m_showDebugWindow(false)
+    : IGui(), m_isResourcesCreated(false), m_isInitialized(false), m_showDebugWindow(true)
 {
 
 }
@@ -174,18 +174,18 @@ void Pyx::Graphics::Gui::ImGuiImpl::OnFrame()
 
                 auto& io = ImGui::GetIO();
 
-                if (Input::InputContext::GetInstance().CursorIsVisible())
+                if (Input::InputContext::GetInstance().CursorIsVisible() && pRenderer->GetAttachedWindow() == GetForegroundWindow())
                 {
                     auto cursorPos = Input::InputContext::GetInstance().GetCursorPosition();
                     ScreenToClient(pRenderer->GetAttachedWindow(), &cursorPos);
                     io.MousePos.x = cursorPos.x;
                     io.MousePos.y = cursorPos.y;
-
-                    BYTE keyboardState[256];
-                    ::GetKeyboardState(keyboardState);
                     io.MouseDown[0] = GetAsyncKeyState(VK_LBUTTON) != 0;
                     io.MouseDown[1] = GetAsyncKeyState(VK_RBUTTON) != 0;
                     io.MouseDown[2] = GetAsyncKeyState(VK_MBUTTON) != 0;
+                    io.KeyCtrl = GetAsyncKeyState(VK_CONTROL) != 0;
+                    io.KeyShift = GetAsyncKeyState(VK_SHIFT) != 0;
+                    io.KeyAlt = GetAsyncKeyState(VK_MENU) != 0;
                 }
 
                 switch (pRenderer->GetRendererType())
@@ -228,23 +228,45 @@ void Pyx::Graphics::Gui::ImGuiImpl::OnFrame()
 			if (GetTickCount() - lastToggleVisibilityTick > 250)
 			{
 
-				bool shouldToggle = true;
+				bool shouldToggleGui = true;
 				for (auto vKey : PyxContext::GetInstance().GetSettings().GuiToggleVisibilityHotkeys)
 				{
 					if (GetAsyncKeyState(vKey) == NULL)
 					{
-						shouldToggle = false;
+						shouldToggleGui = false;
 						break;
 					}
 				}
 
-				if (shouldToggle)
+				if (shouldToggleGui)
 				{
 					ToggleVisibility(!IsVisible());
 					lastToggleVisibilityTick = GetTickCount();
 				}
 
 			}
+
+            static int lastToggleConsoleVisibilityTick = 0;
+            if (GetTickCount() - lastToggleConsoleVisibilityTick > 250)
+            {
+
+                bool shouldToggleConsole = true;
+                for (auto vKey : PyxContext::GetInstance().GetSettings().ImGuiToggleConsoleHotkeys)
+                {
+                    if (GetAsyncKeyState(vKey) == NULL)
+                    {
+                        shouldToggleConsole = false;
+                        break;
+                    }
+                }
+
+                if (shouldToggleConsole)
+                {
+                    m_showConsole = !m_showConsole;
+                    lastToggleConsoleVisibilityTick = GetTickCount();
+                }
+
+            }
 
         }
 
@@ -254,11 +276,14 @@ void Pyx::Graphics::Gui::ImGuiImpl::OnFrame()
 
 bool Pyx::Graphics::Gui::ImGuiImpl::OnWindowMessage(const MSG* lpMsg)
 {
-    if (!Input::InputContext::GetInstance().CursorIsVisible() || !IsVisible())
+    if (!IsVisible())
         return false;
 
     if (m_isInitialized && lpMsg)
     {
+
+        bool cursorVisible = Input::InputContext::GetInstance().CursorIsVisible();
+
         auto* pRenderer = GraphicsContext::GetInstance().GetMainRenderer();
         ImGuiIO& io = ImGui::GetIO();
         if (pRenderer && pRenderer->GetAttachedWindow() == lpMsg->hwnd)
@@ -266,30 +291,36 @@ bool Pyx::Graphics::Gui::ImGuiImpl::OnWindowMessage(const MSG* lpMsg)
             switch (lpMsg->message)
             {
             case WM_LBUTTONDOWN:
-                return io.WantCaptureMouse;
+                return io.WantCaptureMouse && cursorVisible;
             case WM_LBUTTONUP:
-                return io.WantCaptureMouse;
+                return io.WantCaptureMouse && cursorVisible;
+            case WM_LBUTTONDBLCLK:
+                return io.WantCaptureMouse && cursorVisible;
             case WM_RBUTTONDOWN:
-                return io.WantCaptureMouse;
+                return io.WantCaptureMouse && cursorVisible;
             case WM_RBUTTONUP:
-                return io.WantCaptureMouse;
+                return io.WantCaptureMouse && cursorVisible;
+            case WM_RBUTTONDBLCLK:
+                return io.WantCaptureMouse && cursorVisible;
             case WM_MBUTTONDOWN:
-                return io.WantCaptureMouse;
+                return io.WantCaptureMouse && cursorVisible;
             case WM_MBUTTONUP:
-                return io.WantCaptureMouse;
+                return io.WantCaptureMouse && cursorVisible;
+            case WM_MBUTTONDBLCLK:
+                return io.WantCaptureMouse && cursorVisible;
             case WM_MOUSEWHEEL:
                 io.MouseWheel += GET_WHEEL_DELTA_WPARAM(lpMsg->wParam) > 0 ? +1.0f : -1.0f;
-                return io.WantCaptureMouse;
+                return io.WantCaptureMouse && cursorVisible;
             case WM_MOUSEMOVE:
-                return io.WantCaptureMouse;
+                return io.WantCaptureMouse && cursorVisible;
             case WM_KEYDOWN:
                 if (lpMsg->wParam < 256)
                     io.KeysDown[lpMsg->wParam] = 1;
-                return io.WantCaptureKeyboard || io.WantTextInput;
+                return io.WantCaptureKeyboard;
             case WM_KEYUP:
                 if (lpMsg->wParam < 256)
                     io.KeysDown[lpMsg->wParam] = 0;
-                return io.WantCaptureKeyboard || io.WantTextInput;
+                return io.WantCaptureKeyboard;
             case WM_CHAR:
                 if (lpMsg->wParam > 0 && lpMsg->wParam < 0x10000)
                     io.AddInputCharacter((unsigned short)lpMsg->wParam);
@@ -422,27 +453,14 @@ void Pyx::Graphics::Gui::ImGuiImpl::BuildMainMenuBar()
         }
 
         if (ImGui::BeginMenu((std::string(ICON_MD_EXTENSION) + XorStringA(" Scripts")).c_str()))
-        {
-
-            for (auto* pScript : Scripting::ScriptingContext::GetInstance().GetScripts())
-                if (pScript->IsRunning())
-                {
-                    auto& name = pScript->GetName();
-                    if (ImGui::MenuItem((std::string(ICON_MD_CLEAR) + " " + Utility::String::utf8_encode(name)).c_str(), XorStringA("(running)")))
-                    {
-                        pScript->Stop();
-                    }
-                }            
+        {    
             
             for (auto* pScript : Scripting::ScriptingContext::GetInstance().GetScripts())
-                    if (!pScript->IsRunning())
-                    {
-                        auto& name = pScript->GetName();
-                        if (ImGui::MenuItem((std::string(ICON_MD_PLAY_CIRCLE_OUTLINE) + " " + Utility::String::utf8_encode(name)).c_str(), "(stopped)"))
-                        {
-                            pScript->Start();
-                        }
-                    }
+            {
+                auto& name = pScript->GetName();
+                if (ImGui::MenuItem((std::string(pScript->IsRunning() ? ICON_MD_CLEAR : ICON_MD_PLAY_CIRCLE_OUTLINE) + " " + Utility::String::utf8_encode(name)).c_str(), pScript->IsRunning() ? "(running)" : "(stopped)"))
+                    pScript->IsRunning() ? pScript->Stop() : pScript->Start();
+            }
 
             ImGui::Separator();
             if (ImGui::MenuItem((std::string(ICON_MD_REPLAY) + XorStringA(" Reload scripts")).c_str())) { Scripting::ScriptingContext::GetInstance().ReloadScripts(); }
