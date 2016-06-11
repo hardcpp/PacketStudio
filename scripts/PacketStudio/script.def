@@ -5,6 +5,8 @@ type=script
 [files]
 file=Global.lua
 file=Parsers.lua
+file=Games/BlackDesert_Opcodes.lua
+file=Games/BlackDesert.lua
 file=Games.lua
 file=Views/PacketParserEditor.lua
 file=Views/PacketTypes.lua

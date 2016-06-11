@@ -4,4 +4,5 @@
 
 -- Game
 GlobalEnums.Game = {
+    { "BlackDesert", 	PacketStudio_Game_BlackDesert_Setup },
 }
