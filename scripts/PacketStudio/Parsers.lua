@@ -1,5 +1,5 @@
 -- Packet studio
--- Copyright hardcpp@gmail.com
+-- Copyright hardcpp@gmail.com 2016-2017
 -- https://github.com/hardcpp/PacketStudio
 
 Parsers = {}
@@ -70,8 +70,8 @@ end
 -- @p_Value : Packet type
 -- @p_Name  : Packet name
 function Parsers.Create(p_Value, p_Name)
-	os.execute("mkdir " .. "Parsers");
-	os.execute("mkdir " .. "Parsers\\" .. Parsers.Folder);
+    os.execute("mkdir " .. "Parsers");
+    os.execute("mkdir " .. "Parsers\\" .. Parsers.Folder);
 
     local l_Path = "Parsers\\" .. Parsers.Folder .. "\\" .. p_Name .. ".psp"
 
