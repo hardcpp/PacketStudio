@@ -50,8 +50,6 @@ function PacketStudio_PacketParserEditor_DrawPacketSelector()
 
             if l_HaveParser then
                 if ImGui.Button("View##packet_parser_editor_" .. l_Key) then
-
-
                     PacketStudio.Views.PacketParserEditor.ActivePacket          = l_Key
                     PacketStudio.Views.PacketParserEditor.CurrentReaderTable    = Helpers.TableCopy(Parsers.ListCache[l_Key])
                 end
@@ -82,72 +80,34 @@ end
 
 local l_GUIIDGENERATOR = 1
 function PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(p_Node)
-    if p_Node == nil or #p_Node == 0 then
-        return
-    end
+    if p_Node ~= nil or #p_Node > 0 then
+        ImGui.Indent(10)
 
-    ImGui.Indent(10)
+        for l_Key,l_Value in pairs(p_Node) do
+            local l_NodeType    = l_Value[1]
+            local l_Name        = tostring(l_Value[2])
+            local l_CacheID     = l_Value[3]
 
-    for l_Key,l_Value in pairs(p_Node) do
-        local l_NodeType    = l_Value[1]
-        local l_Name        = tostring(l_Value[2])
-        local l_CacheID     = l_Value[3]
-
-        if l_CacheID == nil or l_CacheID == "null_cache_id" or l_CacheID == "" then
-            l_GUIIDGENERATOR = l_GUIIDGENERATOR + 1
-            l_CacheID = "##id_packet_parser_widget_" .. tostring(l_GUIIDGENERATOR) .. tostring(PacketStudio.Views.PacketParserEditor.ActivePacket)
-            p_Node[l_Key][3] = l_CacheID
-        end
-
-        if l_NodeType == Parsers.NodeTypes.Var then
-            ImGui.Text("|-")
-            ImGui.SameLine()
-            ImGui.TextColored(ImVec4(1,0,0,1), "FieldName :")
-            ImGui.SameLine()
-            ImGui.PushItemWidth(300)
-            _, p_Node[l_Key][2] = ImGui.InputText(l_CacheID .. "name_edit", l_Name)
-            ImGui.PopItemWidth()
-            ImGui.SameLine()
-
-            ImGui.PushItemWidth(150)
-            _, p_Node[l_Key][4] = ImGui.Combo(l_CacheID .. "_type_combo", p_Node[l_Key][4], Parsers.FieldTypesName, #Parsers.FieldTypesName)
-            ImGui.PopItemWidth()
-
-            ImGui.SameLine()
-            if ImGui.Button("Up##" .. l_CacheID .. "_up") and l_Key > 1 then
-                local l_Prev    = p_Node[l_Key - 1];
-                local l_Current = p_Node[l_Key];
-
-                p_Node[l_Key - 1]   = l_Current
-                p_Node[l_Key]       = l_Prev
-
-                goto handle_node_end
-            end
-            ImGui.SameLine()
-            if ImGui.Button("Down##" .. l_CacheID .. "_down") and l_Key < #p_Node then
-                local l_Current = p_Node[l_Key];
-                local l_Next    = p_Node[l_Key + 1];
-
-                p_Node[l_Key + 1]   = l_Current
-                p_Node[l_Key]       = l_Next
-
-                goto handle_node_end
-            end
-            ImGui.SameLine()
-            if ImGui.Button("Del##" .. l_CacheID .. "_del") then
-                p_Node[l_Key] = nil;
+            if l_CacheID == nil or l_CacheID == "null_cache_id" or l_CacheID == "" then
+                l_GUIIDGENERATOR = l_GUIIDGENERATOR + 1
+                l_CacheID = "##id_packet_parser_widget_" .. tostring(l_GUIIDGENERATOR) .. tostring(PacketStudio.Views.PacketParserEditor.ActivePacket)
+                p_Node[l_Key][3] = l_CacheID
             end
 
-        elseif l_NodeType == Parsers.NodeTypes.Block then
-
-            if ImGui.CollapsingHeader("BLOCK => " .. l_Name, l_CacheID) then
+            if l_NodeType == Parsers.NodeTypes.Var then
                 ImGui.Text("|-")
                 ImGui.SameLine()
-                ImGui.TextColored(ImVec4(0,1,0,1), "BlockName :")
+                ImGui.TextColored(ImVec4(1,0,0,1), "FieldName :")
                 ImGui.SameLine()
                 ImGui.PushItemWidth(300)
                 _, p_Node[l_Key][2] = ImGui.InputText(l_CacheID .. "name_edit", l_Name)
                 ImGui.PopItemWidth()
+                ImGui.SameLine()
+
+                ImGui.PushItemWidth(150)
+                _, p_Node[l_Key][4] = ImGui.Combo(l_CacheID .. "_type_combo", p_Node[l_Key][4], Parsers.FieldTypesName, #Parsers.FieldTypesName)
+                ImGui.PopItemWidth()
+
                 ImGui.SameLine()
                 if ImGui.Button("Up##" .. l_CacheID .. "_up") and l_Key > 1 then
                     local l_Prev    = p_Node[l_Key - 1];
@@ -172,15 +132,63 @@ function PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(p_Node)
                 if ImGui.Button("Del##" .. l_CacheID .. "_del") then
                     p_Node[l_Key] = nil;
                 end
+
+            elseif l_NodeType == Parsers.NodeTypes.Block then
+
+                if ImGui.CollapsingHeader("BLOCK => " .. l_Name, l_CacheID) then
+                    ImGui.Text("|-")
+                    ImGui.SameLine()
+                    ImGui.TextColored(ImVec4(0,1,0,1), "BlockName :")
+                    ImGui.SameLine()
+                    ImGui.PushItemWidth(300)
+                    _, p_Node[l_Key][2] = ImGui.InputText(l_CacheID .. "name_edit", l_Name)
+                    ImGui.PopItemWidth()
+                    ImGui.SameLine()
+                    if ImGui.Button("Up##" .. l_CacheID .. "_up") and l_Key > 1 then
+                        local l_Prev    = p_Node[l_Key - 1];
+                        local l_Current = p_Node[l_Key];
+
+                        p_Node[l_Key - 1]   = l_Current
+                        p_Node[l_Key]       = l_Prev
+
+                        goto handle_node_end
+                    end
+                    ImGui.SameLine()
+                    if ImGui.Button("Down##" .. l_CacheID .. "_down") and l_Key < #p_Node then
+                        local l_Current = p_Node[l_Key];
+                        local l_Next    = p_Node[l_Key + 1];
+
+                        p_Node[l_Key + 1]   = l_Current
+                        p_Node[l_Key]       = l_Next
+
+                        goto handle_node_end
+                    end
+                    ImGui.SameLine()
+                    if ImGui.Button("Del##" .. l_CacheID .. "_del") then
+                        p_Node[l_Key] = nil;
+                    end
+                    ImGui.Separator()
+                    PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(l_Value[4])
+
+                end
                 ImGui.Separator()
-                PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(l_Value[4])
+
+            elseif l_NodeType == Parsers.NodeTypes.Loop then
 
             end
-            ImGui.Separator()
-
-        elseif l_NodeType == Parsers.NodeTypes.Loop then
-
         end
+    end
+
+    if ImGui.Button("Add Var##packet_editor_addvar_" .. tostring(p_Node)) then
+        p_Node[#p_Node + 1] = { Parsers.NodeTypes.Var, "Var", "null_cache_id", Parsers.FieldTypes.Int32 }
+    end
+    ImGui.SameLine()
+    if ImGui.Button("Add Block##packet_editor_addblock_" .. tostring(p_Node)) then
+        p_Node[#p_Node + 1] = { Parsers.NodeTypes.Block, "Block", "null_cache_id", { } }
+    end
+    ImGui.SameLine()
+    if ImGui.Button("Add Loop##packet_editor_addloop_" .. tostring(p_Node)) then
+        p_Node[#p_Node + 1] = { Parsers.NodeTypes.Loop, "Loop", "null_cache_id", Parsers.FieldTypes.Int32 }
     end
 
     ::handle_node_end::
