@@ -16,9 +16,9 @@ function PacketStudio_DrawGameSelection()
         -- Enumerate game
         for l_Key,l_Value in pairs(GlobalEnums.Game) do
             if ImGui.Button(tostring(l_Value[1]), ImVec2(180, 20)) then
-                _Value[2]();
-                acketStudio.CurrentGame = l_Value[1];
-                acketStudio.IsInit = true;
+                l_Value[2]();
+                PacketStudio.CurrentGame = l_Value[1];
+                PacketStudio.IsInit = true;
             end
         end
     end

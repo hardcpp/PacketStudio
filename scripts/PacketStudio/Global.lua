@@ -129,7 +129,7 @@ function Helpers.TableSerialize(p_Table)
     local l_Code    = { "local _ = {}" }
     local l_Value   = Serialize_Do(p_Table, l_Code, {0})
 
-    l_Code[#l_Code+1] = "return "..l_Value
+    l_Code[#l_Code+1] = "return ".. l_Value
 
     if #l_Code == 2 then
         return l_Code[2]
