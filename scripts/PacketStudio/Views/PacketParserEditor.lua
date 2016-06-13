@@ -44,14 +44,14 @@ function PacketStudio_PacketParserEditor_DrawPacketSelector()
 
             local l_HaveParser = false
 
-            if Parsers.ListCache[l_Key] ~= nil then
+            if Parsers.ParserArray[l_Key] ~= nil then
                 l_HaveParser = true
             end
 
             if l_HaveParser then
                 if ImGui.Button("View##packet_parser_editor_" .. l_Key) then
                     PacketStudio.Views.PacketParserEditor.ActivePacket          = l_Key
-                    PacketStudio.Views.PacketParserEditor.CurrentReaderTable    = Helpers.TableCopy(Parsers.ListCache[l_Key])
+                    PacketStudio.Views.PacketParserEditor.CurrentReaderTable    = Helpers.TableCopy(Parsers.ParserArray[l_Key])
                 end
                 ImGui.SameLine()
                 if ImGui.Button("Delete##packet_parser_editor_" .. l_Key) then
@@ -61,7 +61,7 @@ function PacketStudio_PacketParserEditor_DrawPacketSelector()
                 if ImGui.Button("Create##packet_parser_editor_" .. l_Key) then
                     Parsers.Create(l_Key, l_Value[3])
                     PacketStudio.Views.PacketParserEditor.ActivePacket          = l_Key
-                    PacketStudio.Views.PacketParserEditor.CurrentReaderTable    = Helpers.TableCopy(Parsers.ListCache[l_Key])
+                    PacketStudio.Views.PacketParserEditor.CurrentReaderTable    = Helpers.TableCopy(Parsers.ParserArray[l_Key])
                 end
                 ImGui.SameLine()
                 if ImGui.Button("Recheck##packet_parser_editor_" .. l_Key) then
@@ -79,7 +79,7 @@ function PacketStudio_PacketParserEditor_DrawPacketSelector()
 end
 
 local l_GUIIDGENERATOR = 1
-function PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(p_Node)
+function PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(p_Node, p_GlobalNames)
     if p_Node ~= nil or #p_Node > 0 then
         ImGui.Indent(10)
 
@@ -168,7 +168,7 @@ function PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(p_Node)
                         p_Node[l_Key] = nil;
                     end
                     ImGui.Separator()
-                    PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(l_Value[4])
+                    PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(l_Value[4], p_GlobalNames)
 
                 end
                 ImGui.Separator()

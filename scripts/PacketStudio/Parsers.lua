@@ -54,21 +54,34 @@ Parsers.FieldTypesName = {
 -- Methods
 -- =======================================================
 
+-- Reset cache ID before saving
+-- @p_Node : Current node to reset
 function Parsers.ResetCacheID(p_Node)
+    for l_Key,l_Value in pairs(p_Node) do
+        local l_NodeType    = l_Value[1]
+        l_Value[3] = "null_cache_id"
 
+        if l_NodeType == Parsers.NodeTypes.Block then
+            Parsers.ResetCacheID(l_Value[4])
+        elseif l_NodeType == Parsers.NodeTypes.Loop then
+            Parsers.ResetCacheID(l_Value[5])
+        end
+    end
+
+    return p_Node
 end
 
 -- Init parsers, this method will read all parsers present in the gamefolder
 function Parsers.Init()
-    local l_Path = "PacketStudio\\Parsers\\" .. Parsers.Folder .. "\\"
+    local l_Path = "PacketStudio\\" .. Parsers.Folder .. "\\Parsers\\"
     for l_Key,l_Value in pairs(PacketStudio.PacketTypes) do
         local l_File = io.open(l_Path .. l_Value[3] .. ".psp", "r")
 
         if l_File~=nil then
-            Parsers.ListCache[l_Key] = Helpers.TableUnserialize(l_File:read("*all"))
+            Parsers.ParserArray[l_Key] = Helpers.TableUnserialize(l_File:read("*all"))
             io.close(l_File)
         else
-            Parsers.ListCache[l_Key] = nil;
+            Parsers.ParserArray[l_Key] = nil;
         end
     end
 end
@@ -78,34 +91,34 @@ end
 -- @p_Name  : Packet name
 function Parsers.Create(p_Value, p_Name)
     os.execute("mkdir " .. "PacketStudio");
-    os.execute("mkdir " .. "PacketStudio\\Parsers");
-    os.execute("mkdir " .. "PacketStudio\\Parsers\\" .. Parsers.Folder);
+    os.execute("mkdir " .. "PacketStudio\\" .. Parsers.Folder);
+    os.execute("mkdir " .. "PacketStudio\\" .. Parsers.Folder .. "\\Parsers");
 
-    local l_Path = "PacketStudio\\Parsers\\" .. Parsers.Folder .. "\\" .. p_Name .. ".psp"
+    local l_Path = "PacketStudio\\" .. Parsers.Folder .. "\\Parsers\\" .. p_Name .. ".psp"
 
     local l_File = io.open(l_Path, "w+")
     l_File:write(Helpers.TableSerialize( {} ))
     l_File:close()
 
-    Parsers.ListCache[p_Value] = { };
+    Parsers.ParserArray[p_Value] = { };
 end
 
 -- Delete a packet parser
 -- @p_Value : Packet type
 -- @p_Name  : Packet name
 function Parsers.Delete(p_Value, p_Name)
-    local l_Path = "PacketStudio\\Parsers\\" .. Parsers.Folder .. "\\" .. p_Name .. ".psp"
+    local l_Path = "PacketStudio\\" .. Parsers.Folder .. "\\Parsers\\" .. p_Name .. ".psp"
     os.remove(l_Path)
 
-    Parsers.ListCache[p_Value] = nil;
+    Parsers.ParserArray[p_Value] = nil;
 end
 
 -- Save a packet parser
 -- @p_Value : Packet type
 function Parsers.Save(p_Value)
-    local l_Path = "PacketStudio\\Parsers\\" .. Parsers.Folder .. "\\" .. PacketStudio.PacketTypes[p_Value][3] .. ".psp"
+    local l_Path = "PacketStudio\\" .. Parsers.Folder .. "\\Parsers\\" .. PacketStudio.PacketTypes[p_Value][3] .. ".psp"
 
     local l_File = io.open(l_Path, "w+")
-    l_File:write(Helpers.TableSerialize(Parsers.ListCache[p_Value]))
+    l_File:write(Helpers.TableSerialize(Parsers.ResetCacheID(Parsers.ParserArray[p_Value])))
     l_File:close()
 end
