@@ -28,7 +28,7 @@ end
 -- View selection
 -- =======================================================
 function PacketStudio_DrawViewSelection()
-    if ImGui.CollapsingHeader("Views", "id_view_selection") then
+    if ImGui.CollapsingHeader("Views", "id_view_selection", true) then
         if ImGui.Button("Packet Parser editor", ImVec2(180, 20)) then
             if PacketStudio.IsInit == true then
                 PacketStudio.Views.PacketParserEditor.Visible = true;
@@ -51,10 +51,13 @@ end
 -- =======================================================
 function PacketStudio_MainDraw()
     local l_MainWindow;
-    _, l_MainWindow = ImGui.Begin("PacketStudio::Main e", true, ImVec2(200, 400), -1.0)
+    _, l_MainWindow = ImGui.Begin("PacketStudio::Main", true, ImVec2(200, 400), -1.0)
     if l_MainWindow then
-        PacketStudio_DrawGameSelection();
-        PacketStudio_DrawViewSelection();
+        if PacketStudio.IsInit == true then
+            PacketStudio_DrawViewSelection();
+        else
+            PacketStudio_DrawGameSelection();
+        end
 
         ImGui.End()
     end

@@ -7,8 +7,8 @@ Helpers = {}
 PacketStudio = {}
 
 -- Setup global
-PacketStudio.Views = {}
-PacketStudio.PacketTypes = {}
+PacketStudio.Views          = {}
+PacketStudio.PacketTypes    = {}
 
 -- Packet direction
 GlobalEnums.PacketDirection = {
