@@ -3,13 +3,15 @@
 -- https://github.com/hardcpp/PacketStudio
 
 Parsers = {}
-Parsers.ListCache = {}
+Parsers.ParserArray = {}
+Parsers.GlobalParserArray = { }
 Parsers.Folder = ""
 
 Parsers.NodeTypes = {
-    Var = 1,
-    Block = 2,
-    Loop = 3
+    Var             = 1,
+    Block           = 2,
+    Loop            = 3,
+    GlobalParser    = 4
 }
 
 Parsers.FieldTypes = {
@@ -50,6 +52,8 @@ Parsers.FieldTypesName = {
 -- Loop
 --     4 - Counter
 --     5 - Childs
+-- GlobalParser
+--     4 - Name
 -- =======================================================
 -- Methods
 -- =======================================================
@@ -83,6 +87,15 @@ function Parsers.Init()
         else
             Parsers.ParserArray[l_Key] = nil;
         end
+    end
+
+    local l_File = io.open(l_Path .. "global.psp", "r")
+
+    if l_File~=nil then
+        Parsers.GlobalParserArray = Helpers.TableUnserialize(l_File:read("*all"))
+        io.close(l_File)
+    else
+        Parsers.GlobalParserArray = { }
     end
 end
 
@@ -121,4 +134,29 @@ function Parsers.Save(p_Value)
     local l_File = io.open(l_Path, "w+")
     l_File:write(Helpers.TableSerialize(Parsers.ResetCacheID(Parsers.ParserArray[p_Value])))
     l_File:close()
+end
+
+-- Generate a global parsers name list
+function Parsers.GetGlobalNameList()
+    local l_Result = {}
+
+    for l_Key, l_Value in pairs(Parsers.GlobalParserArray) do
+        l_Result[#l_Result + 1] = l_Value[1]
+    end
+
+    return l_Result
+end
+
+-- Find a global parser index by his name
+-- @p_Name : Global parser name
+function Parsers.FindGlobalByName(p_Name)
+
+    local l_LowerName = p_Name:lower()
+    for l_Key, l_Value in pairs(Parsers.GlobalParserArray) do
+        if l_LowerName == l_Value[1]:lower() then
+            return l_Key
+        end
+    end
+
+    return 1
 end

@@ -175,6 +175,100 @@ function PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(p_Node, p_G
 
             elseif l_NodeType == Parsers.NodeTypes.Loop then
 
+                if ImGui.CollapsingHeader("LOOP => " .. l_Name, l_CacheID) then
+                    ImGui.Text("|-")
+                    ImGui.SameLine()
+                    ImGui.TextColored(ImVec4(0,1,0,1), "LoopName :")
+                    ImGui.SameLine()
+                    ImGui.PushItemWidth(300)
+                    _, p_Node[l_Key][2] = ImGui.InputText(l_CacheID .. "name_edit", l_Name)
+                    ImGui.PopItemWidth()
+                    ImGui.SameLine()
+                    if ImGui.Button("Up##" .. l_CacheID .. "_up") and l_Key > 1 then
+                        local l_Prev    = p_Node[l_Key - 1];
+                        local l_Current = p_Node[l_Key];
+
+                        p_Node[l_Key - 1]   = l_Current
+                        p_Node[l_Key]       = l_Prev
+
+                        goto handle_node_end
+                    end
+                    ImGui.SameLine()
+                    if ImGui.Button("Down##" .. l_CacheID .. "_down") and l_Key < #p_Node then
+                        local l_Current = p_Node[l_Key];
+                        local l_Next    = p_Node[l_Key + 1];
+
+                        p_Node[l_Key + 1]   = l_Current
+                        p_Node[l_Key]       = l_Next
+
+                        goto handle_node_end
+                    end
+                    ImGui.SameLine()
+                    if ImGui.Button("Del##" .. l_CacheID .. "_del") then
+                        p_Node[l_Key] = nil;
+                    end
+                    ImGui.Separator()
+
+                    PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(l_Value[5], p_GlobalNames)
+                end
+
+            elseif l_NodeType == Parsers.NodeTypes.GlobalParser then
+
+                if ImGui.CollapsingHeader("GlobalParser => " .. l_Name, l_CacheID) then
+                    ImGui.Text("|-")
+                    ImGui.SameLine()
+                    ImGui.TextColored(ImVec4(0,1,0,1), "GlobalParserName :")
+                    ImGui.SameLine()
+                    ImGui.PushItemWidth(300)
+                    _, p_Node[l_Key][2] = ImGui.InputText(l_CacheID .. "name_edit", l_Name)
+                    ImGui.PopItemWidth()
+                    ImGui.SameLine()
+                    ImGui.Text("|")
+                    ImGui.SameLine()
+
+                    local l_GlobalIndex = Parsers.FindGlobalByName(l_Value[4])
+
+                    ImGui.PushItemWidth(150)
+                    local l_NewGlobalIndex = 0
+                    _, l_NewGlobalIndex = ImGui.Combo(l_CacheID .. "_parser_combo", l_GlobalIndex, p_GlobalNames, #p_GlobalNames)
+                    ImGui.PopItemWidth()
+
+                    if l_NewGlobalIndex ~= l_GlobalIndex then
+
+                        p_Node[l_Key][4] = Parsers.GlobalParserArray[l_NewGlobalIndex][1]
+                    end
+
+                    ImGui.SameLine()
+                    ImGui.Text("|")
+                    ImGui.SameLine()
+
+                    if ImGui.Button("Up##" .. l_CacheID .. "_up") and l_Key > 1 then
+                        local l_Prev    = p_Node[l_Key - 1];
+                        local l_Current = p_Node[l_Key];
+
+                        p_Node[l_Key - 1]   = l_Current
+                        p_Node[l_Key]       = l_Prev
+
+                        goto handle_node_end
+                    end
+                    ImGui.SameLine()
+                    if ImGui.Button("Down##" .. l_CacheID .. "_down") and l_Key < #p_Node then
+                        local l_Current = p_Node[l_Key];
+                        local l_Next    = p_Node[l_Key + 1];
+
+                        p_Node[l_Key + 1]   = l_Current
+                        p_Node[l_Key]       = l_Next
+
+                        goto handle_node_end
+                    end
+                    ImGui.SameLine()
+                    if ImGui.Button("Del##" .. l_CacheID .. "_del") then
+                        p_Node[l_Key] = nil;
+                    end
+                    ImGui.Separator()
+
+                end
+
             end
         end
     end
@@ -188,7 +282,11 @@ function PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(p_Node, p_G
     end
     ImGui.SameLine()
     if ImGui.Button("Add Loop##packet_editor_addloop_" .. tostring(p_Node)) then
-        p_Node[#p_Node + 1] = { Parsers.NodeTypes.Loop, "Loop", "null_cache_id", Parsers.FieldTypes.Int32 }
+        p_Node[#p_Node + 1] = { Parsers.NodeTypes.Loop, "Loop", "null_cache_id", "", { } }
+    end
+    ImGui.SameLine()
+    if ImGui.Button("Add GlobalParser##packet_editor_addglobalparser_" .. tostring(p_Node)) then
+        p_Node[#p_Node + 1] = { Parsers.NodeTypes.GlobalParser, "GlobalParser", "null_cache_id", "" }
     end
 
     ::handle_node_end::
@@ -198,7 +296,7 @@ end
 
 function PacketStudio_PacketParserEditor_DrawPacketReader()
     if ImGui.Button("Save##packet_parser_editor") then
-        Parsers.ListCache[PacketStudio.Views.PacketParserEditor.ActivePacket] = Helpers.TableCopy(PacketStudio.Views.PacketParserEditor.CurrentReaderTable)
+        Parsers.ParserArray[PacketStudio.Views.PacketParserEditor.ActivePacket] = Helpers.TableCopy(PacketStudio.Views.PacketParserEditor.CurrentReaderTable)
         Parsers.Save(PacketStudio.Views.PacketParserEditor.ActivePacket)
     end
     ImGui.SameLine()
@@ -207,13 +305,15 @@ function PacketStudio_PacketParserEditor_DrawPacketReader()
     end
     ImGui.SameLine()
     if ImGui.Button("Reset##packet_parser_editor") then
-        PacketStudio.Views.PacketParserEditor.CurrentReaderTable = Helpers.TableCopy(Parsers.ListCache[PacketStudio.Views.PacketParserEditor.ActivePacket])
+        PacketStudio.Views.PacketParserEditor.CurrentReaderTable = Helpers.TableCopy(Parsers.ParserArray[PacketStudio.Views.PacketParserEditor.ActivePacket])
     end
 
     ImGui.Separator()
     ImGui.Separator()
 
-    PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(PacketStudio.Views.PacketParserEditor.CurrentReaderTable);
+    local l_GlobalParsersNameList = Parsers.GetGlobalNameList()
+
+    PacketStudio_PacketParserEditor_DrawPacketReader_HandleNode(PacketStudio.Views.PacketParserEditor.CurrentReaderTable, l_GlobalParsersNameList);
 end
 
 function PacketStudio_PacketParserEditor_MainDraw()
