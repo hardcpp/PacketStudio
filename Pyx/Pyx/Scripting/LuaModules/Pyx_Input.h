@@ -11,10 +11,10 @@ namespace LuaModules
         inline void BindToScript(Pyx::Scripting::Script* pScript)
         {
 
-            LuaBinding(pScript->GetLuaState()).beginModule("Pyx")
-                .beginModule("Input")
-                .addFunction("IsKeyDown", [pScript](int vKey) { return GetKeyState(vKey) & 0x8000 ? true : false; })
-                .addFunction("IsGameForeground", [pScript]() { return Pyx::Graphics::GraphicsContext::GetInstance().GetMainRenderer() && GetForegroundWindow() == Pyx::Graphics::GraphicsContext::GetInstance().GetMainRenderer()->GetAttachedWindow(); });
+            LuaBinding(pScript->GetLuaState()).beginModule(XorStringA("Pyx"))
+                .beginModule(XorStringA("Input"))
+                .addFunction(XorStringA("IsKeyDown"), [pScript](int vKey) { return GetKeyState(vKey) & 0x8000 ? true : false; })
+                .addFunction(XorStringA("IsGameForeground"), [pScript]() { return Pyx::Graphics::GraphicsContext::GetInstance().GetMainRenderer() && GetForegroundWindow() == Pyx::Graphics::GraphicsContext::GetInstance().GetMainRenderer()->GetAttachedWindow(); });
 
         }
 

@@ -50,15 +50,15 @@ namespace LuaModules
                 }
                 
                 if (num == 1)
-                    Pyx::PyxContext::GetInstance().Log(L"[%s] %s", pScript->GetName().c_str(), Pyx::Utility::String::utf8_decode(luaStrValue).c_str());
+                    Pyx::PyxContext::GetInstance().Log(XorStringW(L"[%s] %s"), pScript->GetName().c_str(), Pyx::Utility::String::utf8_decode(luaStrValue).c_str());
                 else
-                    Pyx::PyxContext::GetInstance().Log(L"[%s] [%d] %s", pScript->GetName().c_str(), i, Pyx::Utility::String::utf8_decode(luaStrValue).c_str());
+                    Pyx::PyxContext::GetInstance().Log(XorStringW(L"[%s] [%d] %s"), pScript->GetName().c_str(), i, Pyx::Utility::String::utf8_decode(luaStrValue).c_str());
             }
         }
         
         inline void BindToScript(Pyx::Scripting::Script* pScript)
         {
-            LuaIntf::LuaBinding(pScript->GetLuaState()).addFunction("print", [pScript](lua_State* L) { lua_Print(pScript, L); });
+            LuaIntf::LuaBinding(pScript->GetLuaState()).addFunction(XorStringA("print"), [pScript](lua_State* L) { lua_Print(pScript, L); });
         }
 
     }

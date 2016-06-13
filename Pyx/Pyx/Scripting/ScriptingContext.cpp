@@ -53,7 +53,7 @@ void Pyx::Scripting::ScriptingContext::ReloadScripts()
     WIN32_FIND_DATA ffd;
     HANDLE hFind = INVALID_HANDLE_VALUE;
     DWORD dwError = 0;
-    hFind = FindFirstFileW(std::wstring(pyxSettings.RootDirectory + pyxSettings.ScriptsDirectory + L"\\*").c_str(), &ffd);
+    hFind = FindFirstFileW(std::wstring(pyxSettings.RootDirectory + pyxSettings.ScriptsDirectory + XorStringW(L"\\*")).c_str(), &ffd);
 
     if (INVALID_HANDLE_VALUE == hFind)
         return;
@@ -62,7 +62,7 @@ void Pyx::Scripting::ScriptingContext::ReloadScripts()
     {
         if (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
         {
-            auto fileName = pyxSettings.RootDirectory + pyxSettings.ScriptsDirectory + L"\\" + std::wstring(ffd.cFileName) + L"\\script.def";
+            auto fileName = pyxSettings.RootDirectory + pyxSettings.ScriptsDirectory + L"\\" + std::wstring(ffd.cFileName) + XorStringW(L"\\script.def");
             auto scriptName = std::wstring(ffd.cFileName);
             DWORD dwAttrib = GetFileAttributesW(fileName.c_str());
             if (dwAttrib != INVALID_FILE_ATTRIBUTES &&

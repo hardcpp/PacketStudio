@@ -15,8 +15,8 @@ namespace Pyx
             ScriptDef(std::wstring fileName);
             const std::wstring GetName();
             const std::wstring GetType();
-            bool IsScript() { return GetType() == L"script"; }
-            bool IsLib() { return GetType() == L"lib"; }
+            bool IsScript() { return GetType() == XorStringW(L"script"); }
+            bool IsLib() { return GetType() == XorStringW(L"lib"); }
             std::vector<std::wstring> GetFiles();
             std::vector<std::wstring> GetDependencies();
             bool Validate(std::wstring& error);

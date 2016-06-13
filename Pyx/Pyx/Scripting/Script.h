@@ -9,7 +9,7 @@
 
 #define LUAINTF_ADD_ENUM_VALUE(state, constant) \
     state.push((int)constant); \
-    state.setGlobal(#constant);
+    state.setGlobal(XorStringA(#constant));
 
 using namespace LuaIntf;
 

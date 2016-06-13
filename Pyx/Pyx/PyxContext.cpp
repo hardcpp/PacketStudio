@@ -110,7 +110,7 @@ void Pyx::PyxContext::Log(const std::wstring& line)
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
     wchar_t buffer[256];
-    wcsftime(buffer, sizeof(buffer), L"[%H:%M:%S] ", &tm);
+    wcsftime(buffer, sizeof(buffer), XorStringW(L"[%H:%M:%S] "), &tm);
     std::wstring timedLine = std::wstring(buffer) + line;
 
     if (GetSettings().LogToFile && m_logFileStream.is_open())

@@ -9,10 +9,10 @@ namespace LuaModules
         inline void BindToScript(Pyx::Scripting::Script* pScript)
         {
 
-            LuaBinding(pScript->GetLuaState()).beginModule("Pyx")
-                .beginModule("Win32")
-                .addFunction("GetTickCount", [pScript]() { return GetTickCount(); })
-                .addFunction("TerminateProcess", [pScript]() { return TerminateProcess(GetCurrentProcess(), 0); });
+            LuaBinding(pScript->GetLuaState()).beginModule(XorStringA("Pyx"))
+                .beginModule(XorStringA("Win32"))
+                .addFunction(XorStringA("GetTickCount"), [pScript]() { return GetTickCount(); })
+                .addFunction(XorStringA("TerminateProcess"), [pScript]() { return TerminateProcess(GetCurrentProcess(), 0); });
 
         }
 

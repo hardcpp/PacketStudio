@@ -37,7 +37,7 @@ Pyx::Graphics::Gui::IGui* Pyx::Graphics::GuiContext::GetGui()
         {
         case GuiType::ImGui:
             m_pGui = &Gui::ImGuiImpl::GetInstance();
-            PyxContext::GetInstance().Log("[Gui] Using gui : %s", m_pGui->GetGuiTypeString());
+            PyxContext::GetInstance().Log(XorStringA("[Gui] Using gui : %s"), m_pGui->GetGuiTypeString());
             break;
         default:
             break;

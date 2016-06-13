@@ -18,15 +18,15 @@ namespace Pyx
                     switch (GetRendererType())
                     {
                     case RendererType::D3D9:
-                        return "Direct3D9";
+                        return XorStringA("Direct3D9");
                     case RendererType::D3D10:
-                        return "Direct3D10";
+                        return XorStringA("Direct3D10");
                     case RendererType::D3D11:
-                        return "Direct3D11";
+                        return XorStringA("Direct3D11");
                     case RendererType::OpenGL:
-                        return "OpenGL";
+                        return XorStringA("OpenGL");
                     default:
-                        return "Unknown";
+                        return XorStringA("Unknown");
                     }
                 }
                 virtual ~IRenderer() { }

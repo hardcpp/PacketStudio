@@ -46,21 +46,21 @@ namespace LuaModules
         inline void BindToScript(Pyx::Scripting::Script* pScript)
         {
 
-            LuaBinding(pScript->GetLuaState()).beginModule("Pyx")
-                .beginModule("Memory")
-                .addFunction("ReadPointer", [](uintptr_t ptr) { return Read<uintptr_t>(ptr); })
-                .addFunction("ReadInt8", [](uintptr_t ptr) { return Read<int8_t>(ptr); })
-                .addFunction("ReadUInt8", [](uintptr_t ptr) { return Read<uint8_t>(ptr); })
-                .addFunction("ReadInt16", [](uintptr_t ptr) { return Read<int16_t>(ptr); })
-                .addFunction("ReadUInt16", [](uintptr_t ptr) { return Read<uint16_t>(ptr); })
-                .addFunction("ReadInt32", [](uintptr_t ptr) { return Read<int32_t>(ptr); })
-                .addFunction("ReadUInt32", [](uintptr_t ptr) { return Read<uint32_t>(ptr); })
-                .addFunction("ReadInt64", [](uintptr_t ptr) { return Read<int64_t>(ptr); })
-                .addFunction("ReadUInt64", [](uintptr_t ptr) { return Read<uint64_t>(ptr); })
-                .addFunction("ReadFloat", [](uintptr_t ptr) { return Read<float>(ptr); })
-                .addFunction("ReadBytes", ReadBytes)
-                .addFunction("ReadASCIIString", ReadASCIIString, LUA_ARGS(uintptr_t, _def<size_t, 128>))
-                .addFunction("ReadUTF16String", ReadUTF16String, LUA_ARGS(uintptr_t, _def<size_t, 128>));
+            LuaBinding(pScript->GetLuaState()).beginModule(XorStringA("Pyx"))
+                .beginModule(XorStringA("Memory"))
+                .addFunction(XorStringA("ReadPointer"), [](uintptr_t ptr) { return Read<uintptr_t>(ptr); })
+                .addFunction(XorStringA("ReadInt8"), [](uintptr_t ptr) { return Read<int8_t>(ptr); })
+                .addFunction(XorStringA("ReadUInt8"), [](uintptr_t ptr) { return Read<uint8_t>(ptr); })
+                .addFunction(XorStringA("ReadInt16"), [](uintptr_t ptr) { return Read<int16_t>(ptr); })
+                .addFunction(XorStringA("ReadUInt16"), [](uintptr_t ptr) { return Read<uint16_t>(ptr); })
+                .addFunction(XorStringA("ReadInt32"), [](uintptr_t ptr) { return Read<int32_t>(ptr); })
+                .addFunction(XorStringA("ReadUInt32"), [](uintptr_t ptr) { return Read<uint32_t>(ptr); })
+                .addFunction(XorStringA("ReadInt64"), [](uintptr_t ptr) { return Read<int64_t>(ptr); })
+                .addFunction(XorStringA("ReadUInt64"), [](uintptr_t ptr) { return Read<uint64_t>(ptr); })
+                .addFunction(XorStringA("ReadFloat"), [](uintptr_t ptr) { return Read<float>(ptr); })
+                .addFunction(XorStringA("ReadBytes"), ReadBytes)
+                .addFunction(XorStringA("ReadASCIIString"), ReadASCIIString, LUA_ARGS(uintptr_t, _def<size_t, 128>))
+                .addFunction(XorStringA("ReadUTF16String"), ReadUTF16String, LUA_ARGS(uintptr_t, _def<size_t, 128>));
 
         }
 

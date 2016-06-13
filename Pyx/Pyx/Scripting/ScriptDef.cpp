@@ -7,18 +7,18 @@ Pyx::Scripting::ScriptDef::ScriptDef(std::wstring fileName)
     wchar_t buffer[MAX_PATH];
     fileName.copy(buffer, MAX_PATH);
     PathRemoveFileSpecW(buffer);
-    m_scriptDirectory = std::wstring(buffer) + std::wstring(L"\\");
+    m_scriptDirectory = std::wstring(buffer) + std::wstring(XorStringW(L"\\"));
     auto scriptDefIni = Utility::IniFile(fileName);
 
-    m_scriptSection = scriptDefIni.GetSectionValues(L"script");
-    m_filesSection = scriptDefIni.GetSectionValues(L"files");
-    m_dependenciestSection = scriptDefIni.GetSectionValues(L"dependencies");
+    m_scriptSection = scriptDefIni.GetSectionValues(XorStringW(L"script"));
+    m_filesSection = scriptDefIni.GetSectionValues(XorStringW(L"files"));
+    m_dependenciestSection = scriptDefIni.GetSectionValues(XorStringW(L"dependencies"));
 }
 
 const std::wstring Pyx::Scripting::ScriptDef::GetName()
 {
     for (auto& value : m_scriptSection)
-        if (value.Key == L"name")
+        if (value.Key == XorStringW(L"name"))
             return value.Value;
     return L"";
 }
@@ -26,7 +26,7 @@ const std::wstring Pyx::Scripting::ScriptDef::GetName()
 const std::wstring Pyx::Scripting::ScriptDef::GetType()
 {
     for (auto& value : m_scriptSection)
-        if (value.Key == L"type")
+        if (value.Key == XorStringW(L"type"))
             return value.Value;
     return L"";
 }
@@ -35,7 +35,7 @@ std::vector<std::wstring> Pyx::Scripting::ScriptDef::GetFiles()
 {
     std::vector<std::wstring> result;
     for (auto& value : m_filesSection)
-        if (value.Key == L"file")
+        if (value.Key == XorStringW(L"file"))
         {
             std::wstring pathName = m_scriptDirectory + value.Value;
             wchar_t fullPathName[MAX_PATH];
@@ -49,7 +49,7 @@ std::vector<std::wstring> Pyx::Scripting::ScriptDef::GetDependencies()
 {
     std::vector<std::wstring> result;
     for (auto& value : m_dependenciestSection)
-        if (value.Key == L"file")
+        if (value.Key == XorStringW(L"file"))
         {
             std::wstring pathName = m_scriptDirectory + value.Value;
             wchar_t fullPathName[MAX_PATH];
@@ -74,7 +74,7 @@ bool Pyx::Scripting::ScriptDef::Validate(std::wstring& error)
         }
         else
         {
-            error = L"[" + GetName() + L"] File not found : " + dep;
+            error = XorStringW(L"[") + GetName() + XorStringW(L"] File not found : ") + dep;
             return false;
         }
     }
@@ -84,7 +84,7 @@ bool Pyx::Scripting::ScriptDef::Validate(std::wstring& error)
         DWORD dwAttrib = GetFileAttributesW(file.c_str());
         if (dwAttrib == INVALID_FILE_ATTRIBUTES || (dwAttrib & FILE_ATTRIBUTE_DIRECTORY))
         {
-            error = L"[" + GetName() + L"] File not found : " + file;
+            error = XorStringW(L"[") + GetName() + XorStringW(L"] File not found : ") + file;
             return false;
         }
     }
@@ -113,14 +113,14 @@ bool Pyx::Scripting::ScriptDef::Run(LuaIntf::LuaState& luaState)
             std::string content((std::istreambuf_iterator<char>(fs)), (std::istreambuf_iterator<char>()));
             if (luaState.doString(content.c_str()))
             {
-                PyxContext::GetInstance().Log(L"Error fin file : \"" + file + L"\" :");
+                PyxContext::GetInstance().Log(XorStringW(L"Error fin file : \"") + file + XorStringW(L"\" :"));
                 std::string error = luaState.getString(-1);
                 PyxContext::GetInstance().Log(error);
                 return false;
             }
         }
         catch (const std::exception &e) {
-            PyxContext::GetInstance().Log(L"Error fin file : \"" + file + L"\" :");
+            PyxContext::GetInstance().Log(XorStringW(L"Error fin file : \"") + file + XorStringW(L"\" :"));
             PyxContext::GetInstance().Log(e.what());
             return false;
         }

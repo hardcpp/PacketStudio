@@ -13,7 +13,7 @@ namespace Pyx
         std::vector<int> GuiToggleVisibilityHotkeys     = { VK_INSERT };
         std::vector<int> ImGuiToggleConsoleHotkeys      = { VK_F12 };
         bool LogToFile                                  = true;
-        std::wstring LogDirectory                       = L"\\Logs";
-        std::wstring ScriptsDirectory                   = L"\\Scripts";
+        std::wstring LogDirectory                       = XorStringW(L"\\Logs");
+        std::wstring ScriptsDirectory                   = XorStringW(L"\\Scripts");
     };
 }

@@ -24,9 +24,9 @@ namespace Pyx
                     switch (GetGuiType())
                     {
                     case GuiType::ImGui:
-                        return "ImGui";
+                        return XorStringA("ImGui");
                     default:
-                        return "Unknown";
+                        return XorStringA("Unknown");
                     }
                 }
                 virtual GuiType GetGuiType() const = 0;

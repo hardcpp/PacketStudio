@@ -30,8 +30,8 @@ void Pyx::Scripting::Script::Stop(bool fireEvent)
 {
     if (IsRunning())
     {
-        PyxContext::GetInstance().Log(L"Stopping script \"%s\" ...", m_name.c_str());
-        if (fireEvent) FireCallback(L"Pyx.OnScriptStop");
+        PyxContext::GetInstance().Log(XorStringW(L"Stopping script \"%s\" ..."), m_name.c_str());
+        if (fireEvent) FireCallback(XorStringW(L"Pyx.OnScriptStop"));
         m_isRunning = false;
         m_callbacks.clear();
     }
@@ -51,7 +51,7 @@ void Pyx::Scripting::Script::Start()
             if (scriptDef.Validate(errorMessage))
             {
 
-                PyxContext::GetInstance().Log(L"Starting script \"%s\" ...", m_name.c_str());
+                PyxContext::GetInstance().Log(XorStringW(L"Starting script \"%s\" ..."), m_name.c_str());
                 m_luaState = LuaState(luaL_newstate());
                 m_luaState.openLibs();
 
@@ -77,7 +77,7 @@ void Pyx::Scripting::Script::Start()
             }
             else
             {
-                PyxContext::GetInstance().Log(L"Error starting script \"%s\"", m_name.c_str());
+                PyxContext::GetInstance().Log(XorStringW(L"Error starting script \"%s\""), m_name.c_str());
                 PyxContext::GetInstance().Log(errorMessage);
             }
 

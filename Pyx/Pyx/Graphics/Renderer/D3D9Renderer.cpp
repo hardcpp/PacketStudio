@@ -114,7 +114,7 @@ void Pyx::Graphics::Renderer::D3D9Renderer::SetDevice(IDirect3DDevice9* pDevice)
     if (pDevice != m_pDevice)
     {
 
-        PyxContext::GetInstance().Log("[D3D9Renderer] Device 0x%X", pDevice);
+        PyxContext::GetInstance().Log(XorStringA("[D3D9Renderer] Device 0x%X"), pDevice);
 
         ReleaseResources();
         m_pDevice = pDevice;

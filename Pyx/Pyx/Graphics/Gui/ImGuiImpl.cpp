@@ -216,7 +216,7 @@ void Pyx::Graphics::Gui::ImGuiImpl::OnFrame()
 						BuildDebugWindow();
 
 					GetOnRenderCallbacks().Run(this);
-					Scripting::ScriptingContext::GetInstance().FireCallbacks(L"ImGui.OnRender");
+					Scripting::ScriptingContext::GetInstance().FireCallbacks(XorStringW(L"ImGui.OnRender"));
 
 					ImGui::Render();
 
@@ -458,7 +458,7 @@ void Pyx::Graphics::Gui::ImGuiImpl::BuildMainMenuBar()
             for (auto* pScript : Scripting::ScriptingContext::GetInstance().GetScripts())
             {
                 auto& name = pScript->GetName();
-                if (ImGui::MenuItem((std::string(pScript->IsRunning() ? ICON_MD_CLEAR : ICON_MD_PLAY_CIRCLE_OUTLINE) + " " + Utility::String::utf8_encode(name)).c_str(), pScript->IsRunning() ? "(running)" : "(stopped)"))
+                if (ImGui::MenuItem((std::string(pScript->IsRunning() ? ICON_MD_CLEAR : ICON_MD_PLAY_CIRCLE_OUTLINE) + " " + Utility::String::utf8_encode(name)).c_str(), pScript->IsRunning() ? XorStringA("(running)") : XorStringA("(stopped)")))
                     pScript->IsRunning() ? pScript->Stop() : pScript->Start();
             }
 
@@ -468,7 +468,7 @@ void Pyx::Graphics::Gui::ImGuiImpl::BuildMainMenuBar()
         }
         
         GetOnDrawMainMenuBarCallbacks().Run(this);
-        Scripting::ScriptingContext::GetInstance().FireCallbacks(L"ImGui.OnRenderMainMenuBar");
+        Scripting::ScriptingContext::GetInstance().FireCallbacks(XorStringW(L"ImGui.OnRenderMainMenuBar"));
 
         ImGui::EndMainMenuBar();
     }
@@ -480,17 +480,17 @@ void Pyx::Graphics::Gui::ImGuiImpl::BuildDebugWindow()
     if (GImGui)
     {
         ImGuiState& g = *GImGui;
-        if (ImGui::Begin("Pyx - Debug##pyx_debug_window", &m_showDebugWindow))
+        if (ImGui::Begin(XorStringA("Pyx - Debug##pyx_debug_window"), &m_showDebugWindow))
         {
             auto& io = ImGui::GetIO();
-            ImGui::Text("Performance : %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-            ImGui::Text("Renderer : %s", GraphicsContext::GetInstance().GetMainRenderer()->GetRendererTypeString());
-            ImGui::Text("Cursor visible : %d", Input::InputContext::GetInstance().CursorIsVisible());
-            ImGui::Text("Cursor position : %.0f, %.0f", io.MousePos.x, io.MousePos.y);
-            ImGui::Text("WantCaptureMouse : %d", io.WantCaptureMouse);
-            ImGui::Text("WantCaptureKeyboard : %d", io.WantCaptureKeyboard);
-            ImGui::Text("WantTextInput : %d", io.WantTextInput);
-            ImGui::Text("HoveredWindow : %s", g.HoveredWindow ? g.HoveredWindow->Name : "<null>");
+            ImGui::Text(XorStringA("Performance : %.3f ms/frame (%.1f FPS)"), 1000.0f / io.Framerate, io.Framerate);
+            ImGui::Text(XorStringA("Renderer : %s"), GraphicsContext::GetInstance().GetMainRenderer()->GetRendererTypeString());
+            ImGui::Text(XorStringA("Cursor visible : %d"), Input::InputContext::GetInstance().CursorIsVisible());
+            ImGui::Text(XorStringA("Cursor position : %.0f, %.0f"), io.MousePos.x, io.MousePos.y);
+            ImGui::Text(XorStringA("WantCaptureMouse : %d"), io.WantCaptureMouse);
+            ImGui::Text(XorStringA("WantCaptureKeyboard : %d"), io.WantCaptureKeyboard);
+            ImGui::Text(XorStringA("WantTextInput : %d"), io.WantTextInput);
+            ImGui::Text(XorStringA("HoveredWindow : %s"), g.HoveredWindow ? g.HoveredWindow->Name : XorStringA("<null>"));
         }
         ImGui::End();
     }
@@ -505,7 +505,7 @@ void Pyx::Graphics::Gui::ImGuiImpl::BuildLogsWindow()
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 1));
         ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
         ImGui::PushStyleVar(ImGuiStyleVar_Alpha, 0.95f);
-        if (ImGui::Begin("##pyx_console_logs", &logVisible, ImVec2(ImGui::GetIO().DisplaySize.x, 155), -1, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_ShowBorders | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings))
+        if (ImGui::Begin(XorStringA("##pyx_console_logs"), &logVisible, ImVec2(ImGui::GetIO().DisplaySize.x, 155), -1, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_ShowBorders | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings))
         {
             ImGui::SetWindowPos(ImVec2(0, g.FontBaseSize + g.Style.FramePadding.y * 2.0f));
             ImGui::SetWindowSize(ImVec2(ImGui::GetIO().DisplaySize.x, ImGui::GetWindowHeight()));

@@ -25,7 +25,7 @@ void Pyx::Graphics::GraphicsContext::SetMainRenderer(Renderer::IRenderer* pRende
 {
     PYX_ASSERT_A(pRenderer != nullptr);
     m_pMainRenderer = pRenderer;
-    PyxContext::GetInstance().Log("[Graphics] Using renderer : " + std::string(pRenderer->GetRendererTypeString()));
+    PyxContext::GetInstance().Log(XorStringA("[Graphics] Using renderer : ") + std::string(pRenderer->GetRendererTypeString()));
 	auto pGui = GuiContext::GetInstance().GetGui();
 	if (pGui) pGui->ToggleVisibility(true);
 }
