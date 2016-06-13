@@ -42,7 +42,14 @@ Parsers.FieldTypesName = {
 -- 1 => Type
 -- 2 => Name
 -- 3 => CacheID
-
+-- Var
+--     4 - Type
+--     5 - EnumName
+-- Block
+--     4 - Childs
+-- Loop
+--     4 - Counter
+--     5 - Childs
 -- =======================================================
 -- Methods
 -- =======================================================
@@ -53,7 +60,7 @@ end
 
 -- Init parsers, this method will read all parsers present in the gamefolder
 function Parsers.Init()
-    local l_Path = "Parsers\\" .. Parsers.Folder .. "\\"
+    local l_Path = "PacketStudio\\Parsers\\" .. Parsers.Folder .. "\\"
     for l_Key,l_Value in pairs(PacketStudio.PacketTypes) do
         local l_File = io.open(l_Path .. l_Value[3] .. ".psp", "r")
 
@@ -70,10 +77,11 @@ end
 -- @p_Value : Packet type
 -- @p_Name  : Packet name
 function Parsers.Create(p_Value, p_Name)
-    os.execute("mkdir " .. "Parsers");
-    os.execute("mkdir " .. "Parsers\\" .. Parsers.Folder);
+    os.execute("mkdir " .. "PacketStudio");
+    os.execute("mkdir " .. "PacketStudio\\Parsers");
+    os.execute("mkdir " .. "PacketStudio\\Parsers\\" .. Parsers.Folder);
 
-    local l_Path = "Parsers\\" .. Parsers.Folder .. "\\" .. p_Name .. ".psp"
+    local l_Path = "PacketStudio\\Parsers\\" .. Parsers.Folder .. "\\" .. p_Name .. ".psp"
 
     local l_File = io.open(l_Path, "w+")
     l_File:write(Helpers.TableSerialize( {} ))
@@ -86,7 +94,7 @@ end
 -- @p_Value : Packet type
 -- @p_Name  : Packet name
 function Parsers.Delete(p_Value, p_Name)
-    local l_Path = "Parsers\\" .. Parsers.Folder .. "\\" .. p_Name .. ".psp"
+    local l_Path = "PacketStudio\\Parsers\\" .. Parsers.Folder .. "\\" .. p_Name .. ".psp"
     os.remove(l_Path)
 
     Parsers.ListCache[p_Value] = nil;
@@ -95,7 +103,7 @@ end
 -- Save a packet parser
 -- @p_Value : Packet type
 function Parsers.Save(p_Value)
-    local l_Path = "Parsers\\" .. Parsers.Folder .. "\\" .. PacketStudio.PacketTypes[p_Value][3] .. ".psp"
+    local l_Path = "PacketStudio\\Parsers\\" .. Parsers.Folder .. "\\" .. PacketStudio.PacketTypes[p_Value][3] .. ".psp"
 
     local l_File = io.open(l_Path, "w+")
     l_File:write(Helpers.TableSerialize(Parsers.ListCache[p_Value]))
