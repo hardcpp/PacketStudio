@@ -191,6 +191,138 @@
     <ClInclude Include="Pyx\Math\Vector3.h">
       <Filter>Headers\Pyx\Math</Filter>
     </ClInclude>
+    <ClInclude Include="MinHook\src\trampoline.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\src\buffer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\include\MinHook.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialDesign\Font.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialDesign\IconsMaterialDesign.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lvm.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\LuaState.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\LuaCompat.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\luaconf.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\LuaContext.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\LuaIntf.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lualib.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\LuaRef.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lundump.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lzio.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lauxlib.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lapi.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lcode.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lctype.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\ldebug.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\ldo.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lfunc.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lgc.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\llex.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\llimits.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lmem.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lobject.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lopcodes.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lparser.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lprefix.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lstate.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lstring.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\ltable.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\ltm.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lua.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lua.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppArg.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppBindClass.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppBindModule.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppFunction.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppInvoke.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppObject.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\LuaException.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\LuaType.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pyx\PyxContext.cpp">
