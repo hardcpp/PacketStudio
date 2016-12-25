@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headers\Pyx">
+      <UniqueIdentifier>{15358306-772e-494a-934f-9985b8d6707d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Utility">
+      <UniqueIdentifier>{6c7566bf-6455-4fa0-bfa1-e3256ee135af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx">
+      <UniqueIdentifier>{8a191925-6f27-4cc3-bcec-93529a952876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\MinHook">
+      <UniqueIdentifier>{a9f2ce56-0312-4af1-accf-c9b87ffe7e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Patch">
+      <UniqueIdentifier>{1cefdf59-b5dd-44ab-a902-0f5d97c66aed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Patch">
+      <UniqueIdentifier>{b688d921-865c-405f-9775-2dbcf440e26a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Utility">
+      <UniqueIdentifier>{97e7294a-3e05-43b3-97a9-225a0aef4ebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Graphics">
+      <UniqueIdentifier>{41fb9c7a-e1cf-45d0-919b-264f9a2da0d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Graphics">
+      <UniqueIdentifier>{be09512b-c5a5-4239-85a6-00e00c8769cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Graphics\Renderer">
+      <UniqueIdentifier>{f707b0a2-f0fb-4be6-88a2-733922653be1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Graphics\Renderer">
+      <UniqueIdentifier>{73dca4b6-3472-48b5-ace3-b2377a082e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\ImGui">
+      <UniqueIdentifier>{ebf378a5-843c-4fe8-afca-86690b1b70b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Graphics\Gui">
+      <UniqueIdentifier>{c83a4b41-c28c-4319-b469-d71478efa75e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Graphics\Gui">
+      <UniqueIdentifier>{cc35daae-3d5e-4bf4-bd43-57809babeb62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Threading">
+      <UniqueIdentifier>{9a3bfb40-9f19-4167-971b-c0daa3310f29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Threading">
+      <UniqueIdentifier>{829072df-f757-4c70-b8e7-9ce33b98416c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Input">
+      <UniqueIdentifier>{829acfae-e482-499d-9c0b-6a9102995ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Input">
+      <UniqueIdentifier>{d4024314-f9e8-4769-8de7-b4eb8448ca98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Lua">
+      <UniqueIdentifier>{43ac89cc-9e1d-42aa-a522-4049bff0ba7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Scripting">
+      <UniqueIdentifier>{6c99f7c6-dd30-43cf-b953-96245bc1ee52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Scripting">
+      <UniqueIdentifier>{e76bbd16-ceae-439e-ad3b-35f33a2f2ffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Scripting\LuaModules">
+      <UniqueIdentifier>{98134fb3-dc91-4ead-9a36-42c4e3c8edb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Pyx\Math">
+      <UniqueIdentifier>{e6b7c751-985a-4277-a7e0-579f8873d709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Pyx\Math">
+      <UniqueIdentifier>{ac572d29-f70f-45e2-918e-4cab9cebc363}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Pyx\Utility\String.h">
+      <Filter>Headers\Pyx\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Utility\XorString.h">
+      <Filter>Headers\Pyx\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\PyxContext.h">
+      <Filter>Headers\Pyx</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Pyx.h">
+      <Filter>Headers\Pyx</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Utility\Callbacks.h">
+      <Filter>Headers\Pyx\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\PyxInitSettings.h">
+      <Filter>Headers\Pyx</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Patch\IPatch.h">
+      <Filter>Headers\Pyx\Patch</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Patch\IHook.h">
+      <Filter>Headers\Pyx\Patch</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Patch\Detour.h">
+      <Filter>Headers\Pyx\Patch</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Patch\PatchContext.h">
+      <Filter>Headers\Pyx\Patch</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\GraphicsContext.h">
+      <Filter>Headers\Pyx\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Renderer\IRenderer.h">
+      <Filter>Headers\Pyx\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D9Renderer.h">
+      <Filter>Headers\Pyx\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\GuiContext.h">
+      <Filter>Headers\Pyx\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Gui\IGui.h">
+      <Filter>Headers\Pyx\Graphics\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Gui\ImGuiImpl.h">
+      <Filter>Headers\Pyx\Graphics\Gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Threading\ThreadContext.h">
+      <Filter>Headers\Pyx\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Threading\Thread.h">
+      <Filter>Headers\Pyx\Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Input\InputContext.h">
+      <Filter>Headers\Pyx\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Patch\VmtHook.h">
+      <Filter>Headers\Pyx\Patch</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Renderer\DXGI.h">
+      <Filter>Headers\Pyx\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D11Renderer.h">
+      <Filter>Headers\Pyx\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D11StateBlock.h">
+      <Filter>Headers\Pyx\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\ScriptingContext.h">
+      <Filter>Headers\Pyx\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Utility\IniFile.h">
+      <Filter>Headers\Pyx\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\ScriptDef.h">
+      <Filter>Headers\Pyx\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\Script.h">
+      <Filter>Headers\Pyx\Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Override.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Mapping_WString.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Scripting.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_FileSystem.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Win32.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Memory.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\ImGui.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Input.h">
+      <Filter>Headers\Pyx\Scripting\LuaModules</Filter>
+    </ClInclude>
+    <ClInclude Include="Pyx\Math\Vector3.h">
+      <Filter>Headers\Pyx\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\src\trampoline.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\src\buffer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MinHook\include\MinHook.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialDesign\Font.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialDesign\IconsMaterialDesign.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lvm.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\LuaState.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\LuaCompat.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\luaconf.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\LuaContext.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\LuaIntf.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lualib.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\LuaRef.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lundump.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lzio.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lauxlib.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lapi.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lcode.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lctype.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\ldebug.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\ldo.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lfunc.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lgc.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\llex.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\llimits.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lmem.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lobject.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lopcodes.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lparser.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lprefix.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lstate.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lstring.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\ltable.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\ltm.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lua.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\lua.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppArg.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppBindClass.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppBindModule.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppFunction.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppInvoke.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\CppObject.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\LuaException.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Lua\impl\LuaType.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Pyx\PyxContext.cpp">
+      <Filter>Sources\Pyx</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\buffer.c">
+      <Filter>Sources\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\hook.c">
+      <Filter>Sources\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\trampoline.c">
+      <Filter>Sources\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\HDE\hde32.c">
+      <Filter>Sources\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\HDE\hde64.c">
+      <Filter>Sources\MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Patch\PatchContext.cpp">
+      <Filter>Sources\Pyx\Patch</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\GraphicsContext.cpp">
+      <Filter>Sources\Pyx\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\Renderer\D3D9Renderer.cpp">
+      <Filter>Sources\Pyx\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_draw.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx9.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx10.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
+      <Filter>Sources\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\GuiContext.cpp">
+      <Filter>Sources\Pyx\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\Gui\ImGuiImpl.cpp">
+      <Filter>Sources\Pyx\Graphics\Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Threading\ThreadContext.cpp">
+      <Filter>Sources\Pyx\Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Input\InputContext.cpp">
+      <Filter>Sources\Pyx\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\Renderer\DXGI.cpp">
+      <Filter>Sources\Pyx\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Graphics\Renderer\D3D11Renderer.cpp">
+      <Filter>Sources\Pyx\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Scripting\ScriptingContext.cpp">
+      <Filter>Sources\Pyx\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Scripting\ScriptDef.cpp">
+      <Filter>Sources\Pyx\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Scripting\Script.cpp">
+      <Filter>Sources\Pyx\Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lapi.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lauxlib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lbaselib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lbitlib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lcode.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lcorolib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lctype.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ldblib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ldebug.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ldo.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ldump.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lfunc.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lgc.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\linit.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\liolib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\llex.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lmathlib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lmem.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\loadlib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lobject.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lopcodes.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\loslib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lparser.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lstate.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lstring.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lstrlib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ltable.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ltablib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\ltm.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lua.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\luac.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lundump.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lutf8lib.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lvm.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua\lzio.c">
+      <Filter>Sources\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="Pyx\Math\Vector3.cpp">
+      <Filter>Sources\Pyx\Math</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

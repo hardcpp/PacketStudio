@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lua\impl\CppArg.h" />
+    <ClInclude Include="Lua\impl\CppBindClass.h" />
+    <ClInclude Include="Lua\impl\CppBindModule.h" />
+    <ClInclude Include="Lua\impl\CppFunction.h" />
+    <ClInclude Include="Lua\impl\CppInvoke.h" />
+    <ClInclude Include="Lua\impl\CppObject.h" />
+    <ClInclude Include="Lua\impl\LuaException.h" />
+    <ClInclude Include="Lua\impl\LuaType.h" />
+    <ClInclude Include="Lua\lapi.h" />
+    <ClInclude Include="Lua\lauxlib.h" />
+    <ClInclude Include="Lua\lcode.h" />
+    <ClInclude Include="Lua\lctype.h" />
+    <ClInclude Include="Lua\ldebug.h" />
+    <ClInclude Include="Lua\ldo.h" />
+    <ClInclude Include="Lua\lfunc.h" />
+    <ClInclude Include="Lua\lgc.h" />
+    <ClInclude Include="Lua\llex.h" />
+    <ClInclude Include="Lua\llimits.h" />
+    <ClInclude Include="Lua\lmem.h" />
+    <ClInclude Include="Lua\lobject.h" />
+    <ClInclude Include="Lua\lopcodes.h" />
+    <ClInclude Include="Lua\lparser.h" />
+    <ClInclude Include="Lua\lprefix.h" />
+    <ClInclude Include="Lua\lstate.h" />
+    <ClInclude Include="Lua\lstring.h" />
+    <ClInclude Include="Lua\ltable.h" />
+    <ClInclude Include="Lua\ltm.h" />
+    <ClInclude Include="Lua\lua.h" />
+    <ClInclude Include="Lua\lua.hpp" />
+    <ClInclude Include="Lua\LuaCompat.h" />
+    <ClInclude Include="Lua\luaconf.h" />
+    <ClInclude Include="Lua\LuaContext.h" />
+    <ClInclude Include="Lua\LuaIntf.h" />
+    <ClInclude Include="Lua\lualib.h" />
+    <ClInclude Include="Lua\LuaRef.h" />
+    <ClInclude Include="Lua\LuaState.h" />
+    <ClInclude Include="Lua\lundump.h" />
+    <ClInclude Include="Lua\lvm.h" />
+    <ClInclude Include="Lua\lzio.h" />
+    <ClInclude Include="MaterialDesign\Font.h" />
+    <ClInclude Include="MaterialDesign\IconsMaterialDesign.h" />
+    <ClInclude Include="MinHook\include\MinHook.h" />
+    <ClInclude Include="MinHook\src\buffer.h" />
+    <ClInclude Include="MinHook\src\trampoline.h" />
+    <ClInclude Include="Pyx\Graphics\GraphicsContext.h" />
+    <ClInclude Include="Pyx\Graphics\GuiContext.h" />
+    <ClInclude Include="Pyx\Graphics\Gui\IGui.h" />
+    <ClInclude Include="Pyx\Graphics\Gui\ImGuiImpl.h" />
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D11Renderer.h" />
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D11StateBlock.h" />
+    <ClInclude Include="Pyx\Graphics\Renderer\DXGI.h" />
+    <ClInclude Include="Pyx\Graphics\Renderer\D3D9Renderer.h" />
+    <ClInclude Include="Pyx\Graphics\Renderer\IRenderer.h" />
+    <ClInclude Include="Pyx\Input\InputContext.h" />
+    <ClInclude Include="Pyx\Math\Vector3.h" />
+    <ClInclude Include="Pyx\Patch\Detour.h" />
+    <ClInclude Include="Pyx\Patch\IHook.h" />
+    <ClInclude Include="Pyx\Patch\IPatch.h" />
+    <ClInclude Include="Pyx\Patch\PatchContext.h" />
+    <ClInclude Include="Pyx\Patch\VmtHook.h" />
+    <ClInclude Include="Pyx\Pyx.h" />
+    <ClInclude Include="Pyx\PyxContext.h" />
+    <ClInclude Include="Pyx\PyxInitSettings.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\ImGui.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Mapping_WString.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Override.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_FileSystem.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Input.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Memory.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Scripting.h" />
+    <ClInclude Include="Pyx\Scripting\LuaModules\Pyx_Win32.h" />
+    <ClInclude Include="Pyx\Scripting\Script.h" />
+    <ClInclude Include="Pyx\Scripting\ScriptDef.h" />
+    <ClInclude Include="Pyx\Scripting\ScriptingContext.h" />
+    <ClInclude Include="Pyx\Threading\Thread.h" />
+    <ClInclude Include="Pyx\Threading\ThreadContext.h" />
+    <ClInclude Include="Pyx\Utility\Callbacks.h" />
+    <ClInclude Include="Pyx\Utility\IniFile.h" />
+    <ClInclude Include="Pyx\Utility\String.h" />
+    <ClInclude Include="Pyx\Utility\XorString.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ImGui\imgui.cpp" />
+    <ClCompile Include="ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_dx10.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="Lua\lapi.c" />
+    <ClCompile Include="Lua\lauxlib.c" />
+    <ClCompile Include="Lua\lbaselib.c" />
+    <ClCompile Include="Lua\lbitlib.c" />
+    <ClCompile Include="Lua\lcode.c" />
+    <ClCompile Include="Lua\lcorolib.c" />
+    <ClCompile Include="Lua\lctype.c" />
+    <ClCompile Include="Lua\ldblib.c" />
+    <ClCompile Include="Lua\ldebug.c" />
+    <ClCompile Include="Lua\ldo.c" />
+    <ClCompile Include="Lua\ldump.c" />
+    <ClCompile Include="Lua\lfunc.c" />
+    <ClCompile Include="Lua\lgc.c" />
+    <ClCompile Include="Lua\linit.c" />
+    <ClCompile Include="Lua\liolib.c" />
+    <ClCompile Include="Lua\llex.c" />
+    <ClCompile Include="Lua\lmathlib.c" />
+    <ClCompile Include="Lua\lmem.c" />
+    <ClCompile Include="Lua\loadlib.c" />
+    <ClCompile Include="Lua\lobject.c" />
+    <ClCompile Include="Lua\lopcodes.c" />
+    <ClCompile Include="Lua\loslib.c" />
+    <ClCompile Include="Lua\lparser.c" />
+    <ClCompile Include="Lua\lstate.c" />
+    <ClCompile Include="Lua\lstring.c" />
+    <ClCompile Include="Lua\lstrlib.c" />
+    <ClCompile Include="Lua\ltable.c" />
+    <ClCompile Include="Lua\ltablib.c" />
+    <ClCompile Include="Lua\ltm.c" />
+    <ClCompile Include="Lua\lua.c" />
+    <ClCompile Include="Lua\luac.c" />
+    <ClCompile Include="Lua\lundump.c" />
+    <ClCompile Include="Lua\lutf8lib.c" />
+    <ClCompile Include="Lua\lvm.c" />
+    <ClCompile Include="Lua\lzio.c" />
+    <ClCompile Include="MinHook\src\buffer.c" />
+    <ClCompile Include="MinHook\src\HDE\hde32.c" />
+    <ClCompile Include="MinHook\src\HDE\hde64.c" />
+    <ClCompile Include="MinHook\src\hook.c" />
+    <ClCompile Include="MinHook\src\trampoline.c" />
+    <ClCompile Include="Pyx\Graphics\GraphicsContext.cpp" />
+    <ClCompile Include="Pyx\Graphics\GuiContext.cpp" />
+    <ClCompile Include="Pyx\Graphics\Gui\ImGuiImpl.cpp" />
+    <ClCompile Include="Pyx\Graphics\Renderer\D3D11Renderer.cpp" />
+    <ClCompile Include="Pyx\Graphics\Renderer\D3D9Renderer.cpp" />
+    <ClCompile Include="Pyx\Graphics\Renderer\DXGI.cpp" />
+    <ClCompile Include="Pyx\Input\InputContext.cpp" />
+    <ClCompile Include="Pyx\Math\Vector3.cpp" />
+    <ClCompile Include="Pyx\Patch\PatchContext.cpp" />
+    <ClCompile Include="Pyx\PyxContext.cpp" />
+    <ClCompile Include="Pyx\Scripting\Script.cpp" />
+    <ClCompile Include="Pyx\Scripting\ScriptDef.cpp" />
+    <ClCompile Include="Pyx\Scripting\ScriptingContext.cpp" />
+    <ClCompile Include="Pyx\Threading\ThreadContext.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{16D45E86-A32A-4D6A-9622-843A94E0D64B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Pyx</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(IncludePath);$(ProjectDir);$(ProjectDir)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(IncludePath);$(ProjectDir);$(ProjectDir)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath);$(ProjectDir);$(ProjectDir)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(IncludePath);$(ProjectDir);$(ProjectDir)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
