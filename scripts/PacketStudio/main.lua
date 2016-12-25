@@ -43,6 +43,13 @@ function PacketStudio_DrawViewSelection()
                 -- @TODO Show error ?
             end
         end
+        if ImGui.Button("Enums", ImVec2(180, 20)) then
+            if PacketStudio.IsInit == true then
+                PacketStudio.Views.Enums.Visible = true;
+            else
+                -- @TODO Show error ?
+            end
+        end
     end
 end
 

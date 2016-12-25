@@ -9,6 +9,7 @@ PacketStudio = {}
 -- Setup global
 PacketStudio.Views          = {}
 PacketStudio.PacketTypes    = {}
+PacketStudio.Enums          = {}
 
 -- Packet direction
 GlobalEnums.PacketDirection = {
@@ -39,6 +40,11 @@ function Helpers.NumToHex(p_Num, p_Size)
     end
 
     return l_Result
+end
+
+function BuildColor(p_R, p_G, p_B, p_A)
+
+
 end
 
 function Helpers.TableCopy(p_Original)

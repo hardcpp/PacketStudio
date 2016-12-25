@@ -5,4 +5,5 @@
 -- Game
 GlobalEnums.Game = {
     { "BlackDesert", 	PacketStudio_Game_BlackDesert_Setup },
+    { "WoW_624", 		PacketStudio_Game_WoW624_Setup      }
 }
